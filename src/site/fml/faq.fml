@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<faqs id="General FAQ">
+  <part id="General">
+    <faq id="modular">
+      <question>Why there are so many jar file?</question>
+      <answer>
+        <p>
+          Smokestack has a modular approach, where only the necessary modules (jar files) will
+          have to be included in projects. The setup should also allow mix-and-match of
+          mock and real JEE component implementations.
+        </p>
+      </answer>
+    </faq>
+    <faq id="embedded">
+      <question>Should I just run a JEE container embedded?</question>
+      <answer>
+        <p>
+          The JEE runtime containers by definition are geared to be a runtime implementation,
+          while Smokestack targets testing, offering a lean implementation, validation
+          of component states, and easy way to override functionality, allowing to exercise
+          code all kinds of ways. 
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>
