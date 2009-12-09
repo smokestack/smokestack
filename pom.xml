@@ -15,6 +15,7 @@
 	<inceptionYear>2009</inceptionYear>
 	<modules>
 		<module>smokestack-common</module>
+      <module>smokestack-jndi-1.2</module>
 	</modules>
 	<scm>
 		<url>http://smokestack.git.sourceforge.net/git/gitweb-index.cgi</url>
