@@ -54,4 +54,55 @@ public class MockContextTest {
 			// IGNORE
 		}
 	}
+	
+	@Test
+	public final void testCheckCheck() throws NamingException {
+		String name="java:comp/env/ejb/Customer";
+		Object value="Customer";
+		{
+			Context c1=new InitialContext();
+			c1.bind(name, value);
+			assertThat(value, is(c1.lookup(name)));			
+		}
+		{
+			Context c2=new InitialContext();
+			assertThat(value, is(c2.lookup(name)));			
+			c2.unbind(name);			
+		}
+		{
+			Context c3=new InitialContext();
+			try {
+				c3.lookup(name);
+				fail("expected NamingExpection");
+			} catch (NamingException ne){
+				// IGNORE
+			}			
+		}
+	}
+	@Test
+	public final void testClose() throws NamingException {
+		String name="java:comp/env/ejb/Customer";
+		Object value="Customer";
+		{
+			Context c1=new InitialContext();
+			c1.bind(name, value);
+			assertThat(value, is(c1.lookup(name)));
+			c1.close();
+			try {
+				c1.lookup(name);
+				fail("expected NamingExpection");
+			} catch (NamingException ne){
+				// IGNORE
+			}			
+		}
+		{
+			Context c3=new InitialContext();
+			try {
+				c3.lookup(name);
+				fail("expected NamingExpection");
+			} catch (NamingException ne){
+				// IGNORE
+			}			
+		}
+	}
 }

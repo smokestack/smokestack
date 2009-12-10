@@ -15,12 +15,22 @@ import javax.naming.spi.InitialContextFactory;
  */
 public class MockInitialContextFactory implements InitialContextFactory {
 
+	protected static MockContext singleton;
+	
 	/* (non-Javadoc)
 	 * @see javax.naming.spi.InitialContextFactory#getInitialContext(java.util.Hashtable)
 	 */
-	public Context getInitialContext(Hashtable environment)
-			throws NamingException {
-		return new MockContext(environment);
+	public Context getInitialContext(Hashtable environment)	throws NamingException {
+		if (singleton==null){
+			singleton=new MockContext(environment);
+		}
+		return singleton;
 	}
-
+	
+	/**
+	 * Release singleton
+	 */
+	static protected void releaseSingleton(){
+		singleton=null;
+	}
 }

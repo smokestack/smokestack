@@ -68,6 +68,7 @@ public class MockContext implements Context {
 	 */
 	public void close() throws NamingException {
 		mockState=ContextState.CLOSE;
+		MockInitialContextFactory.releaseSingleton();
 	}
 
 	/* (non-Javadoc)
