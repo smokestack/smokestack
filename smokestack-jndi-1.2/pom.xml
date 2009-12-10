@@ -12,7 +12,6 @@
 	<artifactId>smokestack-jndi-1.2</artifactId>
 	<name>Smokestack JNDI 1.2</name>
 	<version>0.1-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.smokestack</groupId>

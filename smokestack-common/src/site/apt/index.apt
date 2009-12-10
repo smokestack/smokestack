@@ -1,8 +1,7 @@
 -----
-Smokestack
+Smokestack Common
 -----
-  Smokestack is a modular JEE unit testing framework, independent of Java unit testing framework
-  (like JUnit or TestNG) with functionality geared for validation.
+  Smokestack Common implements common functionality for Smokestack.
   
   Please use the unit tests to learn more about the features.
   

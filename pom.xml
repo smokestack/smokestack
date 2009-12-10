@@ -16,6 +16,7 @@
 	<modules>
 		<module>smokestack-common</module>
       <module>smokestack-jndi-1.2</module>
+      <module>smokestack-jpa-1.0</module>
 	</modules>
 	<scm>
 		<url>http://smokestack.git.sourceforge.net/git/gitweb-index.cgi</url>

@@ -1,8 +1,7 @@
 -----
-Smokestack
+Smokestack JNDI 1.2
 -----
-  Smokestack is a modular JEE unit testing framework, independent of Java unit testing framework
-  (like JUnit or TestNG) with functionality geared for validation.
+  Smokestack JNDI 1.2 is a mock JNDI implementation with functionality geared for validation.
   
   Please use the unit tests to learn more about the features.
   

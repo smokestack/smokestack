@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>smokestack</artifactId>
+    <groupId>net.sourceforge.smokestack</groupId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>net.sourceforge.smokestack</groupId>
+  <artifactId>smokestack-jpa-1.0</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <name>Smokestack JPA 1.0</name>
+  <dependencies>
+      <dependency>
+        <groupId>net.sourceforge.smokestack</groupId>
+        <artifactId>smokestack-common</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+         <groupId>javax.persistence</groupId>
+         <artifactId>persistence-api</artifactId>
+         <version>1.0</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.7</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>mockit</groupId>
+         <artifactId>jmockit</artifactId>
+         <version>0.993</version>
+         <scope>test</scope>
+      </dependency>
+  </dependencies>
+</project>

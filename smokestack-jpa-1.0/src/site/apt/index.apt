@@ -1,8 +1,7 @@
 -----
-Smokestack
+Smokestack JPA 1.0
 -----
-  Smokestack is a modular JEE unit testing framework, independent of Java unit testing framework
-  (like JUnit or TestNG) with functionality geared for validation.
+  Smokestack JPA 1.0 is a mock JPA implementation with functionality geared for validation. 
   
   Please use the unit tests to learn more about the features.
   
@@ -13,3 +12,5 @@ Smokestack
   all subject to change (although the good news is that unit tests are easy to refactor).
   
   Comments, suggestions, patches are welcome using the Sourceforge facilities.
+  
+  Contains example files from {{{http://openjpa.apache.org/}Apache's OpenJPA project}}. 
