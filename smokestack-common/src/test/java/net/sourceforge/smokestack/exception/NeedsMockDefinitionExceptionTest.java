@@ -31,7 +31,7 @@ public class NeedsMockDefinitionExceptionTest {
 	@Test
 	public final void testNeedsMockDefinitionStringThrowable() {
 		NeedsMockDefinitionException e=new NeedsMockDefinitionException("some message", new Exception());
-		assertThat("some message", is(e.getMessage()));
+		assertThat(e.getMessage(), is("some message"));
 	}
 
 }

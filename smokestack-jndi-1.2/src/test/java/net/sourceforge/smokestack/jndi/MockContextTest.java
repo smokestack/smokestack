@@ -45,7 +45,7 @@ public class MockContextTest {
 		}
 		c.bind(name, value);
 		c.rebind(name, value);
-		assertThat(value, is(c.lookup(name)));
+		assertThat(c.lookup(name), is(value));
 		c.unbind(name);
 		try {
 			c.lookup(name);
@@ -62,11 +62,11 @@ public class MockContextTest {
 		{
 			Context c1=new InitialContext();
 			c1.bind(name, value);
-			assertThat(value, is(c1.lookup(name)));			
+			assertThat(c1.lookup(name), is(value));			
 		}
 		{
 			Context c2=new InitialContext();
-			assertThat(value, is(c2.lookup(name)));			
+			assertThat(c2.lookup(name), is(value));			
 			c2.unbind(name);			
 		}
 		{
@@ -86,7 +86,7 @@ public class MockContextTest {
 		{
 			Context c1=new InitialContext();
 			c1.bind(name, value);
-			assertThat(value, is(c1.lookup(name)));
+			assertThat(c1.lookup(name), is(value));
 			c1.close();
 			try {
 				c1.lookup(name);

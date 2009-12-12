@@ -1,0 +1,34 @@
+------
+Design Principles
+------
+  Smokestack follows design principles as described below:
+  
+  * Modular approach (allowing to mix-and-match versions and also mock and 
+    real implementations)
+    
+  * Independent of unit testing framework (although it uses 
+    {{{http://junit.org/}JUnit}} for test code)
+    
+  * Independent of mocking framework (although it uses
+    {{{http://code.google.com/p/jmockit/}JMockit}} for test code)
+    
+  * It is clearly indicated, when functionality is incomplete
+    (patches are welcome)
+    
+  * It is clearly indicated, when mock definition is required
+  
+  * {{{http://code.google.com/p/hamcrest/}Hamcrest}} is used for validation
+    offering extra detail on various problems
+    
+  * Mock definition is required on the "physical access edges" and
+    the framework does not pretend to own shared resources, like
+    databases and various other stores.
+    What this means in practice for example for JPA, is that even
+    if {{{http://java.sun.com/javaee/5/docs/api/javax/persistence/EntityManager.html#persist%28java.lang.Object%29}persist()}}
+    was just called for an entity,
+    the {{{http://java.sun.com/javaee/5/docs/api/javax/persistence/EntityManager.html#find%28java.lang.Class,%20java.lang.Object%29}find()}}
+    will only return this same object, if it is so coded in the test.
+    While this might sound counter intuitive at first, this approach
+    offers various benefits, like moving the control of multi-client,
+    multi-threading testing back into the test code, a clean way to
+    exercise exception processing in the tested code.

@@ -30,7 +30,7 @@ public class NotYetImplementedExceptionTest {
 	@Test
 	public final void testNotYetImplementedExceptionStringThrowable() {
         NotYetImplementedException e=new NotYetImplementedException("some message", new Exception());
-        assertThat("some message", is(e.getMessage()));
+        assertThat(e.getMessage(), is("some message"));
 	}
 
 }
