@@ -1,6 +1,9 @@
 package net.sourceforge.smokestack.ejb;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +12,8 @@ import java.util.Vector;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.Stateful;
@@ -62,6 +67,11 @@ public class MockEJBContainer {
 			}
 			// TODO: Inject others too?
 			injectMembers(clazz, instance);
+			if (clazz.isAnnotationPresent(Stateless.class) ||
+					clazz.isAnnotationPresent(Stateful.class) ||
+					clazz.isAnnotationPresent(MessageDriven.class)){
+				callMethodAnnotated(PostConstruct.class, clazz, instance);
+			}
 			return instance;
 		} catch (InstantiationException e) {
 			throw new MockEJBContainerException("for "+clazz.getName(), e);
@@ -136,5 +146,39 @@ public class MockEJBContainer {
 			fields=(Field[]) ArrayUtils.addAll(fields, getAllFields(superClass));
 		}
 		return fields;
+	}
+
+	public void cleanInstances() {
+		for(Class clazz:beans.keySet()){
+			Object instance=beans.get(clazz);
+			callMethodAnnotated(PreDestroy.class, clazz, instance);
+		}
+		beans.clear();
+	}
+
+	private void callMethodAnnotated(Class<? extends Annotation> annotatedWith, Class clazz, Object instance) {
+		for(Method m:getAllMethods(clazz)){
+			if (m.isAnnotationPresent(annotatedWith)){
+				try {
+					m.setAccessible(true);
+					m.invoke(instance, new Object[]{});
+				} catch (Exception e) {
+					throw new MockEJBContainerException("call to @"+annotatedWith.toString()+" failed", e);
+				}
+			}
+		}
+		
+	}
+	
+	/**
+	 * Recursively get all fields
+	 */
+	protected <T> Method[] getAllMethods(Class<T> clazz){
+		Method[] methods=clazz.getDeclaredMethods();
+		Class<?> superClass=clazz.getSuperclass();
+		if (superClass!=null){
+			methods=(Method[]) ArrayUtils.addAll(methods, getAllMethods(superClass));
+		}
+		return methods;
 	}
 }
