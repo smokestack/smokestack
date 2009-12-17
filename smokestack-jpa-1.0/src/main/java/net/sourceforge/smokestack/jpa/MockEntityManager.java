@@ -194,7 +194,7 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public <T> T merge(T arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NotYetImplementedException();
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -210,7 +210,7 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public void refresh(Object arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NotYetImplementedException();
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -218,7 +218,7 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public void remove(Object arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NotYetImplementedException();
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)

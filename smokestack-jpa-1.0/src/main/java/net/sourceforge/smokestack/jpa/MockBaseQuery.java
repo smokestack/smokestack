@@ -3,6 +3,8 @@
  */
 package net.sourceforge.smokestack.jpa;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -23,7 +25,7 @@ import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
  * 
  * @author gliptak
  */
-public class MockBaseQuery implements Query {
+public abstract class MockBaseQuery implements Query {
 
 	protected int startPosition;
 	protected FlushModeType flushMode;
@@ -109,16 +111,14 @@ public class MockBaseQuery implements Query {
 	 * @see javax.persistence.Query#setParameter(java.lang.String, java.util.Date, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(String name, Date value, TemporalType temporalType) {
-		// TODO Auto-generated method stub
-		return this;
+		return setParameter(name, getTemporalType(value, temporalType));
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(java.lang.String, java.util.Calendar, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(String name, Calendar value, TemporalType temporalType) {
-		// TODO Auto-generated method stub
-		return this;
+		return setParameter(name, getTemporalType(value, temporalType));
 	}
 
 	/* (non-Javadoc)
@@ -137,7 +137,36 @@ public class MockBaseQuery implements Query {
 		return this;
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * Convert TemporalType
+	 * @param value
+	 * @param type
+	 * @return
+	 */
+    protected Object getTemporalType(Date value, TemporalType type) {
+        switch (type) {
+        case DATE:
+            return value;
+        case TIME:
+            return new Time(value.getTime());
+        case TIMESTAMP:
+            return new Timestamp(value.getTime());
+        default:
+            return null;
+        }
+    }
+
+    /**
+     * Convert TemporalType
+     * @param value
+     * @param type
+     * @return
+     */
+    protected Object getTemporalType(Calendar value, TemporalType type) {
+        return getTemporalType(value.getTime(), type);
+    }
+
+    /* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){
