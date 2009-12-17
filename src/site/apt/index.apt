@@ -12,4 +12,8 @@ Smokestack
   It should be noted that this is early release, so functionality, APIs, and more are
   all subject to change (although the good news is that unit tests are easy to refactor).
   
-  Comments, suggestions, patches are welcome using the Sourceforge facilities.
+  Comments, suggestions, patches are welcome using
+  {{{http://sourceforge.net/projects/smokestack/}Sourceforge facilities}}.
+  
+  Page {{{http://en.wikipedia.org/wiki/Java_EE_version_history}Java EE version history}} describes
+  versions of various JEE technologies.
