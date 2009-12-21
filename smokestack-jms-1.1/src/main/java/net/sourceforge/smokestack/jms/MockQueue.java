@@ -3,16 +3,28 @@
  */
 package net.sourceforge.smokestack.jms;
 
+import java.io.Serializable;
+
 import javax.jms.JMSException;
 import javax.jms.Queue;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.naming.Referenceable;
 
 /**
  * @author gliptak
  *
  */
-public class MockQueue implements Queue {
+public class MockQueue implements Queue, Serializable, Referenceable {
 	
+	/**
+	 * Generated
+	 */
+	private static final long serialVersionUID = 2246186674052732637L;
+
 	protected String queueName;
+	
+	protected Reference reference;
 
 	/**
 	 * @param queueName
@@ -29,4 +41,18 @@ public class MockQueue implements Queue {
 		return queueName;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.naming.Referenceable#getReference()
+	 */
+	public Reference getReference() throws NamingException {
+		return reference;
+	}
+
+	/**
+	 * Making a setter available
+	 * @param reference
+	 */
+	public void setReference(Reference reference){
+		this.reference=reference;
+	}
 }

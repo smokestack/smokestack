@@ -3,16 +3,28 @@
  */
 package net.sourceforge.smokestack.jms;
 
+import java.io.Serializable;
+
 import javax.jms.JMSException;
 import javax.jms.Topic;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.naming.Referenceable;
 
 /**
  * @author gliptak
  *
  */
-public class MockTopic implements Topic {
+public class MockTopic implements Topic, Serializable, Referenceable {
 	
+	/**
+	 * Generated
+	 */
+	private static final long serialVersionUID = -6729071527792799643L;
+
 	protected String topicName;
+
+	protected Reference reference;
 
 	/**
 	 * @param topicName
@@ -29,4 +41,18 @@ public class MockTopic implements Topic {
 		return topicName;
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.naming.Referenceable#getReference()
+	 */
+	public Reference getReference() throws NamingException {
+		return reference;
+	}
+
+	/**
+	 * Making a setter available
+	 * @param reference
+	 */
+	public void setReference(Reference reference){
+		this.reference=reference;
+	}
 }

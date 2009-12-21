@@ -3,21 +3,32 @@
  */
 package net.sourceforge.smokestack.jms;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.naming.Referenceable;
 
 /**
  * @author gliptak
  *
  */
-public class MockConnectionFactory implements ConnectionFactory {
+public class MockConnectionFactory implements ConnectionFactory, Serializable, Referenceable {
+
+	/**
+	 * Generated
+	 */
+	private static final long serialVersionUID = 6306518344076861095L;
 
 	protected List<MockConnection> mockConnections=new ArrayList<MockConnection>();
 	
+	protected Reference reference;
+
 	/**
 	 * Constructor
 	 */
@@ -74,5 +85,20 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 */
 	public List<MockConnection> getMockConnections() {
 		return mockConnections;
+	}
+
+	/* (non-Javadoc)
+	 * @see javax.naming.Referenceable#getReference()
+	 */
+	public Reference getReference() throws NamingException {
+		return reference;
+	}
+
+	/**
+	 * Making a setter available
+	 * @param reference
+	 */
+	public void setReference(Reference reference){
+		this.reference=reference;
 	}
 }
