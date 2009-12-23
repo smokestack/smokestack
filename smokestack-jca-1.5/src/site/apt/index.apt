@@ -1,0 +1,15 @@
+-----
+Smokestack JMS 1.1
+-----
+  Smokestack JCA 1.5 is a mock JCA implementation with functionality geared for validation. 
+  
+  Please use the {{{./xref-test/index.html}unit tests}} to learn more about the features.
+  
+  There is no official release yet, the source can be built from the repository using
+  Maven.
+  
+  It should be noted that this is early release, so functionality, APIs, and more are
+  all subject to change (although the good news is that unit tests are easy to refactor).
+  
+  Comments, suggestions, patches are welcome using
+  {{{http://sourceforge.net/projects/smokestack/}Sourceforge facilities}}.

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>smokestack</artifactId>
+		<groupId>net.sourceforge.smokestack</groupId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>net.sourceforge.smokestack</groupId>
+	<artifactId>smokestack-jca-1.5</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<name>Smokestack JCA 1.5</name>
+	<description>
+      ${project.name} implements a lightweight JCA test container.
+   </description>
+	<dependencies>
+      <dependency>
+        <groupId>net.sourceforge.smokestack</groupId>
+        <artifactId>smokestack-common</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+         <groupId>javax.resource</groupId>
+         <artifactId>connector-api</artifactId>
+         <version>1.5</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.7</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>mockit</groupId>
+         <artifactId>jmockit</artifactId>
+         <version>0.994</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.smokestack</groupId>
+        <artifactId>smokestack-jndi-1.2</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <scope>test</scope>
+      </dependency>
+	</dependencies>
+</project>

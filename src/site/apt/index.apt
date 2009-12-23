@@ -15,5 +15,7 @@ Smokestack
   Comments, suggestions, patches are welcome using
   {{{http://sourceforge.net/projects/smokestack/}Sourceforge facilities}}.
   
+  Note to Eclipse users: please use {{{http://github.com/guides/using-the-egit-eclipse-plugin-with-github}import process as described here}}.
+  
   Page {{{http://en.wikipedia.org/wiki/Java_EE_version_history}Java EE version history}} describes
   versions of various JEE technologies.
