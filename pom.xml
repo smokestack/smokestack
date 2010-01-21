@@ -19,6 +19,7 @@
       <module>smokestack-jms-1.1</module>
       <module>smokestack-jca-1.5</module>
       <module>smokestack-ejb-3.0</module>
+      <module>smokestack-jdbc-3.0</module>
   </modules>
    <scm>
       <url>http://smokestack.git.sourceforge.net/git/gitweb-index.cgi</url>

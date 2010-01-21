@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <parent>
+    <artifactId>smokestack</artifactId>
+    <groupId>net.sourceforge.smokestack</groupId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sourceforge.smokestack</groupId>
+  <artifactId>smokestack-jdbc-3.0</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <name>Smokestack JDBC 3.0</name>
+   <description>
+      ${project.name} implements a lightweight JDBC implementation.
+   </description>
+  <dependencies>
+      <dependency>
+        <groupId>net.sourceforge.smokestack</groupId>
+        <artifactId>smokestack-common</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-all</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>4.7</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>mockit</groupId>
+         <artifactId>jmockit</artifactId>
+         <version>0.994</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.smokestack</groupId>
+        <artifactId>smokestack-jndi-1.2</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <scope>test</scope>
+      </dependency>
+  </dependencies>
+</project>
