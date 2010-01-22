@@ -1,7 +1,7 @@
 -----
-Smokestack Common
+Smokestack JDBC 3.0
 -----
-  Smokestack Common implements common functionality for Smokestack.
+  Smokestack JDBC 3.0 is a mock JDBC implementation with functionality geared for validation. 
   
   Please use the {{{./xref-test/index.html}unit tests}} to learn more about the features.
   

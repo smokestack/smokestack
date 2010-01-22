@@ -34,7 +34,6 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#createConnectionFactory()
 	 */
-	@Override
 	public Object createConnectionFactory() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
@@ -42,7 +41,6 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#createConnectionFactory(javax.resource.spi.ConnectionManager)
 	 */
-	@Override
 	public Object createConnectionFactory(ConnectionManager connectionManager) throws ResourceException {
 		return connectionManager.allocateConnection(this, null);
 	}
@@ -50,7 +48,6 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#createManagedConnection(javax.security.auth.Subject, javax.resource.spi.ConnectionRequestInfo)
 	 */
-	@Override
 	public ManagedConnection createManagedConnection(Subject subject,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
@@ -59,7 +56,6 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#getLogWriter()
 	 */
-	@Override
 	public PrintWriter getLogWriter() throws ResourceException {
 		return printWriter;
 	}
@@ -67,7 +63,6 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#matchManagedConnections(java.util.Set, javax.security.auth.Subject, javax.resource.spi.ConnectionRequestInfo)
 	 */
-	@Override
 	public ManagedConnection matchManagedConnections(Set set, Subject subject,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
@@ -76,12 +71,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ManagedConnectionFactory#setLogWriter(java.io.PrintWriter)
 	 */
-	@Override
 	public void setLogWriter(PrintWriter printWriter) throws ResourceException {
 		this.printWriter=printWriter;
 	}
 
-	@Override
 	public String toString(){
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}

@@ -4,7 +4,7 @@ Smokestack
   Smokestack is a modular JEE unit testing framework, independent of Java unit testing framework
   (like JUnit or TestNG) with functionality geared for validation.
   
-  Please use the unit tests to learn more about the features.
+  Please use the unit tests under the modules to learn more about the features.
   
   There is no official release yet, the source can be built from the repository using
   Maven.

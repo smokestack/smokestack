@@ -15,7 +15,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getAdapterName()
 	 */
-	@Override
 	public String getAdapterName() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -23,7 +22,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getAdapterShortDescription()
 	 */
-	@Override
 	public String getAdapterShortDescription() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -31,7 +29,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getAdapterVendorName()
 	 */
-	@Override
 	public String getAdapterVendorName() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -39,7 +36,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getAdapterVersion()
 	 */
-	@Override
 	public String getAdapterVersion() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -47,7 +43,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getInteractionSpecsSupported()
 	 */
-	@Override
 	public String[] getInteractionSpecsSupported() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -55,7 +50,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#getSpecVersion()
 	 */
-	@Override
 	public String getSpecVersion() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -63,7 +57,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#supportsExecuteWithInputAndOutputRecord()
 	 */
-	@Override
 	public boolean supportsExecuteWithInputAndOutputRecord() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -71,7 +64,6 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#supportsExecuteWithInputRecordOnly()
 	 */
-	@Override
 	public boolean supportsExecuteWithInputRecordOnly() {
 		throw new NeedsMockDefinitionException();
 	}
@@ -79,12 +71,10 @@ public class MockResourceAdapterMetaData implements ResourceAdapterMetaData {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ResourceAdapterMetaData#supportsLocalTransactionDemarcation()
 	 */
-	@Override
 	public boolean supportsLocalTransactionDemarcation() {
 		throw new NeedsMockDefinitionException();
 	}
 
-	@Override
 	public String toString(){
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}

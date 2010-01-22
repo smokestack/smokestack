@@ -18,7 +18,6 @@ public class MockRecordFactory implements RecordFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.RecordFactory#createIndexedRecord(java.lang.String)
 	 */
-	@Override
 	public IndexedRecord createIndexedRecord(String recordName) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
@@ -26,7 +25,6 @@ public class MockRecordFactory implements RecordFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.RecordFactory#createMappedRecord(java.lang.String)
 	 */
-	@Override
 	public MappedRecord createMappedRecord(String recordName) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}

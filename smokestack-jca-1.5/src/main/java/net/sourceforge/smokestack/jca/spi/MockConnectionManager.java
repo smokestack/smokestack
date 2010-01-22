@@ -27,13 +27,11 @@ public class MockConnectionManager implements ConnectionManager {
 	/* (non-Javadoc)
 	 * @see javax.resource.spi.ConnectionManager#allocateConnection(javax.resource.spi.ManagedConnectionFactory, javax.resource.spi.ConnectionRequestInfo)
 	 */
-	@Override
 	public Object allocateConnection(ManagedConnectionFactory managedConnectionFactory,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 	
-	@Override
 	public String toString(){
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}

@@ -3,7 +3,7 @@ Smokestack JNDI 1.2
 -----
   Smokestack JNDI 1.2 is a mock JNDI implementation with functionality geared for validation.
   
-  Please use the unit tests to learn more about the features.
+  Please use the {{{./xref-test/index.html}unit tests}} to learn more about the features.
   
   There is no official release yet, the source can be built from the repository using
   Maven.

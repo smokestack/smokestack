@@ -32,7 +32,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#clearWarnings()
 	 */
-	@Override
 	public void clearWarnings() throws ResourceException {
 		resourceWarning=null;
 	}
@@ -40,7 +39,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#close()
 	 */
-	@Override
 	public void close() throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
 		interactionState=InteractionState.CLOSE;
@@ -49,7 +47,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#execute(javax.resource.cci.InteractionSpec, javax.resource.cci.Record)
 	 */
-	@Override
 	public Record execute(InteractionSpec interactionSpec, Record arg1) throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
 		throw new NeedsMockDefinitionException();
@@ -58,7 +55,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#execute(javax.resource.cci.InteractionSpec, javax.resource.cci.Record, javax.resource.cci.Record)
 	 */
-	@Override
 	public boolean execute(InteractionSpec interactionSpec, Record arg1, Record arg2) throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
 		throw new NeedsMockDefinitionException();
@@ -67,7 +63,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#getConnection()
 	 */
-	@Override
 	public Connection getConnection() {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
 		return mockConnection;
@@ -76,7 +71,6 @@ public class MockInteraction implements Interaction {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#getWarnings()
 	 */
-	@Override
 	public ResourceWarning getWarnings() throws ResourceException {
 		return resourceWarning;
 	}
@@ -89,7 +83,6 @@ public class MockInteraction implements Interaction {
 		assertThat("connectionState", interactionState, Is.is(InteractionState.CLOSE));	
 	}
 
-	@Override
 	public String toString(){
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}

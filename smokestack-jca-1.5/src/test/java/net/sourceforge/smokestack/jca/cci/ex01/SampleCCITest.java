@@ -3,6 +3,7 @@ package net.sourceforge.smokestack.jca.cci.ex01;
 import static org.junit.Assert.*;
 
 import javax.naming.InitialContext;
+import javax.resource.cci.InteractionSpec;
 import javax.resource.cci.Record;
 
 import mockit.Expectations;
@@ -55,7 +56,7 @@ public class SampleCCITest {
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute(null, with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
+				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
 				returns(outRec);
 			}
 		};
@@ -83,7 +84,7 @@ public class SampleCCITest {
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute(null, with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
+				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
 				returns(outRec);
 			}
 		};
@@ -111,12 +112,12 @@ public class SampleCCITest {
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute(null, with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
+				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
 				returns(outRec);
 				Record outRec1 = new SampleRecord();
 				outRec1.setRecordName("BAR1");
 				outRec1.setRecordShortDescription("bar");
-				mock.execute(null, with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
+				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
 				returns(outRec1);
 			}
 		};

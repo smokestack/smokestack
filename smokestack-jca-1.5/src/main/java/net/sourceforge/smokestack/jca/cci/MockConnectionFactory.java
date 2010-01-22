@@ -30,7 +30,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getConnection()
 	 */
-	@Override
 	public Connection getConnection() throws ResourceException {
 		MockConnection c=new MockConnection();
 		mockConnections.add(c);
@@ -40,7 +39,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getConnection(javax.resource.cci.ConnectionSpec)
 	 */
-	@Override
 	public Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException {
 		MockConnection c=new MockConnection(connectionSpec);
 		mockConnections.add(c);
@@ -50,7 +48,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getMetaData()
 	 */
-	@Override
 	public ResourceAdapterMetaData getMetaData() throws ResourceException {
 		if (mockResourceAdapterMetaData==null){
 			mockResourceAdapterMetaData=new MockResourceAdapterMetaData();			
@@ -61,7 +58,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getRecordFactory()
 	 */
-	@Override
 	public RecordFactory getRecordFactory() throws ResourceException {
 		if (mockRecordFactory==null){
 			mockRecordFactory=new MockRecordFactory();			
@@ -72,7 +68,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.Referenceable#setReference(javax.naming.Reference)
 	 */
-	@Override
 	public void setReference(Reference reference) {
 		this.reference=reference;
 	}
@@ -80,7 +75,6 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.naming.Referenceable#getReference()
 	 */
-	@Override
 	public Reference getReference() throws NamingException {
 		return reference;
 	}

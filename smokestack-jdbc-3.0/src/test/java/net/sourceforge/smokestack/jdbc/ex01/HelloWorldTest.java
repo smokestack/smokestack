@@ -46,6 +46,7 @@ public class HelloWorldTest {
 				rs.next(); returns(false);
 			}
 		};
+		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
 		HelloWorld.main(new String[]{});
 		// there is no easy way to get to the Connection ...
 		MockConnection c=MockDriver.instance.getMockConnections().get(0);
