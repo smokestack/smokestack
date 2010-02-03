@@ -32,18 +32,23 @@ public class MockConnection implements Connection {
 	private String url;
 	private Properties info;
 	private List<MockStatement> mockStatements=new ArrayList<MockStatement>();
+	private List<MockPreparedStatement> mockPreparedStatements=new ArrayList<MockPreparedStatement>();
 	
 	public enum ConnectionState {NEW, CLOSE};
-	
 	protected ConnectionState mockConnectionState=ConnectionState.NEW;
 
-	public enum TransactionState {NEW, ROLLBACK, COMMIT};
+	public enum AutoCommitState {ENABLED, DISABLED};
+	protected AutoCommitState autoCommitState=AutoCommitState.ENABLED;
 
-	public TransactionState mockTransactionState=TransactionState.NEW;
+	public enum TransactionState {NEW, ROLLBACK, COMMIT, AUTOROLLBACK, AUTOCOMMIT};
+	public TransactionState mockTransactionState=TransactionState.AUTOCOMMIT;
 		
 	public MockConnection(String url, Properties info) {
 		this.url=url;
 		this.info=info;
+	}
+
+	public MockConnection() {
 	}
 
 	/* (non-Javadoc)
@@ -59,6 +64,16 @@ public class MockConnection implements Connection {
 	 */
 	public void close() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		for(MockStatement m: mockStatements){
+			if(m.mockState != MockStatement.StatementState.CLOSE){
+				m.autoClose();
+			}
+		}
+		for( MockPreparedStatement mp: mockPreparedStatements){
+			if(mp.mockState != MockPreparedStatement.PreparedStatementState.CLOSE){
+				mp.autoClose();
+			}
+		}
 		mockConnectionState=ConnectionState.CLOSE;
 	}
 
@@ -66,16 +81,30 @@ public class MockConnection implements Connection {
 	 * @see java.sql.Connection#commit()
 	 */
 	public void commit() throws SQLException {
-		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		throw new NotYetImplementedException();
+		try{
+			assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+			assertThat(autoCommitState, Is.is(AutoCommitState.DISABLED));
+			mockTransactionState = TransactionState.COMMIT;
+			_commit();
+		} catch (SQLException e){
+			mockTransactionState = TransactionState.AUTOROLLBACK;
+			throw e;
+		}
 	}
 
+	public void _commit() throws SQLException {
+	}
+
+	
 	/* (non-Javadoc)
 	 * @see java.sql.Connection#createStatement()
 	 */
 	public Statement createStatement() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		MockStatement st=new MockStatement(this);
+		for(MockStatement mst: mockStatements){ //spec 3.0, pg 62
+			mst.complete();
+		}		
 		mockStatements.add(st);
 		return st;
 	}
@@ -86,6 +115,8 @@ public class MockConnection implements Connection {
 	public Statement createStatement(int resultSetType, int resultSetConcurrency)
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		MockStatement st=new MockStatement(this);
+		mockStatements.add(st);
 		throw new NotYetImplementedException();
 	}
 
@@ -95,6 +126,8 @@ public class MockConnection implements Connection {
 	public Statement createStatement(int resultSetType,	int resultSetConcurrency,
 			int resultSetHoldability)	throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		MockStatement st=new MockStatement(this);
+		mockStatements.add(st);
 		throw new NotYetImplementedException();
 	}
 
@@ -103,7 +136,7 @@ public class MockConnection implements Connection {
 	 */
 	public boolean getAutoCommit() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		throw new NotYetImplementedException();
+		return autoCommitState == AutoCommitState.ENABLED?true:false;
 	}
 
 	/* (non-Javadoc)
@@ -209,7 +242,9 @@ public class MockConnection implements Connection {
 	 */
 	public PreparedStatement prepareStatement(String sql) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		throw new NotYetImplementedException();
+		MockPreparedStatement pst=new MockPreparedStatement(this, sql);
+		mockPreparedStatements.add(pst);
+		return pst;
 	}
 
 	/* (non-Javadoc)
@@ -271,7 +306,13 @@ public class MockConnection implements Connection {
 	 */
 	public void rollback() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		throw new NotYetImplementedException();
+		assertThat(autoCommitState, Is.is(AutoCommitState.DISABLED));
+		mockTransactionState = TransactionState.ROLLBACK;
+		_rollback();
+	}
+	
+
+	public void _rollback() {
 	}
 
 	/* (non-Javadoc)
@@ -279,6 +320,8 @@ public class MockConnection implements Connection {
 	 */
 	public void rollback(Savepoint savepoint) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		assertThat(autoCommitState, Is.is(AutoCommitState.DISABLED));
+		mockTransactionState = TransactionState.ROLLBACK; 
 		throw new NotYetImplementedException();
 	}
 
@@ -287,7 +330,7 @@ public class MockConnection implements Connection {
 	 */
 	public void setAutoCommit(boolean autoCommit) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		throw new NotYetImplementedException();
+		autoCommitState = autoCommit? AutoCommitState.ENABLED:AutoCommitState.DISABLED;
 	}
 
 	/* (non-Javadoc)
@@ -362,26 +405,57 @@ public class MockConnection implements Connection {
 	
 	/**
 	 * Validation
+	 * How do you know the order to be validated? Conn closed first, then stmts?
 	 */
-	public void assertMockClosed() {
+	public void assertExplicitClose() {
 		assertThat(mockConnectionState, Is.is(ConnectionState.CLOSE));
 		for(MockStatement st: mockStatements){
-			st.assertMockClosed();
+			st.assertExplicitClose();
+		}
+		for(MockPreparedStatement pst: mockPreparedStatements){
+			pst.assertExplicitClose();
 		}
 	}
 
 	/**
 	 * Validation
+	 * How do you know the order to be validated? Conn closed first, then stmts?
 	 */
-	public void assertMockCommit() {
-		assertThat(mockTransactionState, Is.is(TransactionState.COMMIT));
+	public void assertClosed() {
+		assertThat(mockConnectionState, Is.is(ConnectionState.CLOSE));
+		for(MockStatement st: mockStatements){
+			st.assertClosed();
+		}
+		for(MockPreparedStatement pst: mockPreparedStatements){
+			pst.assertClosed();
+		}
+	}	
+	/**
+	 * Validation
+	 */
+	public void assertExplicitCommit() {
+		assertThat("", mockTransactionState, Is.is(TransactionState.COMMIT));
 	}
 
 	/**
 	 * Validation
 	 */
-	public void assertMockRollback() {
+	public void assertAutoCommit() {
+		assertThat("", mockTransactionState, Is.is(TransactionState.AUTOCOMMIT));
+	}
+
+	/**
+	 * Validation
+	 */
+	public void assertExplicitRollback() {
 		assertThat(mockTransactionState, Is.is(TransactionState.ROLLBACK));
+	}
+
+	/**
+	 * Validation
+	 */
+	public void assertAutoRollback() {
+		assertThat(mockTransactionState, Is.is(TransactionState.AUTOROLLBACK));
 	}
 
 	/**

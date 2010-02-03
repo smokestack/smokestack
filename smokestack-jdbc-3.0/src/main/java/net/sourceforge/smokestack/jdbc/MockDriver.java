@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
+import net.sourceforge.smokestack.exception.NotYetImplementedException;
 
 import org.hamcrest.core.IsNull;
 
@@ -58,21 +58,21 @@ public class MockDriver implements Driver {
 	 * @see java.sql.Driver#getMajorVersion()
 	 */
 	public int getMajorVersion() {
-		throw new NeedsMockDefinitionException();
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.Driver#getMinorVersion()
 	 */
 	public int getMinorVersion() {
-		throw new NeedsMockDefinitionException();
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.Driver#getPropertyInfo(java.lang.String, java.util.Properties)
 	 */
 	public DriverPropertyInfo[] getPropertyInfo(String url, Properties info) throws SQLException {
-		throw new NeedsMockDefinitionException();
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -95,6 +95,9 @@ public class MockDriver implements Driver {
         return instance;
     }
 
+    /**
+     * For use with ClassLoader based environments
+     */
     public static synchronized void unload() {
         try {
             if (registered) {
@@ -112,5 +115,12 @@ public class MockDriver implements Driver {
 	 */
 	public List<MockConnection> getMockConnections() {
 		return mockConnections;
+	}
+	
+	/**
+	 * Reset to original state
+	 */
+	public void reset(){
+		instance.mockConnections=new ArrayList<MockConnection>();
 	}
 }

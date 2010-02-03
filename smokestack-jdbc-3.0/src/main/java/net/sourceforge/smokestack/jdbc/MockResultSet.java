@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
+import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 
@@ -36,7 +37,7 @@ import net.sourceforge.smokestack.exception.NotYetImplementedException;
  */
 public class MockResultSet implements ResultSet {
 
-	public enum ResultSetState {NEW, CLOSE};
+	public enum ResultSetState {NEW, CLOSE, AUTOCLOSE};
 	
 	protected ResultSetState mockState=ResultSetState.NEW;
 
@@ -50,7 +51,7 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#absolute(int)
 	 */
 	public boolean absolute(int row) throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NotYetImplementedException();
 	}
 
@@ -58,7 +59,7 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#afterLast()
 	 */
 	public void afterLast() throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NotYetImplementedException();
 	}
 
@@ -66,7 +67,7 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#beforeFirst()
 	 */
 	public void beforeFirst() throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NotYetImplementedException();
 	}
 
@@ -74,7 +75,7 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#cancelRowUpdates()
 	 */
 	public void cancelRowUpdates() throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NotYetImplementedException();
 	}
 
@@ -82,15 +83,15 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#clearWarnings()
 	 */
 	public void clearWarnings() throws SQLException {
-		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#close()
 	 */
 	public void close() throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		mockState=ResultSetState.CLOSE;
 	}
 
@@ -98,6 +99,8 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#deleteRow()
 	 */
 	public void deleteRow() throws SQLException {
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 		// TODO Auto-generated method stub
 
 	}
@@ -107,7 +110,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int findColumn(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -115,7 +119,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean first() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -123,7 +128,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Array getArray(int i) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -131,7 +137,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Array getArray(String colName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -139,7 +146,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -147,7 +155,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getAsciiStream(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -155,7 +164,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -163,7 +173,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public BigDecimal getBigDecimal(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -172,7 +183,8 @@ public class MockResultSet implements ResultSet {
 	public BigDecimal getBigDecimal(int columnIndex, int scale)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -181,7 +193,8 @@ public class MockResultSet implements ResultSet {
 	public BigDecimal getBigDecimal(String columnName, int scale)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -189,7 +202,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -197,7 +211,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getBinaryStream(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -205,7 +220,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Blob getBlob(int i) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -213,7 +229,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Blob getBlob(String colName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -221,7 +238,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean getBoolean(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -229,7 +247,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean getBoolean(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -237,7 +256,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public byte getByte(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -245,7 +265,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public byte getByte(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -253,7 +274,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public byte[] getBytes(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -261,7 +283,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public byte[] getBytes(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -269,7 +292,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Reader getCharacterStream(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -277,7 +301,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Reader getCharacterStream(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -285,7 +310,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Clob getClob(int i) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -293,7 +319,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Clob getClob(String colName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -301,7 +328,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getConcurrency() throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -309,7 +337,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public String getCursorName() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -317,7 +346,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Date getDate(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -325,7 +355,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Date getDate(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -333,7 +364,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Date getDate(int columnIndex, Calendar cal) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -341,7 +373,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Date getDate(String columnName, Calendar cal) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -349,7 +382,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public double getDouble(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -357,7 +391,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public double getDouble(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -365,7 +400,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getFetchDirection() throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -373,7 +409,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getFetchSize() throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -381,7 +418,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public float getFloat(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -389,7 +427,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public float getFloat(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -397,7 +436,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getInt(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -405,7 +445,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getInt(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -413,15 +454,22 @@ public class MockResultSet implements ResultSet {
 	 */
 	public long getLong(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		return _getLong(columnIndex);
 	}
 
+	public long _getLong(int i) {
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		return 0;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getLong(java.lang.String)
 	 */
 	public long getLong(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -429,7 +477,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public ResultSetMetaData getMetaData() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -437,7 +486,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Object getObject(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -445,7 +495,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Object getObject(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -454,7 +505,8 @@ public class MockResultSet implements ResultSet {
 	public Object getObject(int i, Map<String, Class<?>> map)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -463,7 +515,8 @@ public class MockResultSet implements ResultSet {
 	public Object getObject(String colName, Map<String, Class<?>> map)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -471,7 +524,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Ref getRef(int i) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -479,7 +533,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Ref getRef(String colName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -487,7 +542,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getRow() throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -495,7 +551,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public short getShort(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -503,7 +560,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public short getShort(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -511,14 +569,23 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Statement getStatement() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getString(int)
 	 */
 	public String getString(int columnIndex) throws SQLException {
-		assertThat(mockState, IsNot.not(ResultSetState.CLOSE));
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		return _getString(columnIndex);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.sql.ResultSet#getString(int)
+	 */
+	public String _getString(int columnIndex) throws SQLException {
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -526,8 +593,15 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#getString(java.lang.String)
 	 */
 	public String getString(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		return _getString(columnName);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.sql.ResultSet#getString(int)
+	 */
+	public String _getString(String columnName) throws SQLException {
+		return "";
 	}
 
 	/* (non-Javadoc)
@@ -535,7 +609,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Time getTime(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -543,7 +618,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Time getTime(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -551,7 +627,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Time getTime(int columnIndex, Calendar cal) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -559,7 +636,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Time getTime(String columnName, Calendar cal) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -567,7 +645,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -575,7 +654,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Timestamp getTimestamp(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -584,7 +664,8 @@ public class MockResultSet implements ResultSet {
 	public Timestamp getTimestamp(int columnIndex, Calendar cal)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -593,7 +674,8 @@ public class MockResultSet implements ResultSet {
 	public Timestamp getTimestamp(String columnName, Calendar cal)
 			throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -601,7 +683,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getType() throws SQLException {
 		// TODO Auto-generated method stub
-		return 0;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -609,7 +692,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public URL getURL(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -617,7 +701,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public URL getURL(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -625,7 +710,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -633,7 +719,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public InputStream getUnicodeStream(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -641,7 +728,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public SQLWarning getWarnings() throws SQLException {
 		// TODO Auto-generated method stub
-		return null;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -649,6 +737,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void insertRow() throws SQLException {
 		// TODO Auto-generated method stub
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 
 	}
 
@@ -657,7 +747,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean isAfterLast() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -665,7 +756,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean isBeforeFirst() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -673,7 +765,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean isFirst() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -681,7 +774,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean isLast() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -689,7 +783,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean last() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -697,7 +792,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void moveToCurrentRow() throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -705,14 +801,23 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void moveToInsertRow() throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#next()
 	 */
 	public boolean next() throws SQLException {
-		throw new NeedsMockDefinitionException();
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		return _next();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.sql.ResultSet#next()
+	 */
+	public boolean _next() throws SQLException {
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -720,7 +825,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean previous() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -728,7 +834,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void refreshRow() throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -736,7 +843,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean relative(int rows) throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -744,7 +852,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean rowDeleted() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -752,7 +861,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean rowInserted() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -760,7 +870,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean rowUpdated() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -768,7 +879,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -776,7 +888,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void setFetchSize(int rows) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -784,7 +897,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateArray(int columnIndex, Array x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -792,7 +906,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateArray(String columnName, Array x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -801,7 +916,8 @@ public class MockResultSet implements ResultSet {
 	public void updateAsciiStream(int columnIndex, InputStream x, int length)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -810,7 +926,8 @@ public class MockResultSet implements ResultSet {
 	public void updateAsciiStream(String columnName, InputStream x, int length)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -819,7 +936,8 @@ public class MockResultSet implements ResultSet {
 	public void updateBigDecimal(int columnIndex, BigDecimal x)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -828,7 +946,8 @@ public class MockResultSet implements ResultSet {
 	public void updateBigDecimal(String columnName, BigDecimal x)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -837,7 +956,8 @@ public class MockResultSet implements ResultSet {
 	public void updateBinaryStream(int columnIndex, InputStream x, int length)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -846,7 +966,8 @@ public class MockResultSet implements ResultSet {
 	public void updateBinaryStream(String columnName, InputStream x, int length)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -854,7 +975,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBlob(int columnIndex, Blob x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -862,7 +984,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBlob(String columnName, Blob x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -870,7 +993,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBoolean(int columnIndex, boolean x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -878,7 +1002,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBoolean(String columnName, boolean x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -886,7 +1011,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateByte(int columnIndex, byte x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -894,7 +1020,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateByte(String columnName, byte x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -902,7 +1029,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBytes(int columnIndex, byte[] x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -910,7 +1038,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateBytes(String columnName, byte[] x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -919,7 +1048,8 @@ public class MockResultSet implements ResultSet {
 	public void updateCharacterStream(int columnIndex, Reader x, int length)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -928,7 +1058,8 @@ public class MockResultSet implements ResultSet {
 	public void updateCharacterStream(String columnName, Reader reader,
 			int length) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -936,7 +1067,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateClob(int columnIndex, Clob x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -944,7 +1076,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateClob(String columnName, Clob x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -952,7 +1085,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateDate(int columnIndex, Date x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -960,7 +1094,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateDate(String columnName, Date x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -968,7 +1103,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateDouble(int columnIndex, double x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -976,7 +1112,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateDouble(String columnName, double x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -984,7 +1121,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateFloat(int columnIndex, float x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -992,7 +1130,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateFloat(String columnName, float x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1000,7 +1139,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateInt(int columnIndex, int x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1008,7 +1148,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateInt(String columnName, int x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1016,7 +1157,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateLong(int columnIndex, long x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1024,7 +1166,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateLong(String columnName, long x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1032,7 +1175,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateNull(int columnIndex) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1040,7 +1184,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateNull(String columnName) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1048,7 +1193,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateObject(int columnIndex, Object x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1056,7 +1202,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateObject(String columnName, Object x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1065,7 +1212,8 @@ public class MockResultSet implements ResultSet {
 	public void updateObject(int columnIndex, Object x, int scale)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1074,7 +1222,8 @@ public class MockResultSet implements ResultSet {
 	public void updateObject(String columnName, Object x, int scale)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1082,7 +1231,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateRef(int columnIndex, Ref x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1090,7 +1240,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateRef(String columnName, Ref x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1098,7 +1249,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateRow() throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1106,7 +1258,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateShort(int columnIndex, short x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1114,7 +1267,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateShort(String columnName, short x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1122,7 +1276,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateString(int columnIndex, String x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1130,7 +1285,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateString(String columnName, String x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1138,7 +1294,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateTime(int columnIndex, Time x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1146,7 +1303,8 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateTime(String columnName, Time x) throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1155,7 +1313,8 @@ public class MockResultSet implements ResultSet {
 	public void updateTimestamp(int columnIndex, Timestamp x)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1164,7 +1323,8 @@ public class MockResultSet implements ResultSet {
 	public void updateTimestamp(String columnName, Timestamp x)
 			throws SQLException {
 		// TODO Auto-generated method stub
-
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
@@ -1172,11 +1332,22 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean wasNull() throws SQLException {
 		// TODO Auto-generated method stub
-		return false;
+		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		throw new NotYetImplementedException();
 	}
 
-	public void assertMockClosed() {
+	protected void autoClose() {
+		//autoclose if its not already closed
+		if(mockState != ResultSetState.CLOSE){
+			this.mockState=ResultSetState.AUTOCLOSE;
+		}
+	}
+
+	public void assertClosed() {
+		assertThat(mockState, AnyOf.anyOf(Is.is(ResultSetState.CLOSE), Is.is(ResultSetState.AUTOCLOSE)));
+	}
+
+	public void assertExplicitClose() {
 		assertThat(mockState, Is.is(ResultSetState.CLOSE));
 	}
-
 }
