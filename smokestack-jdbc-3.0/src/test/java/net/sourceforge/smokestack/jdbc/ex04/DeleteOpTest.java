@@ -3,8 +3,6 @@
  */
 package net.sourceforge.smokestack.jdbc.ex04;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 
 import mockit.Expectations;
@@ -12,7 +10,6 @@ import mockit.Mocked;
 import net.sourceforge.smokestack.jdbc.MockConnection;
 import net.sourceforge.smokestack.jdbc.MockDriver;
 import net.sourceforge.smokestack.jdbc.MockStatement;
-import net.sourceforge.smokestack.jdbc.ex03.PSSelect;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -74,7 +71,6 @@ public class DeleteOpTest {
 		try {
 			DeleteOp.main(new String[]{});
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// there is no easy way to get to the Connection ...

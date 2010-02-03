@@ -9,7 +9,6 @@ import mockit.Expectations;
 import mockit.Mocked;
 import net.sourceforge.smokestack.jdbc.MockConnection;
 import net.sourceforge.smokestack.jdbc.MockDataSource;
-import net.sourceforge.smokestack.jdbc.MockDriver;
 import net.sourceforge.smokestack.jdbc.MockResultSet;
 import net.sourceforge.smokestack.jdbc.MockStatement;
 

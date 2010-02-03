@@ -31,11 +31,9 @@ import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 
-import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
 import net.sourceforge.smokestack.exception.NotYetImplementedException;
 import net.sourceforge.smokestack.jdbc.MockConnection.AutoCommitState;
 import net.sourceforge.smokestack.jdbc.MockResultSet.ResultSetState;
-import net.sourceforge.smokestack.jdbc.MockStatement.StatementState;
 
 /**
  * @author KAHBZB

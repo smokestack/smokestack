@@ -21,7 +21,7 @@ public class PSBatch{
 			pst.setLong(1,4);
 			pst.setString(2,"Message 4");
 			pst.addBatch();
-			int count[] = pst.executeBatch();
+			pst.executeBatch();
 			conn.commit();
 		}
 		finally{

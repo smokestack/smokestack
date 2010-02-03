@@ -1,7 +1,5 @@
 package net.sourceforge.smokestack.jdbc.ex01;
 
-import java.sql.DriverManager;
-
 import mockit.Expectations;
 import mockit.Mocked;
 import net.sourceforge.smokestack.jdbc.MockConnection;

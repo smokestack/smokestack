@@ -14,9 +14,7 @@ import mockit.integration.junit4.JMockit;
 import net.sourceforge.smokestack.jdbc.MockConnection;
 import net.sourceforge.smokestack.jdbc.MockDriver;
 import net.sourceforge.smokestack.jdbc.MockPreparedStatement;
-import net.sourceforge.smokestack.jdbc.MockResultSet;
 import net.sourceforge.smokestack.jdbc.MockStatement;
-import net.sourceforge.smokestack.jdbc.ex01.HelloWorld;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -58,8 +56,6 @@ public class PSBatchTest {
 			MockStatement st;
 			@Mocked( methods= {"_executeBatch"})
 			MockPreparedStatement pst;
-			@Mocked( methods= {"_commit"})
-			MockConnection conn;
 			{
 				st._execute((String)any);
 				pst._executeBatch(); returns(new int[]{0});
@@ -89,8 +85,6 @@ public class PSBatchTest {
 			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
-			@Mocked( methods= {"_executeBatch"})
-			MockPreparedStatement pst;
 			{
 				st._execute((String)any);
 //				c._commit(); throwsException(new NullPointerException("something bad happened"));
@@ -123,8 +117,6 @@ public class PSBatchTest {
 			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
-			@Mocked( methods= {"_executeBatch"})
-			MockPreparedStatement pst;
 			{
 				st._execute((String)any);
 				c._commit();
@@ -151,12 +143,11 @@ public class PSBatchTest {
 			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
-			@Mocked( methods= {"_executeBatch"})
-			MockPreparedStatement pst;
 			{
 				st._execute((String)any);
 				c._commit(); returns (
 					new Delegate(){
+						@SuppressWarnings("unused")
 						void foo(){
 							//TODO: do your own asserts here.
 						}
