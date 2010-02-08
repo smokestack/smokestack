@@ -3,6 +3,8 @@
  */
 package net.sourceforge.smokestack.jdbc.ex03;
 
+import java.sql.SQLException;
+
 import mockit.Expectations;
 import mockit.Mocked;
 import net.sourceforge.smokestack.jdbc.MockConnection;
@@ -27,7 +29,6 @@ public class PSSelectTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MockDriver.instance.reset();
 	}
 
 	/**
@@ -42,6 +43,7 @@ public class PSSelectTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		MockDriver.instance.reset();
 	}
 
 	/**
@@ -71,10 +73,32 @@ public class PSSelectTest {
 			}
 		};
 		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
-		PSSelect.main(new String[]{});
-		// there is no easy way to get to the Connection ...
+		PSSelect.main(new String[] {});
+ 		// there is no easy way to get to the Connection ...
 		MockConnection c=MockDriver.instance.getMockConnections().get(0);
 		c.assertClosed();
 	}
 
+	@Test
+	public void testMainException() throws Exception {
+		new Expectations(){
+			@Mocked( methods= {"_execute"})
+			MockStatement st;
+			@Mocked (methods = {"_next", "_getLong", "_getString"})
+			MockResultSet rs;
+			{
+				st._execute((String)any);
+				rs._next(); throwsException(new SQLException("Something bad happened"));
+			}
+		};
+		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");
+		try{
+			PSSelect.main(new String[] {});
+		}catch (Exception e){
+			//do nothing
+		}
+ 		// there is no easy way to get to the Connection ...
+		MockConnection c=MockDriver.instance.getMockConnections().get(0);
+		c.assertClosed();
+	}
 }

@@ -16,10 +16,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 
 import net.sourceforge.smokestack.exception.NotYetImplementedException;
+import net.sourceforge.smokestack.jdbc.MockStatement.StatementState;
 
 import static org.hamcrest.MatcherAssert.assertThat; 
 
@@ -70,7 +72,7 @@ public class MockConnection implements Connection {
 			}
 		}
 		for( MockPreparedStatement mp: mockPreparedStatements){
-			if(mp.mockState != MockPreparedStatement.PreparedStatementState.CLOSE){
+			if(mp.mockState != MockStatement.StatementState.CLOSE){
 				mp.autoClose();
 			}
 		}
@@ -102,10 +104,9 @@ public class MockConnection implements Connection {
 	public Statement createStatement() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		MockStatement st=new MockStatement(this);
-		for(MockStatement mst: mockStatements){ //spec 3.0, pg 62
-			mst.complete();
-		}		
+		//st.setParent(this);
 		mockStatements.add(st);
+		st.setId(mockStatements.size()-1);
 		return st;
 	}
 
@@ -478,5 +479,13 @@ public class MockConnection implements Connection {
 	public TransactionState getMockTransactionState() {
 		return mockTransactionState;
 	}
-
+	
+	protected void completeOtherStatements(MockStatement st) { //spec 3.0, pg 62 transactions
+		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		for(MockStatement mst: mockStatements){
+			if(mst.getId()!= st.getId()){
+				mst.complete();
+			}
+		}		
+	}
 }

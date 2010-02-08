@@ -30,6 +30,7 @@ import org.hamcrest.core.IsNot;
 
 import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
 import net.sourceforge.smokestack.exception.NotYetImplementedException;
+import net.sourceforge.smokestack.jdbc.MockStatement.StatementState;
 
 /**
  * @author gliptak
@@ -42,6 +43,8 @@ public class MockResultSet implements ResultSet {
 	protected ResultSetState mockState=ResultSetState.NEW;
 
 	private String sql;
+	
+	private MockStatement parent;
 
 	public MockResultSet(String sql) {
 		this.sql=sql;
@@ -93,6 +96,7 @@ public class MockResultSet implements ResultSet {
 	public void close() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		mockState=ResultSetState.CLOSE;
+		parent.complete();
 	}
 
 	/* (non-Javadoc)
@@ -810,7 +814,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean next() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		return _next();
+		boolean b = _next();
+		if(!b){ //all rows have been retrived pg. 62 3.0 spec
+			parent.complete();
+		}
+		return b;
 	}
 
 	/* (non-Javadoc)
@@ -1349,5 +1357,10 @@ public class MockResultSet implements ResultSet {
 
 	public void assertExplicitClose() {
 		assertThat(mockState, Is.is(ResultSetState.CLOSE));
+	}
+
+	public void setParent(MockStatement mockStatement) {
+		this.parent = mockStatement;
+		
 	}
 }

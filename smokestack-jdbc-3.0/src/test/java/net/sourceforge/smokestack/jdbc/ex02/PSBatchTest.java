@@ -86,9 +86,6 @@ public class PSBatchTest {
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
 			{
-				st._execute((String)any);
-//				c._commit(); throwsException(new NullPointerException("something bad happened"));
-//				BAD c._commit(); throwsException(new Exception("something bad happened"));
 				c._commit(); throwsException(new SQLException("something bad happened"));
 			}
 		};
