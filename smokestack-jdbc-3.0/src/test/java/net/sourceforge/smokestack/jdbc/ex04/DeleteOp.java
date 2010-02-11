@@ -5,6 +5,7 @@ package net.sourceforge.smokestack.jdbc.ex04;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -21,16 +22,23 @@ public class DeleteOp{
 			conn = DriverManager.getConnection("jdbc:h2:mem:inmemory");
 	        stat = conn.createStatement();
 	        stat.execute("create table message(id long primary key, message varchar(255))");
-//	        stat = conn.createStatement(); //Nice. Our framework catches this error!
+	        //stat = conn.createStatement(); //Nice. Our framework catches this error!
 			String sql = "DELETE FROM message";
 			int delete = stat.executeUpdate(sql);
 			if(delete == 0){
 				System.out.println("Deletion Successful!");
 			}
 		}
+		catch (SQLException se){
+			//do nothing
+		}
 		finally{
-			stat.close();
-			conn.close();
+			if(stat != null){
+				stat.close();
+			}
+			if(stat != null){
+				conn.close();
+			}
 		}
 	}
 }

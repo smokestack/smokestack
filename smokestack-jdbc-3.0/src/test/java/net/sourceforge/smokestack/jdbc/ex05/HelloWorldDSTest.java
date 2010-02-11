@@ -40,9 +40,9 @@ public class HelloWorldDSTest {
 	@Test
 	public final void testMain() throws Exception {
 		new Expectations() {
-			@Mocked(methods = { "_execute" })
+			@Mocked(methods = { "_execute", "_close" })
 			MockStatement st;
-			@Mocked(methods = { "_next", "_getString" })
+			@Mocked(methods = { "_next", "_getString" , "_close"})
 			MockResultSet rs;
 			{
 				st._execute((String) any);
@@ -50,6 +50,8 @@ public class HelloWorldDSTest {
 				rs._next();	returns(true);
 				rs._getString("message"); returns("hello");
 				rs._next(); returns(false);
+				rs._close();
+				st._close();
 			}
 		};
 		MockDataSource ds = MockDataSource.getInstance();
@@ -66,9 +68,9 @@ public class HelloWorldDSTest {
 	@Test
 	public final void testMainAgain() throws Exception {
 		new Expectations() {
-			@Mocked(methods = { "_execute" })
+			@Mocked(methods = { "_execute", "_close" })
 			MockStatement st;
-			@Mocked(methods = { "_next", "_getString" })
+			@Mocked(methods = { "_next", "_getString" , "_close"})
 			MockResultSet rs;
 			{
 				st._execute((String) any);
@@ -76,6 +78,8 @@ public class HelloWorldDSTest {
 				rs._next();	returns(true);
 				rs._getString("message"); returns("hello");
 				rs._next();	returns(false);
+				rs._close();
+				st._close();
 			}
 		};
 		MockDataSource ds = MockDataSource.getInstance();
@@ -92,10 +96,11 @@ public class HelloWorldDSTest {
 	@Test
 	public final void testMainRollback() throws Exception {
 		new Expectations() {
-			@Mocked(methods = { "_execute" })
+			@Mocked(methods = { "_execute","_close" })
 			MockStatement st;
 			{
 				st._execute((String) any); throwsException(new SQLException ("something bad happened"));
+				st._close();
 			}
 		};
 		MockDataSource ds = MockDataSource.getInstance();

@@ -54,11 +54,10 @@ public class DeleteOpTest {
 
 	/**
 	 * Test method for {@link net.sourceforge.smokestack.jdbc.ex04.DeleteOp#main(java.lang.String[])}.
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws Exception 
 	 */
 	@Test
-	public void testMain() throws SQLException, ClassNotFoundException {
+	public void testMain() throws Exception {
 		new Expectations(){
 			@Mocked (methods = {"_execute","_executeUpdate"})
 			MockStatement st;
@@ -68,14 +67,25 @@ public class DeleteOpTest {
 			}
 		};
 		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
-		try {
-			DeleteOp.main(new String[]{});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		DeleteOp.main(new String[]{});
 		// there is no easy way to get to the Connection ...
 		MockConnection c=MockDriver.instance.getMockConnections().get(0);
-		c.assertClosed();
-}
+		c.assertExplicitClose();
+	}
 
+	@Test
+	public void testMainException() throws Exception {
+		new Expectations(){
+			@Mocked (methods = {"_createStatement"})
+			MockConnection c;
+			{
+				c._createStatement(); throwsException(new SQLException());
+			}
+		};
+		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
+		DeleteOp.main(new String[]{});
+		// there is no easy way to get to the Connection ...
+		MockConnection c=MockDriver.instance.getMockConnections().get(0);
+		c.assertExplicitClose();
+	}
 }

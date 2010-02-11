@@ -22,15 +22,14 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
+
+import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
 
 import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
-
-import net.sourceforge.smokestack.exception.NeedsMockDefinitionException;
-import net.sourceforge.smokestack.exception.NotYetImplementedException;
-import net.sourceforge.smokestack.jdbc.MockStatement.StatementState;
 
 /**
  * @author gliptak
@@ -46,6 +45,14 @@ public class MockResultSet implements ResultSet {
 	
 	private MockStatement parent;
 
+	private int fetchDirection;
+
+	private int fetchSize;
+
+	private int concurrency;
+
+	private Map<Object,Object> rsValues = new HashMap<Object,Object>();
+
 	public MockResultSet(String sql) {
 		this.sql=sql;
 	}
@@ -55,7 +62,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public boolean absolute(int row) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _absolute(row);
+	}
+
+	public boolean _absolute(int row) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -63,7 +74,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void afterLast() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_afterLast();
+	}
+
+	public void _afterLast() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -71,7 +86,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void beforeFirst() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_beforeFirst();
+	}
+
+	public void _beforeFirst() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -79,7 +98,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void cancelRowUpdates() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_cancelRowUpdates();
+	}
+
+	public void _cancelRowUpdates() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +110,11 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void clearWarnings() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_clearWarnings();
+	}
+
+	public void _clearWarnings() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -95,8 +122,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void close() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
+		_close();
 		mockState=ResultSetState.CLOSE;
 		parent.complete();
+	}
+
+	public void _close() {
 	}
 
 	/* (non-Javadoc)
@@ -104,81 +135,107 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void deleteRow() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
-		// TODO Auto-generated method stub
+		_deleteRow();
+	}
 
+	public void _deleteRow() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#findColumn(java.lang.String)
 	 */
 	public int findColumn(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _findColumn(columnName);
+	}
+
+	public int _findColumn(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#first()
 	 */
 	public boolean first() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _first();
+	}
+
+	public boolean _first() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getArray(int)
 	 */
 	public Array getArray(int i) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getArray(i);
+	}
+
+	public Array _getArray(int i) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getArray(java.lang.String)
 	 */
 	public Array getArray(String colName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getArray(colName);
+	}
+
+	public Array _getArray(String colName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getAsciiStream(int)
 	 */
 	public InputStream getAsciiStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getAsciiStream(columnIndex);
+	}
+
+	public InputStream _getAsciiStream(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getAsciiStream(java.lang.String)
 	 */
 	public InputStream getAsciiStream(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getAsciiStream(columnName);
+	}
+
+	public InputStream _getAsciiStream(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBigDecimal(int)
 	 */
 	public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBigDecimal(columnIndex);
+	}
+
+	public BigDecimal _getBigDecimal(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBigDecimal(java.lang.String)
 	 */
 	public BigDecimal getBigDecimal(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBigDecimal(columnName);
+	}
+
+	public BigDecimal _getBigDecimal(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -186,9 +243,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public BigDecimal getBigDecimal(int columnIndex, int scale)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBigDecimal(columnIndex, scale);
+	}
+
+	public BigDecimal _getBigDecimal(int columnIndex, int scale) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -196,311 +256,408 @@ public class MockResultSet implements ResultSet {
 	 */
 	public BigDecimal getBigDecimal(String columnName, int scale)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBigDecimal(columnName, scale);	
+	}
+
+	public BigDecimal _getBigDecimal(String columnName, int scale) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBinaryStream(int)
 	 */
 	public InputStream getBinaryStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBinaryStream(columnIndex);
+	}
+
+	public InputStream _getBinaryStream(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBinaryStream(java.lang.String)
 	 */
 	public InputStream getBinaryStream(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBinaryStream(columnName);	
+	}
+
+	public InputStream _getBinaryStream(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBlob(int)
 	 */
 	public Blob getBlob(int i) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBlob(i);	
+	}
+
+	public Blob _getBlob(int i) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBlob(java.lang.String)
 	 */
 	public Blob getBlob(String colName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBlob(colName);	
+	}
+
+	public Blob _getBlob(String colName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBoolean(int)
 	 */
 	public boolean getBoolean(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBoolean(columnIndex);	
+	}
+
+	public boolean _getBoolean(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBoolean(java.lang.String)
 	 */
 	public boolean getBoolean(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBoolean(columnName);	
+	}
+
+	public boolean _getBoolean(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getByte(int)
 	 */
 	public byte getByte(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getByte(columnIndex);	
+	}
+
+	public byte _getByte(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getByte(java.lang.String)
 	 */
 	public byte getByte(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getByte(columnName);	
+	}
+
+	public byte _getByte(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBytes(int)
 	 */
 	public byte[] getBytes(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBytes(columnIndex);	
+	}
+
+	public byte[] _getBytes(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getBytes(java.lang.String)
 	 */
 	public byte[] getBytes(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getBytes(columnName);	
+	}
+
+	public byte[] _getBytes(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getCharacterStream(int)
 	 */
 	public Reader getCharacterStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getCharacterStream(columnIndex);	
+	}
+
+	public Reader _getCharacterStream(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getCharacterStream(java.lang.String)
 	 */
 	public Reader getCharacterStream(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getCharacterStream(columnName);	
+	}
+
+	public Reader _getCharacterStream(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getClob(int)
 	 */
 	public Clob getClob(int i) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getClob(i);	
+	}
+
+	public Clob _getClob(int i) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getClob(java.lang.String)
 	 */
 	public Clob getClob(String colName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getClob(colName);	
+	}
+
+	public Clob _getClob(String colName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getConcurrency()
 	 */
 	public int getConcurrency() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getConcurrency();
+	}
+
+	public int _getConcurrency() {
+		return concurrency;	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getCursorName()
 	 */
 	public String getCursorName() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getCursorName();	
+	}
+
+	public String _getCursorName() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDate(int)
 	 */
 	public Date getDate(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDate(columnIndex);	
+	}
+
+	public Date _getDate(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDate(java.lang.String)
 	 */
 	public Date getDate(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDate(columnName);	
+	}
+
+	public Date _getDate(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDate(int, java.util.Calendar)
 	 */
 	public Date getDate(int columnIndex, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDate(columnIndex, cal);
+	}
+
+	public Date _getDate(int columnIndex, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDate(java.lang.String, java.util.Calendar)
 	 */
 	public Date getDate(String columnName, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDate(columnName, cal);
+	}
+
+	public Date _getDate(String columnName, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDouble(int)
 	 */
 	public double getDouble(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDouble(columnIndex);
+	}
+
+	public double _getDouble(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getDouble(java.lang.String)
 	 */
 	public double getDouble(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getDouble(columnName);
+	}
+
+	public double _getDouble(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getFetchDirection()
 	 */
 	public int getFetchDirection() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getFetchDirection();
+	}
+
+	public int _getFetchDirection() {
+		return fetchDirection;
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getFetchSize()
 	 */
 	public int getFetchSize() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getFetchSize();
+	}
+
+	public int _getFetchSize() {
+		return fetchSize;
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getFloat(int)
 	 */
 	public float getFloat(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getFloat(columnIndex);
+	}
+
+	public float _getFloat(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getFloat(java.lang.String)
 	 */
 	public float getFloat(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getFloat(columnName);
+	}
+
+	public float _getFloat(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getInt(int)
 	 */
 	public int getInt(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getInt(columnIndex);
+	}
+
+	public int _getInt(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getInt(java.lang.String)
 	 */
 	public int getInt(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getInt(columnName);
+	}
+
+	public int _getInt(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getLong(int)
 	 */
 	public long getLong(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		return _getLong(columnIndex);
 	}
 
 	public long _getLong(int i) {
-		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		return 0;
+		throw new NeedsMockDefinitionException();	
 	}
 	
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getLong(java.lang.String)
 	 */
 	public long getLong(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getLong(columnName);
+	}
+
+	public long _getLong(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getMetaData()
 	 */
 	public ResultSetMetaData getMetaData() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getMetaData();
+	}
+
+	public ResultSetMetaData _getMetaData() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getObject(int)
 	 */
 	public Object getObject(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getObject(columnIndex);
+	}
+
+	public Object _getObject(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getObject(java.lang.String)
 	 */
 	public Object getObject(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getObject(columnName);
+	}
+
+	public Object _getObject(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -508,9 +665,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Object getObject(int i, Map<String, Class<?>> map)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getObject(i, map);
+	}
+
+	public Object _getObject(int i, Map<String, Class<?>> map) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -518,63 +678,84 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Object getObject(String colName, Map<String, Class<?>> map)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getObject(colName, map);
+	}
+
+	public Object _getObject(String colName, Map<String, Class<?>> map) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getRef(int)
 	 */
 	public Ref getRef(int i) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getRef(i);
+	}
+
+	public Ref _getRef(int i) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getRef(java.lang.String)
 	 */
 	public Ref getRef(String colName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getRef(colName);
+	}
+
+	public Ref _getRef(String colName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getRow()
 	 */
 	public int getRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getRow();
+	}
+
+	public int _getRow() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getShort(int)
 	 */
 	public short getShort(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getShort(columnIndex);
+	}
+
+	public short _getShort(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getShort(java.lang.String)
 	 */
 	public short getShort(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getShort(columnName);
+	}
+
+	public short _getShort(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getStatement()
 	 */
 	public Statement getStatement() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getStatement();
+	}
+
+	public Statement _getStatement() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -589,7 +770,6 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#getString(int)
 	 */
 	public String _getString(int columnIndex) throws SQLException {
-		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -605,61 +785,79 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#getString(int)
 	 */
 	public String _getString(String columnName) throws SQLException {
-		return "";
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTime(int)
 	 */
 	public Time getTime(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTime(columnIndex);
+	}
+
+	public Time _getTime(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTime(java.lang.String)
 	 */
 	public Time getTime(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTime(columnName);
+	}
+
+	public Time _getTime(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTime(int, java.util.Calendar)
 	 */
 	public Time getTime(int columnIndex, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTime(columnIndex, cal);
+	}
+
+	public Time _getTime(int columnIndex, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTime(java.lang.String, java.util.Calendar)
 	 */
 	public Time getTime(String columnName, Calendar cal) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTime(columnName, cal);
+	}
+
+	public Time _getTime(String columnName, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTimestamp(int)
 	 */
 	public Timestamp getTimestamp(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTimestamp(columnIndex);
+	}
+
+	public Timestamp _getTimestamp(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getTimestamp(java.lang.String)
 	 */
 	public Timestamp getTimestamp(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTimestamp(columnName);
+	}
+
+	public Timestamp _getTimestamp(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -667,9 +865,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Timestamp getTimestamp(int columnIndex, Calendar cal)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTimestamp(columnIndex, cal);
+	}
+
+	public Timestamp _getTimestamp(int columnIndex, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -677,9 +878,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public Timestamp getTimestamp(String columnName, Calendar cal)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getTimestamp(columnName, cal);
+	}
+
+	public Timestamp _getTimestamp(String columnName, Calendar cal) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -688,125 +892,167 @@ public class MockResultSet implements ResultSet {
 	public int getType() throws SQLException {
 		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getType();
+	}
+
+	public int _getType() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getURL(int)
 	 */
 	public URL getURL(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getURL(columnIndex);
+	}
+
+	public URL _getURL(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getURL(java.lang.String)
 	 */
 	public URL getURL(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getURL(columnName);
+	}
+
+	public URL _getURL(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getUnicodeStream(int)
 	 */
 	public InputStream getUnicodeStream(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getUnicodeStream(columnIndex);
+	}
+
+	public InputStream _getUnicodeStream(int columnIndex) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getUnicodeStream(java.lang.String)
 	 */
 	public InputStream getUnicodeStream(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getUnicodeStream(columnName);
+	}
+
+	public InputStream _getUnicodeStream(String columnName) {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#getWarnings()
 	 */
 	public SQLWarning getWarnings() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _getWarnings();
+	}
+
+	public SQLWarning _getWarnings() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#insertRow()
 	 */
 	public void insertRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_insertRow();
+	}
 
+	public void _insertRow() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#isAfterLast()
 	 */
 	public boolean isAfterLast() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _isAfterLast();
+	}
+
+	public boolean _isAfterLast() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#isBeforeFirst()
 	 */
 	public boolean isBeforeFirst() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _isBeforeFirst();
+	}
+
+	public boolean _isBeforeFirst() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#isFirst()
 	 */
 	public boolean isFirst() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _isFirst();
+	}
+
+	public boolean _isFirst() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#isLast()
 	 */
 	public boolean isLast() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _isLast();
+	}
+
+	public boolean _isLast() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#last()
 	 */
 	public boolean last() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _last();
+	}
+
+	public boolean _last() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#moveToCurrentRow()
 	 */
 	public void moveToCurrentRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_moveToCurrentRow();
+	}
+
+	public void _moveToCurrentRow() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#moveToInsertRow()
 	 */
 	public void moveToInsertRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_moveToInsertRow();
+	}
+
+	public void _moveToInsertRow() {
+		throw new NeedsMockDefinitionException();	
 	}
 
 	/* (non-Javadoc)
@@ -825,97 +1071,127 @@ public class MockResultSet implements ResultSet {
 	 * @see java.sql.ResultSet#next()
 	 */
 	public boolean _next() throws SQLException {
-		return false;
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#previous()
 	 */
 	public boolean previous() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _previous();
+	}
+
+	public boolean _previous() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#refreshRow()
 	 */
 	public void refreshRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_refreshRow();
+	}
+
+	public void _refreshRow() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#relative(int)
 	 */
 	public boolean relative(int rows) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _relative(rows);
+	}
+
+	public boolean _relative(int rows) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#rowDeleted()
 	 */
 	public boolean rowDeleted() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _rowDeleted();
+	}
+
+	public boolean _rowDeleted() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#rowInserted()
 	 */
 	public boolean rowInserted() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _rowInserted();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#rowUpdated()
 	 */
+	public boolean _rowInserted() {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public boolean rowUpdated() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _rowUpdated();
+	}
+
+	public boolean _rowUpdated() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#setFetchDirection(int)
 	 */
 	public void setFetchDirection(int direction) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_setFetchDirection(direction);
+	}
+
+	public void _setFetchDirection(int direction) {
+		this.fetchDirection = direction;
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#setFetchSize(int)
 	 */
 	public void setFetchSize(int rows) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_setFetchSize(rows);
+	}
+
+	public void _setFetchSize(int rows) {
+		this.fetchSize = rows;
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateArray(int, java.sql.Array)
 	 */
 	public void updateArray(int columnIndex, Array x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateArray(columnIndex, x);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateArray(java.lang.String, java.sql.Array)
 	 */
+	public void _updateArray(int columnIndex, Array x) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateArray(String columnName, Array x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateArray(columnName, x);
+	}
+
+	public void _updateArray(String columnName, Array x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -923,131 +1199,175 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateAsciiStream(int columnIndex, InputStream x, int length)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateAsciiStream(columnIndex, x, length);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateAsciiStream(java.lang.String, java.io.InputStream, int)
 	 */
+	public void _updateAsciiStream(int columnIndex, InputStream x, int length) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateAsciiStream(String columnName, InputStream x, int length)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateAsciiStream(columnName, x, length);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBigDecimal(int, java.math.BigDecimal)
 	 */
+	public void _updateAsciiStream(String columnName, InputStream x, int length) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBigDecimal(int columnIndex, BigDecimal x)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBigDecimal(columnIndex, x);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBigDecimal(java.lang.String, java.math.BigDecimal)
 	 */
+	public void _updateBigDecimal(int columnIndex, BigDecimal x) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBigDecimal(String columnName, BigDecimal x)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBigDecimal(columnName, x);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBinaryStream(int, java.io.InputStream, int)
 	 */
+	public void _updateBigDecimal(String columnName, BigDecimal x) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBinaryStream(int columnIndex, InputStream x, int length)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBinaryStream(columnIndex, x, length);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBinaryStream(java.lang.String, java.io.InputStream, int)
 	 */
+	public void _updateBinaryStream(int columnIndex, InputStream x, int length) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBinaryStream(String columnName, InputStream x, int length)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBinaryStream(columnName, x, length);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBlob(int, java.sql.Blob)
 	 */
+	public void _updateBinaryStream(String columnName, InputStream x,
+			int length) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBlob(int columnIndex, Blob x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBlob(columnIndex, x);
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBlob(java.lang.String, java.sql.Blob)
 	 */
+	public void _updateBlob(int columnIndex, Blob x) {
+		throw new NeedsMockDefinitionException();
+	}
+
 	public void updateBlob(String columnName, Blob x) throws SQLException {
 		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBlob(columnName, x);
+	}
+
+	public void _updateBlob(String columnName, Blob x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBoolean(int, boolean)
 	 */
 	public void updateBoolean(int columnIndex, boolean x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBoolean(columnIndex, x);
+	}
+
+	public void _updateBoolean(int columnIndex, boolean x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBoolean(java.lang.String, boolean)
 	 */
 	public void updateBoolean(String columnName, boolean x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBoolean(columnName, x);
+	}
+
+	public void _updateBoolean(String columnName, boolean x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateByte(int, byte)
 	 */
 	public void updateByte(int columnIndex, byte x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateByte(columnIndex, x);
+	}
+
+	public void _updateByte(int columnIndex, byte x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateByte(java.lang.String, byte)
 	 */
 	public void updateByte(String columnName, byte x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateByte(columnName, x);
+	}
+
+	public void _updateByte(String columnName, byte x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBytes(int, byte[])
 	 */
 	public void updateBytes(int columnIndex, byte[] x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBytes(columnIndex, x);
+	}
+
+	public void _updateBytes(int columnIndex, byte[] x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateBytes(java.lang.String, byte[])
 	 */
 	public void updateBytes(String columnName, byte[] x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateBytes(columnName, x);
+	}
+
+	public void _updateBytes(String columnName, byte[] x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1055,9 +1375,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateCharacterStream(int columnIndex, Reader x, int length)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateCharacterStream(columnIndex, x, length);		
+	}
+
+	public void _updateCharacterStream(int columnIndex, Reader x, int length) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1065,153 +1388,205 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateCharacterStream(String columnName, Reader reader,
 			int length) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateCharacterStream(columnName, reader, length);
+	}
+
+	public void _updateCharacterStream(String columnName, Reader reader,
+			int length) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateClob(int, java.sql.Clob)
 	 */
 	public void updateClob(int columnIndex, Clob x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateClob(columnIndex, x);
+	}
+
+	public void _updateClob(int columnIndex, Clob x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateClob(java.lang.String, java.sql.Clob)
 	 */
 	public void updateClob(String columnName, Clob x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateClob(columnName, x);
+	}
+
+	public void _updateClob(String columnName, Clob x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateDate(int, java.sql.Date)
 	 */
 	public void updateDate(int columnIndex, Date x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateDate(columnIndex, x);
+	}
+
+	public void _updateDate(int columnIndex, Date x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateDate(java.lang.String, java.sql.Date)
 	 */
 	public void updateDate(String columnName, Date x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateDate(columnName, x);
+	}
+
+	public void _updateDate(String columnName, Date x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateDouble(int, double)
 	 */
 	public void updateDouble(int columnIndex, double x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateDouble(columnIndex, x);
+	}
+
+	public void _updateDouble(int columnIndex, double x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateDouble(java.lang.String, double)
 	 */
 	public void updateDouble(String columnName, double x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateDouble(columnName, x);
+	}
+
+	public void _updateDouble(String columnName, double x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateFloat(int, float)
 	 */
 	public void updateFloat(int columnIndex, float x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateFloat(columnIndex, x);
+	}
+
+	public void _updateFloat(int columnIndex, float x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateFloat(java.lang.String, float)
 	 */
 	public void updateFloat(String columnName, float x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateFloat(columnName, x);
+	}
+
+	public void _updateFloat(String columnName, float x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateInt(int, int)
 	 */
 	public void updateInt(int columnIndex, int x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateInt(columnIndex, x);
+	}
+
+	public void _updateInt(int columnIndex, int x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateInt(java.lang.String, int)
 	 */
 	public void updateInt(String columnName, int x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateInt(columnName, x);
+	}
+
+	public void _updateInt(String columnName, int x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateLong(int, long)
 	 */
 	public void updateLong(int columnIndex, long x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateLong(columnIndex, x);
+	}
+
+	public void _updateLong(int columnIndex, long x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateLong(java.lang.String, long)
 	 */
 	public void updateLong(String columnName, long x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateLong(columnName, x);
+	}
+
+	public void _updateLong(String columnName, long x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateNull(int)
 	 */
 	public void updateNull(int columnIndex) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateNull(columnIndex); 
+	}
+
+	public void _updateNull(int columnIndex) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateNull(java.lang.String)
 	 */
 	public void updateNull(String columnName) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateNull(columnName);
+	}
+
+	public void _updateNull(String columnName) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateObject(int, java.lang.Object)
 	 */
 	public void updateObject(int columnIndex, Object x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateObject(columnIndex, x);
+	}
+
+	public void _updateObject(int columnIndex, Object x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateObject(java.lang.String, java.lang.Object)
 	 */
 	public void updateObject(String columnName, Object x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateObject(columnName, x);
+	}
+
+	public void _updateObject(String columnName, Object x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1219,9 +1594,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateObject(int columnIndex, Object x, int scale)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateObject(columnIndex, x, scale);
+	}
+
+	public void _updateObject(int columnIndex, Object x, int scale) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1229,90 +1607,120 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateObject(String columnName, Object x, int scale)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateObject(columnName, x, scale);
+	}
+
+	public void _updateObject(String columnName, Object x, int scale) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateRef(int, java.sql.Ref)
 	 */
 	public void updateRef(int columnIndex, Ref x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateRef(columnIndex, x);
+	}
+
+	public void _updateRef(int columnIndex, Ref x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateRef(java.lang.String, java.sql.Ref)
 	 */
 	public void updateRef(String columnName, Ref x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateRef(columnName, x);
+	}
+
+	public void _updateRef(String columnName, Ref x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateRow()
 	 */
 	public void updateRow() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateRow();
+	}
+
+	public void _updateRow() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateShort(int, short)
 	 */
 	public void updateShort(int columnIndex, short x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateShort(columnIndex, x);
+	}
+
+	public void _updateShort(int columnIndex, short x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateShort(java.lang.String, short)
 	 */
 	public void updateShort(String columnName, short x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateShort(columnName, x);
+	}
+
+	public void _updateShort(String columnName, short x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateString(int, java.lang.String)
 	 */
 	public void updateString(int columnIndex, String x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateString(columnIndex, x);
+	}
+
+	public void _updateString(int columnIndex, String x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateString(java.lang.String, java.lang.String)
 	 */
 	public void updateString(String columnName, String x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateString(columnName, x);
+	}
+
+	public void _updateString(String columnName, String x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateTime(int, java.sql.Time)
 	 */
 	public void updateTime(int columnIndex, Time x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateTime(columnIndex, x);
+	}
+
+	public void _updateTime(int columnIndex, Time x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#updateTime(java.lang.String, java.sql.Time)
 	 */
 	public void updateTime(String columnName, Time x) throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateTime(columnName, x);
+	}
+
+	public void _updateTime(String columnName, Time x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1320,9 +1728,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateTimestamp(int columnIndex, Timestamp x)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateTimestamp(columnIndex, x);
+	}
+
+	public void _updateTimestamp(int columnIndex, Timestamp x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -1330,22 +1741,27 @@ public class MockResultSet implements ResultSet {
 	 */
 	public void updateTimestamp(String columnName, Timestamp x)
 			throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		_updateTimestamp(columnName, x);
+	}
+
+	public void _updateTimestamp(String columnName, Timestamp x) {
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see java.sql.ResultSet#wasNull()
 	 */
 	public boolean wasNull() throws SQLException {
-		// TODO Auto-generated method stub
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		throw new NotYetImplementedException();
+		return _wasNull(); 
+	}
+
+	public boolean _wasNull() {
+		throw new NeedsMockDefinitionException();
 	}
 
 	protected void autoClose() {
-		//autoclose if its not already closed
 		if(mockState != ResultSetState.CLOSE){
 			this.mockState=ResultSetState.AUTOCLOSE;
 		}

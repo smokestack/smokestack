@@ -111,7 +111,7 @@
    <properties>
       <project.license.file>${project.basedir}/LICENSE.txt</project.license.file>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <jmockit.version>0.995</jmockit.version>
+      <jmockit.version>0.996</jmockit.version>
       <junit.version>4.7</junit.version>
       <hamcrest.version>1.1</hamcrest.version>
    </properties>

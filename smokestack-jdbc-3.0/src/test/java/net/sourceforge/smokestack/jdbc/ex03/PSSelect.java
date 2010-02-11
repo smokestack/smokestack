@@ -29,7 +29,7 @@ public class PSSelect{
 
 	        String sql = "SELECT id,message FROM message WHERE id >= ?";
 			pst = conn.prepareStatement(sql);
-			pst.setInt(1,1);
+			pst.setInt(1,2);
 			rs = pst.executeQuery();
 			while (rs.next()){
 				Long id = rs.getLong(1);

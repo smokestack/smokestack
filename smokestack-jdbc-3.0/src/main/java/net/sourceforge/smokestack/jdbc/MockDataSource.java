@@ -26,6 +26,10 @@ public class MockDataSource implements DataSource {
     
 	private List<MockConnection> mockConnections=new ArrayList<MockConnection>();
 
+	private PrintWriter logWriter;
+
+	private int loginTimeout;
+
 	private MockDataSource() {
 		super();
 	}
@@ -38,9 +42,13 @@ public class MockDataSource implements DataSource {
 	 * @see javax.sql.DataSource#getConnection()
 	 */
 	public Connection getConnection() throws SQLException {
-		MockConnection c=new MockConnection();
+		MockConnection c=_getConnection();
 		mockConnections.add(c);
 		return c;
+	}
+
+	public MockConnection _getConnection() {
+		return new MockConnection();
 	}
 
 	/* (non-Javadoc)
@@ -48,35 +56,57 @@ public class MockDataSource implements DataSource {
 	 */
 	public Connection getConnection(String username, String password)
 			throws SQLException {
-		throw new NotYetImplementedException();
+		MockConnection c=_getConnection(username, password);
+		mockConnections.add(c);
+		return c;
+	}
+
+	public MockConnection _getConnection(String username, String password) {
+		return new MockConnection();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#getLogWriter()
 	 */
 	public PrintWriter getLogWriter() throws SQLException {
-		throw new NotYetImplementedException();
+		return _getLogWriter();
+	}
+
+	public PrintWriter _getLogWriter() {
+		return this.logWriter;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#getLoginTimeout()
 	 */
 	public int getLoginTimeout() throws SQLException {
-		throw new NotYetImplementedException();
+		return _getLoginTimeout();
+	}
+
+	public int _getLoginTimeout() {
+		return loginTimeout;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#setLogWriter(java.io.PrintWriter)
 	 */
 	public void setLogWriter(PrintWriter out) throws SQLException {
-		throw new NotYetImplementedException();
+		_setLogWriter(out);
+	}
+
+	public void _setLogWriter(PrintWriter out) {
+		this.logWriter = out;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#setLoginTimeout(int)
 	 */
 	public void setLoginTimeout(int seconds) throws SQLException {
-		throw new NotYetImplementedException();
+		_setLoginTimeout(seconds);
+	}
+
+	public void _setLoginTimeout(int seconds) {
+		this.loginTimeout = seconds;
 	}
 
 	public List<MockConnection> getMockConnections() {

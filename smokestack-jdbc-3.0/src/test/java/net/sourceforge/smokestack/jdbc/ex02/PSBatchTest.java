@@ -81,11 +81,15 @@ public class PSBatchTest {
 	@Test
 	public void testMainThrowOnCommit() throws SQLException, ClassNotFoundException {
 		new Expectations(){
-			@Mocked( methods= {"_commit"})
+			@Mocked (methods = {"_commit"})
 			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
+			@Mocked( methods= {"_executeBatch"})
+			MockPreparedStatement pst;
 			{
+				st._execute((String)any);
+				pst._executeBatch(); returns(new int[]{0});
 				c._commit(); throwsException(new SQLException("something bad happened"));
 			}
 		};
@@ -93,10 +97,9 @@ public class PSBatchTest {
 		try {
 			PSBatch.main(new String[]{});
 			fail("expected Exception");
-		} catch (Exception e){
+		} catch (SQLException e){
 			MockConnection c=MockDriver.instance.getMockConnections().get(0);
 			c.assertAutoRollback();
-//			not c.assertMockRollback();
 			c.assertClosed();
 			c.assertExplicitClose();
 		}
@@ -110,13 +113,13 @@ public class PSBatchTest {
 	@Test
 	public void testMainOverrideCommit() throws SQLException, ClassNotFoundException {
 		new Expectations(){
-			@Mocked( methods= {"_commit"})
-			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
+			@Mocked( methods= {"_executeBatch"})
+			MockPreparedStatement pst;
 			{
 				st._execute((String)any);
-				c._commit();
+				pst._executeBatch(); returns(new int[]{0});
 			}
 		};
 		
@@ -136,21 +139,25 @@ public class PSBatchTest {
 	@Test
 	public void testMainValidateOnCommit() throws SQLException, ClassNotFoundException {
 		new Expectations(){
-			@Mocked( methods= {"_commit"})
+			@Mocked (methods = {"_commit"})
 			MockConnection c;
 			@Mocked( methods= {"_execute"})
 			MockStatement st;
+			@Mocked( methods= {"_executeBatch"})
+			MockPreparedStatement pst;
 			{
 				st._execute((String)any);
+				pst._executeBatch(); returns(new int[]{0});
 				c._commit(); returns (
-					new Delegate(){
-						@SuppressWarnings("unused")
-						void foo(){
-							//TODO: do your own asserts here.
+						new Delegate(){
+							@SuppressWarnings("unused")
+							void foo(){
+								//TODO: do your own asserts here.
+							}
 						}
-					}
-				);
-			};
+					);
+				pst._close();
+			}
 		};
 		
 		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	

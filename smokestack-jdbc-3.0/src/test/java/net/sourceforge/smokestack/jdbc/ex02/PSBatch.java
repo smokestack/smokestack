@@ -6,12 +6,12 @@ public class PSBatch{
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
 		Connection conn = null;
 		PreparedStatement pst = null;
+		Statement stat = null;
 		try{
 	        Class.forName("org.h2.Driver");
 			conn = DriverManager.getConnection("jdbc:h2:mem:inmemory");
-	        Statement stat = conn.createStatement();
+	        stat = conn.createStatement();
 	        stat.execute("create table message(id long primary key, message varchar(255))");
-			stat.close();
 			conn.setAutoCommit(false);
 			String sql = "INSERT into Message VALUES(?,?)";
 			pst = conn.prepareStatement(sql);
@@ -25,6 +25,7 @@ public class PSBatch{
 			conn.commit();
 		}
 		finally{
+			stat.close();
 			pst.close();
 			conn.close();
 		}
