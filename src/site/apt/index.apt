@@ -4,6 +4,21 @@ Smokestack
   Smokestack is a modular JEE unit testing framework, independent of Java unit testing framework
   (like JUnit or TestNG) with functionality geared for validation.
   
+  The idea behind this project is to provide a lightweight life-cycle management mock container 
+  that is simple to use and yet provides full support for managing the life-cycle of the integration 
+  components as if within the container. Simply speaking, if you are using JDBC, the jdbc module 
+  within this project will ensure that all your result-sets, statements, connections and all other 
+  related artifacts are in the correct state before usage and after usage. It will throw assertion 
+  errors if you try to access a closed connection or if your connections are not closed properly. 
+  We have tried to follow the specs as much as possible but we have also provided additional 
+  convenience methods outside the specs to accomodate life-cycle state assertions. 
+  
+  All of the modules follow JEE specs and are written to verify that the container state is maintained 
+  and that you are doing all the right things at the right places. The project is started with 
+  implementing the simple cases, and intends to have a complete implementation for JEE modules included. 
+  As always, if you find something that you need help with, drop us a note or you can provide your 
+  own solution and we do appreciate all your comments, suggestions, feedback and improvements.
+  
   Please use the unit tests under the modules to learn more about the features.
   
   There is no official release yet, the source can be built from the repository using

@@ -18,8 +18,8 @@ public class DeleteOp{
 		Connection conn = null;
 		Statement stat = null;
 		try{
-	        Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:mem:inmemory");
+			Class.forName("org.hsqldb.jdbcDriver" );
+			conn = DriverManager.getConnection("jdbc:hsqldb:mem:inmemory");
 	        stat = conn.createStatement();
 	        stat.execute("create table message(id long primary key, message varchar(255))");
 	        //stat = conn.createStatement(); //Nice. Our framework catches this error!
@@ -36,7 +36,7 @@ public class DeleteOp{
 			if(stat != null){
 				stat.close();
 			}
-			if(stat != null){
+			if(conn != null){
 				conn.close();
 			}
 		}

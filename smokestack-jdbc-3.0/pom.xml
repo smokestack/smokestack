@@ -53,10 +53,10 @@
         <scope>test</scope>
       </dependency>
 	<dependency>
-	    <groupId>com.h2database</groupId>
-	    <artifactId>h2</artifactId>
-	    <version>1.2.127</version>
-	</dependency>
-      
+		<groupId>hsqldb</groupId>
+		<artifactId>hsqldb</artifactId>
+		<version>1.8.0.10</version>
+	    <scope>test</scope>
+	</dependency>    
   </dependencies>
 </project>

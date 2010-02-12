@@ -1,0 +1,8 @@
+------
+JPA Module Usage
+------
+  We provide with a MockPersistenceProviderImpl that you gives you access to framework. 
+  You can then use MockEntityManager and other mocks and finally validate using assertMockComplete() or 
+  assertMockCommit().
+
+  You can refer to the samples provided along with the source for more details.

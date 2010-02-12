@@ -1,0 +1,34 @@
+------
+JNDI Module Usage
+------
+
+This module mocks up the JNDI container for life-cycle management. The module is configured to use MockIntitialContextFactory. You then leverage the life-cycle management capabilities of the framework to validate your tests. 
+
+
+	@Test
+	public final void testCheckCheck() throws NamingException {
+		String name="java:comp/env/ejb/Customer";
+		Object value="Customer";
+		{
+			Context c1=new InitialContext();
+			c1.bind(name, value);
+			assertThat(c1.lookup(name), is(value));			
+		}
+		{
+			Context c2=new InitialContext();
+			assertThat(c2.lookup(name), is(value));			
+			c2.unbind(name);			
+		}
+		{
+			Context c3=new InitialContext();
+			try {
+				c3.lookup(name);
+				fail("expected NamingExpection");
+			} catch (NamingException ne){
+				// IGNORE
+			}			
+		}
+	}
+
+
+You can refer to the samples provided along with the source for more details.

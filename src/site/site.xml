@@ -18,6 +18,7 @@
          <item name="Design" href="design.html" />
          <item name="Usage" href="usage.html" />
 		 <item name="FAQ" href="faq.html" />
+		 <item name="Extensions Guidelines" href="extensionguidelines.html" />
 		</menu>
 
 		<menu ref="modules" />

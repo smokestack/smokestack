@@ -8,8 +8,8 @@ public class PSBatch{
 		PreparedStatement pst = null;
 		Statement stat = null;
 		try{
-	        Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:mem:inmemory");
+			Class.forName("org.hsqldb.jdbcDriver" );
+			conn = DriverManager.getConnection("jdbc:hsqldb:mem:inmemory");
 	        stat = conn.createStatement();
 	        stat.execute("create table message(id long primary key, message varchar(255))");
 			conn.setAutoCommit(false);

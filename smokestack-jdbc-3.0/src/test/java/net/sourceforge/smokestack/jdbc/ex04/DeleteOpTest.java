@@ -28,7 +28,6 @@ public class DeleteOpTest {
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		MockDriver.instance.reset();
 	}
 
 	/**
@@ -43,6 +42,7 @@ public class DeleteOpTest {
 	 */
 	@Before
 	public void setUp() throws Exception {
+		MockDriver.instance.reset();
 	}
 
 	/**
