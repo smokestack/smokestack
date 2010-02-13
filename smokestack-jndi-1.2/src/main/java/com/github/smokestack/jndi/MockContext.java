@@ -17,7 +17,10 @@ import javax.naming.NamingException;
 
 import com.github.smokestack.exception.NotYetImplementedException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.IsNot;
+import org.omg.stub.java.rmi._Remote_Stub;
 
 /**
  * @author gliptak
@@ -44,6 +47,10 @@ public class MockContext implements Context {
 	 */
 	public Object addToEnvironment(String propName, Object propVal) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+        return _addToEnvironment(propName, propVal);
+	}
+
+	public Object _addToEnvironment(String propName, Object propVal) throws NamingException {
         return environment.put(propName, propVal);
 	}
 
@@ -52,6 +59,10 @@ public class MockContext implements Context {
 	 */
 	public void bind(Name name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_bind(name, obj);
+	}
+
+	public void _bind(Name name, Object obj) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -60,6 +71,10 @@ public class MockContext implements Context {
 	 */
 	public void bind(String name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_bind(name, obj);
+	}
+
+	public void _bind(String name, Object obj) throws NamingException {
 		rebind(name, obj);
 	}
 
@@ -67,6 +82,10 @@ public class MockContext implements Context {
 	 * @see javax.naming.Context#close()
 	 */
 	public void close() throws NamingException {
+		_close();
+	}
+
+	public void _close() throws NamingException {
 		mockState=ContextState.CLOSE;
 		MockInitialContextFactory.releaseSingleton();
 	}
@@ -76,6 +95,10 @@ public class MockContext implements Context {
 	 */
 	public Name composeName(Name name, Name prefix) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _composeName(name, prefix);
+	}
+
+	public Name _composeName(Name name, Name prefix) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -84,6 +107,10 @@ public class MockContext implements Context {
 	 */
 	public String composeName(String name, String prefix) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _composeName(name, prefix);
+	}
+
+	public String _composeName(String name, String prefix) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -92,6 +119,10 @@ public class MockContext implements Context {
 	 */
 	public Context createSubcontext(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _createSubcontext(name);
+	}
+
+	public Context _createSubcontext(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -100,6 +131,10 @@ public class MockContext implements Context {
 	 */
 	public Context createSubcontext(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _createSubcontext(name);
+	}
+
+	public Context _createSubcontext(String name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -108,6 +143,10 @@ public class MockContext implements Context {
 	 */
 	public void destroySubcontext(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_destroySubcontext(name);
+	}
+
+	public void _destroySubcontext(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -116,6 +155,10 @@ public class MockContext implements Context {
 	 */
 	public void destroySubcontext(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_destroySubcontext(name);
+	}
+
+	public void _destroySubcontext(String name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -124,6 +167,10 @@ public class MockContext implements Context {
 	 */
 	public Hashtable<?, ?> getEnvironment() throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _getEnvironment();
+	}
+
+	public Hashtable<?, ?> _getEnvironment() throws NamingException {
 		return (Hashtable)environment.clone();
 	}
 
@@ -132,6 +179,10 @@ public class MockContext implements Context {
 	 */
 	public String getNameInNamespace() throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _getNameInNamespace();
+	}
+
+	public String _getNameInNamespace() throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -140,6 +191,10 @@ public class MockContext implements Context {
 	 */
 	public NameParser getNameParser(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _getNameParser(name);
+	}
+
+	public NameParser _getNameParser(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -148,6 +203,10 @@ public class MockContext implements Context {
 	 */
 	public NameParser getNameParser(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _getNameParser(name);
+	}
+
+	public NameParser _getNameParser(String name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -156,6 +215,10 @@ public class MockContext implements Context {
 	 */
 	public NamingEnumeration<NameClassPair> list(Name name)	throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _list(name);
+	}
+
+	public NamingEnumeration<NameClassPair> _list(Name name)	throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -164,6 +227,10 @@ public class MockContext implements Context {
 	 */
 	public NamingEnumeration<NameClassPair> list(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _list(name);
+	}
+
+	public NamingEnumeration<NameClassPair> _list(String name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -172,6 +239,10 @@ public class MockContext implements Context {
 	 */
 	public NamingEnumeration<Binding> listBindings(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _listBindings(name);
+	}
+
+	public NamingEnumeration<Binding> _listBindings(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -180,6 +251,10 @@ public class MockContext implements Context {
 	 */
 	public NamingEnumeration<Binding> listBindings(String name)	throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _listBindings(name);
+	}
+
+	public NamingEnumeration<Binding> _listBindings(String name)	throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -188,6 +263,10 @@ public class MockContext implements Context {
 	 */
 	public Object lookup(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _lookup(name);
+	}
+
+	public Object _lookup(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -196,6 +275,10 @@ public class MockContext implements Context {
 	 */
 	public Object lookup(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _lookup(name);
+	}
+
+	public Object _lookup(String name) throws NamingException {
 		Object o=bindings.get(name);
 		if (o==null){
 			throw new NamingException("not bound for "+name);
@@ -208,6 +291,10 @@ public class MockContext implements Context {
 	 */
 	public Object lookupLink(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _lookupLink(name);
+	}
+
+	public Object _lookupLink(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -216,6 +303,10 @@ public class MockContext implements Context {
 	 */
 	public Object lookupLink(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _lookupLink(name);
+	}
+
+	public Object _lookupLink(String name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -224,6 +315,10 @@ public class MockContext implements Context {
 	 */
 	public void rebind(Name name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_rebind(name, obj);
+	}
+
+	public void _rebind(Name name, Object obj) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -232,6 +327,10 @@ public class MockContext implements Context {
 	 */
 	public void rebind(String name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_rebind(name, obj);
+	}
+
+	public void _rebind(String name, Object obj) throws NamingException {
 		bindings.put(name, obj);
 	}
 
@@ -240,6 +339,10 @@ public class MockContext implements Context {
 	 */
 	public Object removeFromEnvironment(String propName) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		return _removeFromEnvironment(propName);
+	}
+
+	public Object _removeFromEnvironment(String propName) throws NamingException {
 		return environment.remove(propName);
 	}
 
@@ -248,6 +351,10 @@ public class MockContext implements Context {
 	 */
 	public void rename(Name oldName, Name newName) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_rename(oldName, newName);
+	}
+
+	public void _rename(Name oldName, Name newName) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -256,6 +363,10 @@ public class MockContext implements Context {
 	 */
 	public void rename(String oldName, String newName) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_rename(oldName, newName);
+	}
+
+	public void _rename(String oldName, String newName) throws NamingException {
 		Object o=bindings.get(oldName);
 		if (o==null){
 			throw new NamingException("not bound for "+oldName);
@@ -269,6 +380,10 @@ public class MockContext implements Context {
 	 */
 	public void unbind(Name name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_unbind(name);
+	}
+
+	public void _unbind(Name name) throws NamingException {
 		throw new NotYetImplementedException();
 	}
 
@@ -277,7 +392,15 @@ public class MockContext implements Context {
 	 */
 	public void unbind(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
+		_unbind(name);
+	}
+	
+	public void _unbind(String name) throws NamingException {
 		bindings.remove(name);
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
