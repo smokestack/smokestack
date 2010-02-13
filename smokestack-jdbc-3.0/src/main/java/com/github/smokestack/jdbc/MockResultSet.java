@@ -27,6 +27,8 @@ import java.util.Map;
 
 import com.github.smokestack.exception.NeedsMockDefinitionException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
@@ -1778,5 +1780,10 @@ public class MockResultSet implements ResultSet {
 	public void setParent(MockStatement mockStatement) {
 		this.parent = mockStatement;
 		
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

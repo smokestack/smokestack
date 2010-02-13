@@ -14,6 +14,8 @@ import java.util.Properties;
 
 import com.github.smokestack.exception.NotYetImplementedException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.IsNull;
 
 import static org.hamcrest.MatcherAssert.assertThat; 
@@ -136,5 +138,10 @@ public class MockDriver implements Driver {
 	 */
 	public void reset(){
 		instance.mockConnections=new ArrayList<MockConnection>();
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @author bbrag
  *
@@ -115,5 +118,9 @@ public class MockDataSource implements DataSource {
 		mockConnections=new ArrayList<MockConnection>();
 		
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
