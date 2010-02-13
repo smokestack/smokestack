@@ -53,6 +53,10 @@ public class MockConnection implements Connection {
 	 */
 	public void close() throws JMSException {
 		mockState=ConnectionState.CLOSE;
+		// propagate
+		for (MockSession session: mockSessions){
+			session.close();
+		}
 	}
 
 	/* (non-Javadoc)

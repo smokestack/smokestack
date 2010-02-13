@@ -43,17 +43,15 @@ public class MockSession implements Session {
 	
 	protected int acknowledgeMode;
 	
-	public enum SessionState {NEW, COMMIT, ROLLBACK, CLOSE};
-	
-	protected SessionState mockState=SessionState.NEW;
-	
+	public enum SessionState {NEW, CLOSE};
+	protected SessionState mockSessionState=SessionState.NEW;
+
+	public enum TransactionState {NEW, ROLLBACK, COMMIT};
+	public TransactionState mockTransactionState=TransactionState.NEW;
+
 	protected List<MockMessageProducer> mockMessageProducers=new ArrayList<MockMessageProducer>();
 	
 	protected List<MockMessageConsumer> mockMessageConsumers=new ArrayList<MockMessageConsumer>();
-
-	private boolean committed=false;
-
-	private boolean rolledBack=false;
 
 	private MessageListener messageListener;
 
@@ -70,23 +68,30 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#close()
 	 */
 	public void close() throws JMSException {
-		mockState=SessionState.CLOSE;
+		mockSessionState=SessionState.CLOSE;
+		// propagate
+		for (MockMessageConsumer c: mockMessageConsumers){
+			c.close();
+		}
+		// propagate
+		for (MockMessageProducer p: mockMessageProducers){
+			p.close();
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Session#commit()
 	 */
 	public void commit() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
-		committed=true;
-		mockState=SessionState.COMMIT;
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
+		mockTransactionState=TransactionState.COMMIT;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Session#createBrowser(javax.jms.Queue)
 	 */
 	public QueueBrowser createBrowser(Queue queue) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockQueueBrowser c=new MockQueueBrowser(queue);
 		mockQueueBrowsers.add(c);
 		return c;
@@ -96,7 +101,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createBrowser(javax.jms.Queue, java.lang.String)
 	 */
 	public QueueBrowser createBrowser(Queue queue, String messageSelector) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -104,7 +109,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createBytesMessage()
 	 */
 	public BytesMessage createBytesMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -112,7 +117,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createConsumer(javax.jms.Destination)
 	 */
 	public MessageConsumer createConsumer(Destination destination) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockMessageConsumer c=new MockMessageConsumer(destination);
 		mockMessageConsumers.add(c);
 		return c;
@@ -122,7 +127,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createConsumer(javax.jms.Destination, java.lang.String)
 	 */
 	public MessageConsumer createConsumer(Destination destination, String messageSelector) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockMessageConsumer c=new MockMessageConsumer(destination, messageSelector);
 		mockMessageConsumers.add(c);
 		return c;
@@ -132,7 +137,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createConsumer(javax.jms.Destination, java.lang.String, boolean)
 	 */
 	public MessageConsumer createConsumer(Destination destination, String messageSelector, boolean NoLocal) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockMessageConsumer c=new MockMessageConsumer(destination, messageSelector, NoLocal);
 		mockMessageConsumers.add(c);
 		return c;
@@ -142,7 +147,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createDurableSubscriber(javax.jms.Topic, java.lang.String)
 	 */
 	public TopicSubscriber createDurableSubscriber(Topic topic, String name) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockTopicSubscriber ts=new MockTopicSubscriber(topic, name);
 		mockMessageConsumers.add(ts);
 		return ts;
@@ -152,7 +157,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createDurableSubscriber(javax.jms.Topic, java.lang.String, java.lang.String, boolean)
 	 */
 	public TopicSubscriber createDurableSubscriber(Topic topic, String name, String messageSelector, boolean noLocal) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -160,7 +165,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createMapMessage()
 	 */
 	public MapMessage createMapMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -168,7 +173,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createMessage()
 	 */
 	public Message createMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockMessage m=new MockMessage();
 		mockMessages.add(m);
 		return m;
@@ -178,7 +183,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createObjectMessage()
 	 */
 	public ObjectMessage createObjectMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -186,7 +191,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createObjectMessage(java.io.Serializable)
 	 */
 	public ObjectMessage createObjectMessage(Serializable arg0) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -194,6 +199,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createProducer(javax.jms.Destination)
 	 */
 	public MessageProducer createProducer(Destination destination) throws JMSException {
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockMessageProducer p=new MockMessageProducer(destination);
 		mockMessageProducers.add(p);
 		return p;
@@ -203,7 +209,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createQueue(java.lang.String)
 	 */
 	public Queue createQueue(String arg0) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -211,7 +217,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createStreamMessage()
 	 */
 	public StreamMessage createStreamMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -219,7 +225,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createTemporaryQueue()
 	 */
 	public TemporaryQueue createTemporaryQueue() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -227,7 +233,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createTemporaryTopic()
 	 */
 	public TemporaryTopic createTemporaryTopic() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -235,7 +241,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createTextMessage()
 	 */
 	public TextMessage createTextMessage() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		MockTextMessage m=new MockTextMessage();
 		mockMessages.add(m);
 		return m;
@@ -245,7 +251,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createTextMessage(java.lang.String)
 	 */
 	public TextMessage createTextMessage(String text) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		return new MockTextMessage(text);
 	}
 
@@ -253,7 +259,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#createTopic(java.lang.String)
 	 */
 	public Topic createTopic(String arg0) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -261,7 +267,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#getAcknowledgeMode()
 	 */
 	public int getAcknowledgeMode() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		return acknowledgeMode;
 	}
 
@@ -269,7 +275,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#getMessageListener()
 	 */
 	public MessageListener getMessageListener() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		return messageListener;
 	}
 
@@ -277,7 +283,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#getTransacted()
 	 */
 	public boolean getTransacted() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		return transacted;
 	}
 
@@ -285,7 +291,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#recover()
 	 */
 	public void recover() throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -293,21 +299,22 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#rollback()
 	 */
 	public void rollback() throws JMSException {
-		this.rolledBack=true;
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
+		mockTransactionState=TransactionState.COMMIT;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Session#run()
 	 */
 	public void run() {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 	}
 
 	/* (non-Javadoc)
 .	 * @see javax.jms.Session#setMessageListener(javax.jms.MessageListener)
 	 */
 	public void setMessageListener(MessageListener messageListener) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		this.messageListener=messageListener;
 	}
 
@@ -315,7 +322,7 @@ public class MockSession implements Session {
 	 * @see javax.jms.Session#unsubscribe(java.lang.String)
 	 */
 	public void unsubscribe(String arg0) throws JMSException {
-		assertThat("mockState", mockState, IsNot.not(SessionState.CLOSE));
+		assertThat(mockSessionState, IsNot.not(SessionState.CLOSE));
 		throw new NotYetImplementedException();
 	}
 
@@ -323,23 +330,21 @@ public class MockSession implements Session {
 	 * Validation
 	 */
 	public void assertMockComplete() {
-//		assertThat("mockState", mockState, IsNot.not(SessionState.NEW));
+		assertThat(mockSessionState, Is.is(SessionState.CLOSE));
 	}
 
 	/**
 	 * Validation
 	 */
 	public void assertMockCommit() {
-		assertMockComplete();
-		assertThat("committed", committed, Is.is(true));
+		assertThat(mockTransactionState, Is.is(TransactionState.COMMIT));
 	}
 
 	/**
 	 * Validation
 	 */
 	public void assertMockRollback() {
-		assertMockComplete();
-		assertThat("rolledBack", rolledBack, Is.is(true));
+		assertThat(mockTransactionState, Is.is(TransactionState.ROLLBACK));
 	}
 
 	/**
