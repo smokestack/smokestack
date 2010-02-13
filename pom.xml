@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
-   <groupId>net.sourceforge.smokestack</groupId>
+   <groupId>com.github.smokestack</groupId>
    <artifactId>smokestack</artifactId>
    <packaging>pom</packaging>
    <version>0.1-SNAPSHOT</version>
@@ -10,7 +10,7 @@
       ${project.name} is a modular JEE unit testing framework, independent of Java unit
       testing framework (like JUnit or TestNG) with functionality geared for validation.
    </description>
-   <url>http://smokestack.sourceforge.net/</url>
+   <url>http://smokestack.github.com/</url>
    <inceptionYear>2009</inceptionYear>
    <modules>
       <module>smokestack-common</module>
@@ -22,20 +22,24 @@
       <module>smokestack-jdbc-3.0</module>
   </modules>
    <scm>
-      <url>http://smokestack.git.sourceforge.net/git/gitweb-index.cgi</url>
-      <connection>scm:git:git://smokestack.git.sourceforge.net/gitroot/smokestack/smokestack</connection>
-      <developerConnection>scm:git:ssh://user@smokestack.git.sourceforge.net/gitroot/smokestack/smokestack</developerConnection>
+      <url>http://github.com/smokestack/smokestack</url>
+      <connection>scm:git:git@github.com:smokestack/smokestack.git</connection>
+      <developerConnection>scm:git:git@github.com:smokestack/smokestack.git</developerConnection>
    </scm>
    <issueManagement>
-      <system>Sourceforge Tracker</system>
-      <url>https://sourceforge.net/tracker/?group_id=292052</url>
+      <system>Tracker</system>
+      <url>http://github.com/smokestack/smokestack/issues</url>
    </issueManagement>
    <distributionManagement>
       <site>
-         <id>sourceforge.net</id>
-         <url>scp://shell.sourceforge.net/home/groups/s/sm/smokestack/htdocs</url>
+         <id>local</id>
+         <url>file:///${project.basedir}/../smokestack.github.com/</url>
       </site>
    </distributionManagement>
+   <organization>
+   	<name>Smokestack</name>
+   	<url>http://smokestack.github.com/</url>
+   </organization>
    <build>
       <pluginManagement>
          <plugins>
@@ -106,6 +110,10 @@
       <developer>
          <id>gliptak</id>
          <name>Gábor Lipták</name>
+      </developer>
+      <developer>
+         <id>bbrag</id>
+      <name>Bonifacio Braganza</name>
       </developer>
    </developers>
    <properties>

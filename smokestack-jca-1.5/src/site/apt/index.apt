@@ -12,4 +12,4 @@ Smokestack JMS 1.1
   all subject to change (although the good news is that unit tests are easy to refactor).
   
   Comments, suggestions, patches are welcome using
-  {{{http://sourceforge.net/projects/smokestack/}Sourceforge facilities}}.
+  {{{http://github.com/smokestack/smokestack/}Github}}.

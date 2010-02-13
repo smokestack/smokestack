@@ -5,16 +5,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>smokestack</artifactId>
-		<groupId>net.sourceforge.smokestack</groupId>
+		<groupId>com.github.smokestack</groupId>
 		<version>0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>net.sourceforge.smokestack</groupId>
+	<groupId>com.github.smokestack</groupId>
 	<artifactId>smokestack-ejb-3.0</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<name>Smokestack EJB 3.0</name>
 	<description>
       ${project.name} implements a lightweight EJB3 test container.
    </description>
+   <distributionManagement>
+      <site>
+         <id>local</id>
+         <url>file:///${project.basedir}/../../smokestack.github.com/${project.artifactId}/</url>
+      </site>
+   </distributionManagement>
 	<build>
 		<plugins>
 			<plugin>
@@ -33,7 +39,7 @@
 			<version>${hamcrest.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.smokestack</groupId>
+			<groupId>com.github.smokestack</groupId>
 			<artifactId>smokestack-common</artifactId>
 			<version>0.1-SNAPSHOT</version>
 		</dependency>
@@ -49,13 +55,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.smokestack</groupId>
+			<groupId>com.github.smokestack</groupId>
 			<artifactId>smokestack-jpa-1.0</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.smokestack</groupId>
+			<groupId>com.github.smokestack</groupId>
 			<artifactId>smokestack-jndi-1.2</artifactId>
 			<version>0.1-SNAPSHOT</version>
 			<scope>test</scope>

@@ -8,7 +8,7 @@ JDBC Module Usage
 	Example for Driver implementation
 	
 		* use the mockDriver
-			Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
+			Class.forName("com.github.smokestack.jdbc.MockDriver");	
 		* call your method to be tested
 		* Your asserts here
 		* Get access to the mock connection object 

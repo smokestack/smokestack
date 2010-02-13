@@ -11,4 +11,5 @@ Smokestack JNDI 1.2
   It should be noted that this is early release, so functionality, APIs, and more are
   all subject to change (although the good news is that unit tests are easy to refactor).
   
-  Comments, suggestions, patches are welcome using the Sourceforge facilities.
+  Comments, suggestions, patches are welcome using
+  {{{http://github.com/smokestack/smokestack/}Github}}.

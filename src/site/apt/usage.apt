@@ -48,7 +48,7 @@ Usage
 				c._commit(); throwsException(new SQLException("something bad happened")); \
 			\} \
 		\}; \
-		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver"); \
+		Class.forName("com.github.smokestack.jdbc.MockDriver"); \
 		try \{ \
 			PSBatch.main(new String\[\]\{\}); \
 			fail("expected Exception"); \

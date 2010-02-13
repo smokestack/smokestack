@@ -13,7 +13,7 @@ Extension Guidelines
 	you would follow the same classification.
 	
 *----------------+----------------------------+--------------------+-----------------------------+
-|Method types    | Examples 		          | Has Implementation | Needs Mock Ixmplementation  |
+|Method types    | Examples 		          | Has Implementation | Needs Mock Implementation   |
 *----------------+----------------------------+--------------------*-----------------------------*
 |Container       |connection.commit()         | Yes                | No                          |
 |Specific        |connection.createStatement()|                    |                             |            

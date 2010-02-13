@@ -1,0 +1,8 @@
+------
+Common Module Usage
+------
+
+This module defines Exceptions used by other Smokestack modules. 
+
+
+You can refer to the samples provided along with the source for more details.

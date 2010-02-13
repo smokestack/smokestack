@@ -1,1 +1,1 @@
-net.sourceforge.smokestack.jdbc.MockDriver
+com.github.smokestack.jdbc.MockDriver

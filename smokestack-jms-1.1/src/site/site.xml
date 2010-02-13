@@ -4,10 +4,6 @@
       <name>${project.name}</name>
       <href>${project.url}</href>
    </bannerLeft>
-   <bannerRight>
-     <href>${project.url}</href>
-     <src>http://sflogo.sourceforge.net/sflogo.php?group_id=292052&amp;type=13</src>
-   </bannerRight>
    <body>
       <links>
          <item name="Home" href="${project.url}" />
@@ -15,6 +11,7 @@
 
       <menu name="Documentation" inherit="none">
          <item name="Home" href="index.html" />
+         <item name="Usage" href="usage.html" />
       </menu>
 
       <menu ref="modules" />

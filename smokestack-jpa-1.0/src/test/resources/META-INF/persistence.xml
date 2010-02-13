@@ -27,7 +27,7 @@
     -->
     <persistence-unit name="none" transaction-type="RESOURCE_LOCAL">
         <mapping-file>reversemapping/orm.xml</mapping-file>
-        <class>net.sourceforge.smokestack.jpa.ex01.Message</class>
+        <class>com.github.smokestack.jpa.ex01.Message</class>
         <class>relations.Deity</class>
     </persistence-unit>
 
@@ -50,7 +50,7 @@
         -->
 
         <!-- We must enumerate each entity in the persistence unit -->
-        <class>net.sourceforge.smokestack.jpa.ex01.Message</class>
+        <class>com.github.smokestack.jpa.ex01.Message</class>
 
         <properties>
             <!--

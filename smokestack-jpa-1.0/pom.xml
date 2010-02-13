@@ -3,13 +3,19 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>smokestack</artifactId>
-    <groupId>net.sourceforge.smokestack</groupId>
+    <groupId>com.github.smokestack</groupId>
     <version>0.1-SNAPSHOT</version>
   </parent>
-  <groupId>net.sourceforge.smokestack</groupId>
+  <groupId>com.github.smokestack</groupId>
   <artifactId>smokestack-jpa-1.0</artifactId>
   <version>0.1-SNAPSHOT</version>
   <name>Smokestack JPA 1.0</name>
+   <distributionManagement>
+      <site>
+         <id>local</id>
+         <url>file:///${project.basedir}/../../smokestack.github.com/${project.artifactId}/</url>
+      </site>
+   </distributionManagement>
    <build>
       <plugins>
          <plugin>
@@ -23,7 +29,7 @@
    </build>
   <dependencies>
       <dependency>
-        <groupId>net.sourceforge.smokestack</groupId>
+        <groupId>com.github.smokestack</groupId>
         <artifactId>smokestack-common</artifactId>
         <version>0.1-SNAPSHOT</version>
       </dependency>
