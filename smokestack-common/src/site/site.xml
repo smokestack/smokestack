@@ -15,7 +15,6 @@
 
       <menu name="Documentation" inherit="none">
          <item name="Home" href="index.html" />
-         <item name="FAQ" href="faq.html" />
       </menu>
 
       <menu ref="modules" />

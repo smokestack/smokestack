@@ -32,3 +32,6 @@ Design Principles
     offers various benefits, like moving the control of multi-client,
     multi-threading testing back into the test code, a clean way to
     exercise exception processing in the tested code.
+    
+  * The framework introduces user and system initiated states (e.g. differentiating between COMMIT and
+    AUTOCOMMIT) allowing for fine granularity assertions of state changes.

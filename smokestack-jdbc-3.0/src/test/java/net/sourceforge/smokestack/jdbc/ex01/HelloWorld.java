@@ -22,20 +22,16 @@ public class HelloWorld {
      * @param args ignored
      */
     public static void main(String... args) throws Exception {
-        //Class.forName("org.h2.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:h2:mem:inmemory");
+		Class.forName("org.hsqldb.jdbcDriver" );
+		Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:inmemory");
         Statement stat = conn.createStatement();
 
-        // this line would initialize the database
-        // from the SQL script file 'init.sql'
-        // stat.execute("runscript from 'init.sql'");
-
-        stat.execute("create table test(id int primary key, name varchar(255))");
-        stat.execute("insert into test values(1, 'Hello')");
+        stat.execute("create table message(id int primary key, message varchar(255))");
+        stat.execute("insert into message values(1, 'Hello World')");
         ResultSet rs;
-        rs = stat.executeQuery("select * from test");
+        rs = stat.executeQuery("select * from message");
         while (rs.next()) {
-            System.out.println(rs.getString("name"));
+            System.out.println(rs.getString("message"));
         }
         rs.close();
         stat.close();

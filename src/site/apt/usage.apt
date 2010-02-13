@@ -1,0 +1,66 @@
+------
+Usage
+------
+
+	The various JEE technologies are packaged as separate modules. These modules can be used independently or 
+	can be combined within a single test case. 
+	
+	We do not make any assumption on the type of tests that you need to create and as such, there will be lot 
+	of methods that might need to be overridden. All of these methods would throw NeedsMockDefinitionException. 
+	Convenience methods are provided allowing to verify the integrity of the tests. For example, JDBC module 
+	comes with connection.assertClosed() method that will ensure that all the connections, statements and result 
+	sets are closed.
+	
+	Many of the modules are work-in-progress, and so testcases and patches are welcome. All the methods that 
+	are not yet implemented and do not partake in the life-cycle would throw NotYetImplementedException exception.
+	
+	There are generally two types of actions that we track. One is a set of operations that is explicitly invoked 
+	on the components and other is a set of operations that are implicitly invoked as part of the specifications. 
+	For example, a close() on connection will issue an implicit closure on all the associated statements and 
+	result sets or you can explicitly call close on each of these components. In parallel, we have provided 
+	assertions that test the the above two scenarios. For example, if you want to ensure that all the components 
+	were explicitly closed in the unit under testing, you can invoke assertExplicitClose() on the components. 
+	However if you don't really care for explicit closure, but just want to ensure that there is no components 
+	are in open state, you can invoke assertClosed(). For JDBC, there is a similar implementation for rollback 
+	and commit states.
+	
+	The one reason we had to do this was that there are certain drivers implementing the specifications in a 
+	limited fashion, so when we close connection, it doesn't close the associated statements and resultsets. 
+	We give full flexibility to the user to decide what type of assertions they want to do for their particular 
+	environment.
+	
+	The other design decision that we have taken to ensure that the state of the mock component is maintained 
+	in case of known exceptions as indicated in the method signature. For example, You have void commit throws 
+	SQLException(). If you use JMockit Expectations to throw a SQLException on commit(), then we ensure that the 
+	transaction state of that connection is reverted to rollback state. However if you decide to throw 
+	NullPointerException, we provide no guarantee on the state of the component from that point onwards 
+	and the validity of the corresponding assertions.
+	
+	<<< @Test \
+	public void testMainThrowOnCommit() throws SQLException, ClassNotFoundException \{ \
+		new Expectations()\{ \
+			@Mocked( methods\= \{"_commit"\}) \
+			MockConnection c; \
+			@Mocked( methods\= \{"_execute"\}) \
+			MockStatement st; \
+			\{ \
+				st._execute((String)any); \
+				c._commit(); throwsException(new SQLException("something bad happened")); \
+			\} \
+		\}; \
+		Class.forName("net.sourceforge.smokestack.jdbc.MockDriver"); \
+		try \{ \
+			PSBatch.main(new String\[\]\{\}); \
+			fail("expected Exception"); \
+		\} catch (Exception e)\{ \
+			MockConnection c\=MockDriver.instance.getMockConnections().get(0); \
+			c.assertAutoRollback(); \
+			c.assertClosed(); \
+		\} \
+	\} >>> 
+		
+	Depending on which of the modules you need to do your testing, you can download each required 
+	modules or download the entire smokestack framework. Put the required Jar files in your development 
+	environment and you are set to go.	
+
+

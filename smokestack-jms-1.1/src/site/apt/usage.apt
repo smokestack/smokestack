@@ -1,0 +1,11 @@
+------
+JMS Module Usage
+------
+
+This module mocks up the JMS component for life-cycle management. The module is configured to use 
+MockIntitialContextFactory. You then leverage the life-cycle management capabilities of the framework 
+to validate your tests. 
+
+
+
+You can refer to the samples provided along with the source for more details.

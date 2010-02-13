@@ -22,5 +22,64 @@
         </p>
       </answer>
     </faq>
+    <faq id="_">
+      <question>Why do you have methods starting with underscore. Isn't this against Java naming convention?</question>
+      <answer>
+        <p>
+          This has been discussed and discussed again. There were two options available. Prefix the 
+          methods to be overridden by say "mock" e.g mockSetLong() but the readability was 
+          getting affected as compared to "_setLong()". But the convincing argument was that
+          we are never overriding the JEE methods but providing some way of allowing you to 
+          handle the behavior of that particular method without taking away the benefits of the framework.
+        </p>
+      </answer>
+    </faq>
+    <faq id="overrride">
+      <question>Do I have to override all methods prefixed with "_"?</question>
+      <answer>
+        <p>
+          No not always. You will however override "all" methods that throw "NeedsMockImplementation" exception.
+          We have tried to provide implementation to most of the methods. However
+          there are "Edge Interactions" that have to be overriden. Example of this would be
+          resultSet.next(). We have no idea what the return should be in this case. Do you 
+          want a true or do you want a false. Instead of introducing ambuguity and you trying to deciper
+          what is the default value, we throw "NeedsMockImplementation" that will force you 
+          to override the corresponding "_next()" method. 
+        </p>
+      </answer>
+    </faq>
+    <faq id="actualMethodOverride">
+      <question>I want to override the default functionality. Do I always override methods prefixed with "_"?</question>
+      <answer>
+        <p>
+          Yes. You will always override the corresponding method prefixed with "_". 
+          This ensures that the internal state of the mock container is managed appropriately. 
+          However this does not mean that you cannot override the actual JEE method. 
+          If you do override, however, you should be aware that the state of the mock container 
+          is undefined from that point onwards and the convenience assertions methods provided will not work.  
+        </p>
+      </answer>
+    </faq>    
+    <faq id="NotYetImplemented">
+      <question>I am getting "NotYetImplemented" exception. What does it mean?</question>
+      <answer>
+        <p>
+           We have tried to cover as much area in each module as possible but we have not 
+           covered all of the functionality. In those circumstances, the mock container will 
+           throw "NotYetImplemented". It basically means that we do not have a testcase to 
+           test that functionality. So if you do encounter the "NotYetImplemented" exception
+           send us your testcase and we will try to get a solution as soon as possible. 
+        </p>
+      </answer>
+    </faq>    
+    <faq id="CanIHelp">
+      <question>Can I help in something?</question>
+      <answer>
+        <p>
+           Of course you can. You are more than welcome to send us feedback, suggestion, 
+           recommendation, code etc. We would love to hear from you. 
+        </p>
+      </answer>
+    </faq>    
   </part>
 </faqs>

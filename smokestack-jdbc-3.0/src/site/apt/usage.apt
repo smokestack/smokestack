@@ -1,0 +1,32 @@
+------
+JDBC Module Usage
+------
+
+	JDBC Module provides the following:
+	[[1]] You can use Driver or Datasource implementation
+	
+	Example for Driver implementation
+	
+		* use the mockDriver
+			Class.forName("net.sourceforge.smokestack.jdbc.MockDriver");	
+		* call your method to be tested
+		* Your asserts here
+		* Get access to the mock connection object 
+			<MockConnection c=MockDriver.instance.getMockConnections().get(0);> font. 
+		* Assert that all is good with the container
+			< c.assertExplicitClose(); > font.
+	
+	[[2]]Implementation with DataSource
+	
+		* Bind the mock datasource
+			< MockDataSource ds = MockDataSource.getInstance();
+			Context ctx = new InitialContext();
+			ctx.bind("jdbc/dsName", ds); > font.
+		* Call your method to be tested
+		* Your asserts here
+		* Get access to the mock connection object 
+			< MockConnection c=MockDataSource.instance.getMockConnections().get(0);> font.
+		* Assert that all is good with the container
+			< c.assertClosed();> font.
+	
+	You can refer to the samples provided along with the source for more details.
