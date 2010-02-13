@@ -1,0 +1,4 @@
+Smokestack is a modular JEE unit testing framework, independent of Java unit
+testing framework (like JUnit or TestNG) with functionality geared for validation.
+
+Project site is available at http://smokestack.github.com/
