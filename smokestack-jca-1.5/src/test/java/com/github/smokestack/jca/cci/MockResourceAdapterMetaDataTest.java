@@ -46,10 +46,10 @@ public class MockResourceAdapterMetaDataTest {
 
 	public final void testGetAdapterNameMock() throws ResourceException {
 		new Expectations() {
-			@Mocked( methods= { "getAdapterName" })
+			@Mocked( methods= { "_getAdapterName" })
 			MockResourceAdapterMetaData mock;
 			{
-				mock.getAdapterName(); returns("FOO");
+				mock._getAdapterName(); returns("FOO");
 			}
 		};
 		MockConnectionFactory cf = new MockConnectionFactory();

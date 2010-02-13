@@ -35,6 +35,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 * @see javax.resource.spi.ManagedConnectionFactory#createConnectionFactory()
 	 */
 	public Object createConnectionFactory() throws ResourceException {
+		return _createConnectionFactory();
+	}
+
+	public Object _createConnectionFactory() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -42,6 +46,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 * @see javax.resource.spi.ManagedConnectionFactory#createConnectionFactory(javax.resource.spi.ConnectionManager)
 	 */
 	public Object createConnectionFactory(ConnectionManager connectionManager) throws ResourceException {
+		return _createConnectionFactory(connectionManager);
+	}
+
+	public Object _createConnectionFactory(ConnectionManager connectionManager) throws ResourceException {
 		return connectionManager.allocateConnection(this, null);
 	}
 
@@ -50,6 +58,11 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 */
 	public ManagedConnection createManagedConnection(Subject subject,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
+		return _createManagedConnection(subject, connectionRequestInfo);
+	}
+
+	public ManagedConnection _createManagedConnection(Subject subject,
+			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -57,6 +70,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 * @see javax.resource.spi.ManagedConnectionFactory#getLogWriter()
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
+		return _getLogWriter();
+	}
+
+	public PrintWriter _getLogWriter() throws ResourceException {
 		return printWriter;
 	}
 
@@ -65,6 +82,11 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 */
 	public ManagedConnection matchManagedConnections(Set set, Subject subject,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
+		return _matchManagedConnections(set, subject, connectionRequestInfo);
+	}
+
+	public ManagedConnection _matchManagedConnections(Set set, Subject subject,
+			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -72,6 +94,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 * @see javax.resource.spi.ManagedConnectionFactory#setLogWriter(java.io.PrintWriter)
 	 */
 	public void setLogWriter(PrintWriter printWriter) throws ResourceException {
+		_setLogWriter(printWriter);
+	}
+
+	public void _setLogWriter(PrintWriter printWriter) throws ResourceException {
 		this.printWriter=printWriter;
 	}
 

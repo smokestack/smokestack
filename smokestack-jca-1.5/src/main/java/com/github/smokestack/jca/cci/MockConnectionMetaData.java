@@ -17,6 +17,10 @@ public class MockConnectionMetaData implements ConnectionMetaData {
 	 * @see javax.resource.cci.ConnectionMetaData#getEISProductName()
 	 */
 	public String getEISProductName() throws ResourceException {
+		return _getEISProductName();
+	}
+
+	public String _getEISProductName() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -24,6 +28,10 @@ public class MockConnectionMetaData implements ConnectionMetaData {
 	 * @see javax.resource.cci.ConnectionMetaData#getEISProductVersion()
 	 */
 	public String getEISProductVersion() throws ResourceException {
+		return _getEISProductVersion();
+	}
+
+	public String _getEISProductVersion() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -31,6 +39,10 @@ public class MockConnectionMetaData implements ConnectionMetaData {
 	 * @see javax.resource.cci.ConnectionMetaData#getUserName()
 	 */
 	public String getUserName() throws ResourceException {
+		return _getUserName();
+	}
+
+	public String _getUserName() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 

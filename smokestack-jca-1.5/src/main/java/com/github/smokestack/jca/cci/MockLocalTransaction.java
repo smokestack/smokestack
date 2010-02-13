@@ -25,6 +25,10 @@ public class MockLocalTransaction implements LocalTransaction {
 	 */
 	public void begin() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.NEW));
+		_begin();
+	}
+
+	public void _begin() throws ResourceException {
 		localTransactionState=LocalTransactionState.BEGIN;
 	}
 
@@ -33,6 +37,10 @@ public class MockLocalTransaction implements LocalTransaction {
 	 */
 	public void commit() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.BEGIN));
+		_commit();
+	}
+
+	public void _commit() throws ResourceException {
 		localTransactionState=LocalTransactionState.COMMIT;
 	}
 
@@ -41,6 +49,10 @@ public class MockLocalTransaction implements LocalTransaction {
 	 */
 	public void rollback() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.BEGIN));
+		_rollback();
+	}
+
+	public void _rollback() throws ResourceException {
 		localTransactionState=LocalTransactionState.ROLLBACK;
 	}
 

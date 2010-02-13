@@ -31,6 +31,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.resource.cci.ConnectionFactory#getConnection()
 	 */
 	public Connection getConnection() throws ResourceException {
+		return _getConnection();
+	}
+
+	public Connection _getConnection() throws ResourceException {
 		MockConnection c=new MockConnection();
 		mockConnections.add(c);
 		return c;
@@ -40,6 +44,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.resource.cci.ConnectionFactory#getConnection(javax.resource.cci.ConnectionSpec)
 	 */
 	public Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException {
+		return _getConnection(connectionSpec);
+	}
+
+	public Connection _getConnection(ConnectionSpec connectionSpec) throws ResourceException {
 		MockConnection c=new MockConnection(connectionSpec);
 		mockConnections.add(c);
 		return c;
@@ -49,6 +57,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.resource.cci.ConnectionFactory#getMetaData()
 	 */
 	public ResourceAdapterMetaData getMetaData() throws ResourceException {
+		return _getMetaData();
+	}
+
+	public ResourceAdapterMetaData _getMetaData() throws ResourceException {
 		if (mockResourceAdapterMetaData==null){
 			mockResourceAdapterMetaData=new MockResourceAdapterMetaData();			
 		}
@@ -59,6 +71,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.resource.cci.ConnectionFactory#getRecordFactory()
 	 */
 	public RecordFactory getRecordFactory() throws ResourceException {
+		return _getRecordFactory();
+	}
+
+	public RecordFactory _getRecordFactory() throws ResourceException {
 		if (mockRecordFactory==null){
 			mockRecordFactory=new MockRecordFactory();			
 		}
@@ -69,6 +85,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.resource.Referenceable#setReference(javax.naming.Reference)
 	 */
 	public void setReference(Reference reference) {
+		_setReference(reference);
+	}
+
+	public void _setReference(Reference reference) {
 		this.reference=reference;
 	}
 
@@ -76,6 +96,10 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 * @see javax.naming.Referenceable#getReference()
 	 */
 	public Reference getReference() throws NamingException {
+		return _getReference();
+	}
+	
+	public Reference _getReference() throws NamingException {
 		return reference;
 	}
 	

@@ -50,13 +50,13 @@ public class SampleCCITest {
 		ic.bind("java:comp/env/eis/myConnection", cf);
 
 		new Expectations() {
-			@Mocked( methods= { "execute" })
+			@Mocked( methods= { "_execute" })
 			MockInteraction mock;
 			{
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
+				mock._execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
 				returns(outRec);
 			}
 		};
@@ -78,13 +78,13 @@ public class SampleCCITest {
 		ic.bind("java:comp/env/eis/myConnection", cf);
 
 		new Expectations() {
-			@Mocked( methods= { "execute" })
+			@Mocked( methods= { "_execute" })
 			MockInteraction mock;
 			{
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
+				mock._execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
 				returns(outRec);
 			}
 		};
@@ -106,18 +106,18 @@ public class SampleCCITest {
 		ic.bind("java:comp/env/eis/myConnection", cf);
 
 		new Expectations() {
-			@Mocked( methods= { "execute" })
+			@Mocked( methods= { "_execute" })
 			MockInteraction mock;
 			{
 				Record outRec = new SampleRecord();
 				outRec.setRecordName("BAR");
 				outRec.setRecordShortDescription("bar");
-				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
+				mock._execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO"))));
 				returns(outRec);
 				Record outRec1 = new SampleRecord();
 				outRec1.setRecordName("BAR1");
 				outRec1.setRecordShortDescription("bar");
-				mock.execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
+				mock._execute((InteractionSpec)null, (Record)with(HasPropertyWithValue.<Record>hasProperty("recordName", IsEqual.equalTo("FOO1"))));
 				returns(outRec1);
 			}
 		};

@@ -21,6 +21,10 @@ public class MockManagedConnectionMetadata implements ManagedConnectionMetaData 
 	 * @see javax.resource.spi.ManagedConnectionMetaData#getEISProductName()
 	 */
 	public String getEISProductName() throws ResourceException {
+		return _getEISProductName();
+	}
+
+	public String _getEISProductName() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -28,6 +32,10 @@ public class MockManagedConnectionMetadata implements ManagedConnectionMetaData 
 	 * @see javax.resource.spi.ManagedConnectionMetaData#getEISProductVersion()
 	 */
 	public String getEISProductVersion() throws ResourceException {
+		return _getEISProductVersion();
+	}
+
+	public String _getEISProductVersion() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -35,6 +43,10 @@ public class MockManagedConnectionMetadata implements ManagedConnectionMetaData 
 	 * @see javax.resource.spi.ManagedConnectionMetaData#getMaxConnections()
 	 */
 	public int getMaxConnections() throws ResourceException {
+		return _getMaxConnections();
+	}
+
+	public int _getMaxConnections() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -42,6 +54,10 @@ public class MockManagedConnectionMetadata implements ManagedConnectionMetaData 
 	 * @see javax.resource.spi.ManagedConnectionMetaData#getUserName()
 	 */
 	public String getUserName() throws ResourceException {
+		return _getUserName();
+	}
+
+	public String _getUserName() throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 

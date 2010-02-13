@@ -29,6 +29,11 @@ public class MockConnectionManager implements ConnectionManager {
 	 */
 	public Object allocateConnection(ManagedConnectionFactory managedConnectionFactory,
 			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
+		return _allocateConnection(managedConnectionFactory, connectionRequestInfo);
+	}
+	
+	public Object _allocateConnection(ManagedConnectionFactory managedConnectionFactory,
+			ConnectionRequestInfo connectionRequestInfo) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 	

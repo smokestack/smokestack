@@ -33,6 +33,10 @@ public class MockInteraction implements Interaction {
 	 * @see javax.resource.cci.Interaction#clearWarnings()
 	 */
 	public void clearWarnings() throws ResourceException {
+		_clearWarnings();
+	}
+
+	public void _clearWarnings() throws ResourceException {
 		resourceWarning=null;
 	}
 
@@ -41,22 +45,34 @@ public class MockInteraction implements Interaction {
 	 */
 	public void close() throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
+		_close();
+	}
+
+	public void _close() throws ResourceException {
 		interactionState=InteractionState.CLOSE;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#execute(javax.resource.cci.InteractionSpec, javax.resource.cci.Record)
 	 */
-	public Record execute(InteractionSpec interactionSpec, Record arg1) throws ResourceException {
+	public Record execute(InteractionSpec interactionSpec, Record record) throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
+		return _execute(interactionSpec, record);
+	}
+
+	public Record _execute(InteractionSpec interactionSpec, Record record) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.Interaction#execute(javax.resource.cci.InteractionSpec, javax.resource.cci.Record, javax.resource.cci.Record)
 	 */
-	public boolean execute(InteractionSpec interactionSpec, Record arg1, Record arg2) throws ResourceException {
+	public boolean execute(InteractionSpec interactionSpec, Record record1, Record record2) throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
+		return _execute(interactionSpec, record1, record2);
+	}
+
+	public boolean _execute(InteractionSpec interactionSpec, Record record1, Record record2) throws ResourceException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -65,6 +81,10 @@ public class MockInteraction implements Interaction {
 	 */
 	public Connection getConnection() {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
+		return _getConnection();
+	}
+
+	public Connection _getConnection() {
 		return mockConnection;
 	}
 
@@ -72,6 +92,10 @@ public class MockInteraction implements Interaction {
 	 * @see javax.resource.cci.Interaction#getWarnings()
 	 */
 	public ResourceWarning getWarnings() throws ResourceException {
+		return _getWarnings();
+	}
+	
+	public ResourceWarning _getWarnings() throws ResourceException {
 		return resourceWarning;
 	}
 	
