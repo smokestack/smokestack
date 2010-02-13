@@ -9,6 +9,8 @@ import javax.jms.JMSException;
 import javax.jms.Topic;
 import javax.jms.TopicSubscriber;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.IsNot;
 
 /**
@@ -45,5 +47,9 @@ public class MockTopicSubscriber extends MockMessageConsumer implements
 	public Topic _getTopic() throws JMSException {
 		return (Topic)destination;
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

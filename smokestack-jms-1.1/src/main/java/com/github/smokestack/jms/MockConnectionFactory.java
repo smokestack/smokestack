@@ -14,6 +14,9 @@ import javax.naming.NamingException;
 import javax.naming.Reference;
 import javax.naming.Referenceable;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @author gliptak
  *
@@ -108,5 +111,10 @@ public class MockConnectionFactory implements ConnectionFactory, Serializable, R
 	 */
 	public void setReference(Reference reference){
 		this.reference=reference;
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

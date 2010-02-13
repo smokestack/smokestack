@@ -13,6 +13,8 @@ import javax.jms.QueueBrowser;
 
 import com.github.smokestack.exception.NeedsMockDefinitionException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.IsNot;
 
 /**
@@ -78,5 +80,10 @@ public class MockQueueBrowser implements QueueBrowser {
 	
 	public Queue _getQueue() throws JMSException {
 		return queue;
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

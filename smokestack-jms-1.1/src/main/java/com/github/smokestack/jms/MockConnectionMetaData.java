@@ -9,6 +9,9 @@ import java.util.Vector;
 import javax.jms.ConnectionMetaData;
 import javax.jms.JMSException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @author gliptak
  *
@@ -72,5 +75,9 @@ public class MockConnectionMetaData implements ConnectionMetaData {
 	public String getProviderVersion() throws JMSException {
 		return "1.0";
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

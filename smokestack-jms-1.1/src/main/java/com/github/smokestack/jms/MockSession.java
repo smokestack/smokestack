@@ -30,6 +30,8 @@ import javax.jms.TopicSubscriber;
 
 import com.github.smokestack.exception.NotYetImplementedException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.Is;
 import org.hamcrest.core.IsNot;
 
@@ -487,5 +489,9 @@ public class MockSession implements Session {
 	public List<MockMessage> getMockMessages() {
 		return mockMessages;
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

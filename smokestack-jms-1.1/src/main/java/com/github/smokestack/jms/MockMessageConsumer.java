@@ -11,6 +11,8 @@ import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.IsNot;
 
 import com.github.smokestack.exception.NeedsMockDefinitionException;
@@ -137,5 +139,9 @@ public class MockMessageConsumer implements MessageConsumer {
 	public MessageConsumerState getMockState() {
 		return mockState;
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

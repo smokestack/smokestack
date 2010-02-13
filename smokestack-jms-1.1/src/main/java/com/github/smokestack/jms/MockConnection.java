@@ -186,13 +186,6 @@ public class MockConnection implements Connection {
 		mockState=ConnectionState.STOP;
 	}
 
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    public String toString(){
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-
 	/**
 	 * Validation
 	 */
@@ -235,5 +228,10 @@ public class MockConnection implements Connection {
 	 */
 	public List<MockSession> getMockSessions() {
 		return mockSessions;
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }

@@ -17,6 +17,8 @@ import javax.jms.Topic;
 
 import com.github.smokestack.exception.NotYetImplementedException;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.collection.IsIn;
 import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.Is;
@@ -627,5 +629,9 @@ public class MockMessage implements Message {
 	public void _setStringProperty(String name, String value) throws JMSException {
 		properties.put(name, value);
 	}
-
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
+	}
 }

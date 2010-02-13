@@ -6,6 +6,9 @@ package com.github.smokestack.jms;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 /**
  * @author gliptak
  *
@@ -42,5 +45,10 @@ public class MockTextMessage extends MockMessage implements TextMessage {
 
 	public void _setText(String text) throws JMSException {
 		this.text=text;
+	}
+	
+	@Override
+	public String toString(){
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.MULTI_LINE_STYLE);
 	}
 }
