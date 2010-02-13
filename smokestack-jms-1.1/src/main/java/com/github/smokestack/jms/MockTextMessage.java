@@ -26,6 +26,10 @@ public class MockTextMessage extends MockMessage implements TextMessage {
 	 * @see javax.jms.TextMessage#getText()
 	 */
 	public String getText() throws JMSException {
+		return _getText();
+	}
+
+	public String _getText() throws JMSException {
 		return text;
 	}
 
@@ -33,6 +37,10 @@ public class MockTextMessage extends MockMessage implements TextMessage {
 	 * @see javax.jms.TextMessage#setText(java.lang.String)
 	 */
 	public void setText(String text) throws JMSException {
+		_setText(text);
+	}
+
+	public void _setText(String text) throws JMSException {
 		this.text=text;
 	}
 }

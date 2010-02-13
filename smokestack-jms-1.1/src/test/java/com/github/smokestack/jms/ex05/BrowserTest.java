@@ -47,13 +47,13 @@ public class BrowserTest {
 		c.bind("queue", new MockQueue("queueName"));
 
 		new Expectations(){
-			@Mocked( methods= {"getEnumeration"})
+			@Mocked( methods= {"_getEnumeration"})
 			MockQueueBrowser b;
 			{
 				Vector<TextMessage> v=new Vector<TextMessage>();
 				v.add(new MockTextMessage("queue message 1"));
 				v.add(new MockTextMessage("queue message 2"));
-				b.getEnumeration(); returns(v.elements());
+				b._getEnumeration(); returns(v.elements());
 			}
 		};
 		

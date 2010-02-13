@@ -52,6 +52,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 * @see javax.jms.MessageConsumer#close()
 	 */
 	public void close() throws JMSException {
+		_close();
+	}
+
+	public void _close() throws JMSException {
 		mockState=MessageConsumerState.CLOSE;
 	}
 
@@ -60,6 +64,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public MessageListener getMessageListener() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		return _getMessageListener();
+	}
+
+	public MessageListener _getMessageListener() throws JMSException {
 		return messageListener;
 	}
 
@@ -68,6 +76,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public String getMessageSelector() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		return _getMessageSelector();
+	}
+
+	public String _getMessageSelector() throws JMSException {
 		return messageSelector;
 	}
 
@@ -76,6 +88,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public Message receive() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		return _receive();
+	}
+
+	public Message _receive() throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -84,6 +100,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public Message receive(long timeout) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		return _receive(timeout);
+	}
+
+	public Message _receive(long timeout) throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -92,6 +112,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public Message receiveNoWait() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		return _receiveNoWait();
+	}
+
+	public Message _receiveNoWait() throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -100,6 +124,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public void setMessageListener(MessageListener messageListener) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
+		_setMessageListener(messageListener);	
+	}
+
+	public void _setMessageListener(MessageListener messageListener) throws JMSException {
 		this.messageListener=messageListener;	
 	}
 

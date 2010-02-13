@@ -45,12 +45,12 @@ public class DurableSubscriberTest {
 		c.bind("topic", new MockTopic("topicName"));
 
 		new Expectations(){
-			@Mocked( methods= {"receive"})
+			@Mocked( methods= {"_receive"})
 			MockMessageConsumer c;
 			{
-				c.receive(); returns(new MockTextMessage("Message 1"));
-				c.receive(); returns(new MockMessage());
-				c.receive(); returns(new MockTextMessage("Message 3"));
+				c._receive(); returns(new MockTextMessage("Message 1"));
+				c._receive(); returns(new MockMessage());
+				c._receive(); returns(new MockTextMessage("Message 3"));
 			}
 		};
 		

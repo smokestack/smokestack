@@ -52,6 +52,10 @@ public class MockConnection implements Connection {
 	 * @see javax.jms.Connection#close()
 	 */
 	public void close() throws JMSException {
+		_close();
+	}
+
+	public void _close() throws JMSException {
 		mockState=ConnectionState.CLOSE;
 		// propagate
 		for (MockSession session: mockSessions){
@@ -65,6 +69,11 @@ public class MockConnection implements Connection {
 	public ConnectionConsumer createConnectionConsumer(Destination destination, String messageSelector,
 			ServerSessionPool sessionPool, int maxMessages) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		return _createConnectionConsumer(destination, messageSelector, sessionPool, maxMessages);
+	}
+
+	public ConnectionConsumer _createConnectionConsumer(Destination destination, String messageSelector,
+			ServerSessionPool sessionPool, int maxMessages) throws JMSException {
 		throw new NotYetImplementedException();
 	}
 
@@ -74,6 +83,11 @@ public class MockConnection implements Connection {
 	public ConnectionConsumer createDurableConnectionConsumer(Topic topic, String subscriptionName, 
 			String messageSelector, ServerSessionPool sessionPool, int maxMessages)	throws JMSException {
         assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		return _createDurableConnectionConsumer(topic, subscriptionName, messageSelector, sessionPool, maxMessages);
+	}
+
+	public ConnectionConsumer _createDurableConnectionConsumer(Topic topic, String subscriptionName, 
+			String messageSelector, ServerSessionPool sessionPool, int maxMessages)	throws JMSException {
 		throw new NotYetImplementedException();
 	}
 
@@ -82,6 +96,10 @@ public class MockConnection implements Connection {
 	 */
 	public Session createSession(boolean transacted, int acknowledgeMode) throws JMSException {
         assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		return _createSession(transacted, acknowledgeMode);
+	}
+
+	public Session _createSession(boolean transacted, int acknowledgeMode) throws JMSException {
 		MockSession s=new MockSession(transacted, acknowledgeMode);
 		mockSessions.add(s);
 		return s;
@@ -91,6 +109,10 @@ public class MockConnection implements Connection {
 	 * @see javax.jms.Connection#getClientID()
 	 */
 	public String getClientID() throws JMSException {
+		return _getClientID();
+	}
+
+	public String _getClientID() throws JMSException {
 		return clientID;
 	}
 
@@ -99,6 +121,10 @@ public class MockConnection implements Connection {
 	 */
 	public ExceptionListener getExceptionListener() throws JMSException {
         assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		return _getExceptionListener();
+	}
+
+	public ExceptionListener _getExceptionListener() throws JMSException {
 		throw new NotYetImplementedException();
 	}
 
@@ -106,6 +132,10 @@ public class MockConnection implements Connection {
 	 * @see javax.jms.Connection#getMetaData()
 	 */
 	public ConnectionMetaData getMetaData() throws JMSException {
+		return _getMetaData();
+	}
+
+	public ConnectionMetaData _getMetaData() throws JMSException {
 		return new MockConnectionMetaData();
 	}
 
@@ -113,6 +143,10 @@ public class MockConnection implements Connection {
 	 * @see javax.jms.Connection#setClientID(java.lang.String)
 	 */
 	public void setClientID(String clientID) throws JMSException {
+      	_setClientID(clientID);
+	}
+
+	public void _setClientID(String clientID) throws JMSException {
       	this.clientID=clientID;
 	}
 
@@ -121,6 +155,10 @@ public class MockConnection implements Connection {
 	 */
 	public void setExceptionListener(ExceptionListener listener) throws JMSException {
         assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		_setExceptionListener(listener);
+	}
+
+	public void _setExceptionListener(ExceptionListener listener) throws JMSException {
 		throw new NotYetImplementedException();
 	}
 
@@ -129,6 +167,10 @@ public class MockConnection implements Connection {
 	 */
 	public void start() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
+		_start();
+	}
+
+	public void _start() throws JMSException {
 		mockState=ConnectionState.START;
 	}
 
@@ -137,6 +179,10 @@ public class MockConnection implements Connection {
 	 */
 	public void stop() throws JMSException {
 		assertThat("mockState", mockState, Is.is(ConnectionState.START));
+		_stop();
+	}
+
+	public void _stop() throws JMSException {
 		mockState=ConnectionState.STOP;
 	}
 

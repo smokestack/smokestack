@@ -66,12 +66,12 @@ public class SenderTest {
 	@Test
 	public final void testMain() throws NamingException, JMSException {
 		new Expectations(){
-			@Mocked( methods= {"send"})
+			@Mocked( methods= {"_send"})
 			MockMessageProducer p;
 			{
-				p.send(withInstanceOf(Message.class));
-				p.send(withInstanceOf(Message.class));
-				p.send(withInstanceOf(Message.class));
+				p._send(withInstanceOf(Message.class));
+				p._send(withInstanceOf(Message.class));
+				p._send(withInstanceOf(Message.class));
 			}
 		};
 		Context c=new InitialContext();

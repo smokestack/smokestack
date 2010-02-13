@@ -38,6 +38,10 @@ public class MockTopic implements Topic, Serializable, Referenceable {
 	 * @see javax.jms.Topic#getTopicName()
 	 */
 	public String getTopicName() throws JMSException {
+		return _getTopicName();
+	}
+
+	public String _getTopicName() throws JMSException {
 		return topicName;
 	}
 
@@ -45,6 +49,10 @@ public class MockTopic implements Topic, Serializable, Referenceable {
 	 * @see javax.naming.Referenceable#getReference()
 	 */
 	public Reference getReference() throws NamingException {
+		return _getReference();
+	}
+
+	public Reference _getReference() throws NamingException {
 		return reference;
 	}
 
@@ -53,6 +61,10 @@ public class MockTopic implements Topic, Serializable, Referenceable {
 	 * @param reference
 	 */
 	public void setReference(Reference reference){
+		_setReference(reference);
+	}
+
+	public void _setReference(Reference reference){
 		this.reference=reference;
 	}
 }

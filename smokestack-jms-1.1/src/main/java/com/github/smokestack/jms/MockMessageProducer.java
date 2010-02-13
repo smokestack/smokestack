@@ -44,6 +44,10 @@ public class MockMessageProducer implements MessageProducer {
 	 * @see javax.jms.MessageProducer#close()
 	 */
 	public void close() throws JMSException {
+		_close();
+	}
+
+	public void _close() throws JMSException {
 		mockState=MessageProducerState.CLOSE;
 	}
 
@@ -52,6 +56,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public int getDeliveryMode() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getDeliveryMode();
+	}
+
+	public int _getDeliveryMode() throws JMSException {
 		return deliveryMode;
 	}
 
@@ -60,6 +68,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public Destination getDestination() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getDestination();
+	}
+
+	public Destination _getDestination() throws JMSException {
 		return destination;
 	}
 
@@ -68,6 +80,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public boolean getDisableMessageID() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getDisableMessageID();
+	}
+
+	public boolean _getDisableMessageID() throws JMSException {
 		return disableMessageID;
 	}
 
@@ -76,6 +92,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public boolean getDisableMessageTimestamp() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getDisableMessageTimestamp();
+	}
+
+	public boolean _getDisableMessageTimestamp() throws JMSException {
 		return disableMessageTimestamp;
 	}
 
@@ -84,6 +104,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public int getPriority() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getPriority();
+	}
+
+	public int _getPriority() throws JMSException {
 		return priority;
 	}
 
@@ -92,6 +116,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public long getTimeToLive() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		return _getTimeToLive();
+	}
+
+	public long _getTimeToLive() throws JMSException {
 		return timeToLive;
 	}
 
@@ -100,6 +128,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void send(Message message) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_send(message);
+	}
+
+	public void _send(Message message) throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -108,6 +140,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void send(Destination destination, Message message) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_send(destination, message);
+	}
+
+	public void _send(Destination destination, Message message) throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -116,6 +152,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void send(Message message, int deliveryMode, int priority, long timeToLive) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_send(message, deliveryMode, priority, timeToLive);
+	}
+
+	public void _send(Message message, int deliveryMode, int priority, long timeToLive) throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -125,6 +165,11 @@ public class MockMessageProducer implements MessageProducer {
 	public void send(Destination destination, Message message, int deliveryMode, int priority,
 			long timeToLive) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_send(message, deliveryMode, priority, timeToLive);
+	}
+
+	public void _send(Destination destination, Message message, int deliveryMode, int priority,
+			long timeToLive) throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -133,6 +178,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void setDeliveryMode(int deliveryMode) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_setDeliveryMode(deliveryMode);
+	}
+
+	public void _setDeliveryMode(int deliveryMode) throws JMSException {
 		this.deliveryMode=deliveryMode;
 	}
 
@@ -141,6 +190,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void setDisableMessageID(boolean disableMessageID) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_setDisableMessageID(disableMessageID);
+	}
+
+	public void _setDisableMessageID(boolean disableMessageID) throws JMSException {
 		this.disableMessageID=disableMessageID;
 	}
 
@@ -149,6 +202,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void setDisableMessageTimestamp(boolean disableMessageTimestamp) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_setDisableMessageTimestamp(disableMessageTimestamp);
+	}
+
+	public void _setDisableMessageTimestamp(boolean disableMessageTimestamp) throws JMSException {
 		this.disableMessageTimestamp=disableMessageTimestamp;
 	}
 
@@ -157,6 +214,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void setPriority(int priority) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_setPriority(priority);
+	}
+
+	public void _setPriority(int priority) throws JMSException {
 		this.priority=priority;
 	}
 
@@ -165,6 +226,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void setTimeToLive(long timeToLive) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
+		_setTimeToLive(timeToLive);
+	}
+
+	public void _setTimeToLive(long timeToLive) throws JMSException {
 		this.timeToLive=timeToLive;
 	}
 

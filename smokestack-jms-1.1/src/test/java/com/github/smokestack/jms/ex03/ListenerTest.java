@@ -51,12 +51,12 @@ public class ListenerTest {
 		c.bind("queue", new MockQueue("queue"));
 
 		new Expectations(){
-			@Mocked( methods= {"start"})
+			@Mocked( methods= {"_start"})
 			MockConnection c;
 			@Mocked
 			BufferedReader br;
 			{
-				c.start();
+				c._start();
 				returns(new Delegate(){
 					@SuppressWarnings("unused")
 					void start() throws JMSException {

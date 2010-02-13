@@ -39,6 +39,10 @@ public class MockConnectionFactory implements ConnectionFactory, Serializable, R
 	 * @see javax.jms.ConnectionFactory#createConnection()
 	 */
 	public Connection createConnection() throws JMSException {
+		return _createConnection();
+	}
+
+	public Connection _createConnection() throws JMSException {
 		MockConnection c=new MockConnection();
 		mockConnections.add(c);
 		return c;
@@ -48,6 +52,10 @@ public class MockConnectionFactory implements ConnectionFactory, Serializable, R
 	 * @see javax.jms.ConnectionFactory#createConnection(java.lang.String, java.lang.String)
 	 */
 	public Connection createConnection(String userName, String password) throws JMSException {
+		return _createConnection(userName, password);
+	}
+
+	public Connection _createConnection(String userName, String password) throws JMSException {
 		MockConnection c=new MockConnection(userName, password);
 		mockConnections.add(c);
 		return c;

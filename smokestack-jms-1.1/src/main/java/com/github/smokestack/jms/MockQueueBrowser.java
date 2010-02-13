@@ -37,6 +37,10 @@ public class MockQueueBrowser implements QueueBrowser {
 	 * @see javax.jms.QueueBrowser#close()
 	 */
 	public void close() throws JMSException {
+		_close();
+	}
+
+	public void _close() throws JMSException {
 		mockState=QueueBrowserState.CLOSE;
 	}
 
@@ -45,6 +49,10 @@ public class MockQueueBrowser implements QueueBrowser {
 	 */
 	public Enumeration getEnumeration() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(QueueBrowserState.CLOSE));
+		return _getEnumeration();
+	}
+
+	public Enumeration _getEnumeration() throws JMSException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -53,6 +61,10 @@ public class MockQueueBrowser implements QueueBrowser {
 	 */
 	public String getMessageSelector() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(QueueBrowserState.CLOSE));
+		return _getMessageSelector();
+	}
+
+	public String _getMessageSelector() throws JMSException {
 		return messageSelector;
 	}
 
@@ -61,6 +73,10 @@ public class MockQueueBrowser implements QueueBrowser {
 	 */
 	public Queue getQueue() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(QueueBrowserState.CLOSE));
+		return _getQueue();
+	}
+	
+	public Queue _getQueue() throws JMSException {
 		return queue;
 	}
 }

@@ -39,12 +39,12 @@ public class ReceiverTest {
 	@Test
 	public final void testMain() throws NamingException, JMSException {
 		new Expectations(){
-			@Mocked( methods= {"receive"})
+			@Mocked( methods= {"_receive"})
 			MockMessageConsumer c;
 			{
-				c.receive(); returns(new MockTextMessage("Message 1"));
-				c.receive(); returns(new MockTextMessage("Message 2"));
-				c.receive(); returns(new MockTextMessage("Message 3"));
+				c._receive(); returns(new MockTextMessage("Message 1"));
+				c._receive(); returns(new MockTextMessage("Message 2"));
+				c._receive(); returns(new MockTextMessage("Message 3"));
 			}
 		};
 		Context c=new InitialContext();
