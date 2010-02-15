@@ -3,6 +3,7 @@ package com.github.smokestack.jndi;
 import java.util.Hashtable;
 
 import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.junit.After;
@@ -34,6 +35,8 @@ public class MockInitialContextFactoryTest {
 
 	@Test
 	public final void testGetInitialContext() throws NamingException {
+		// reset first ...
+		new InitialContext().close();
 		Hashtable environment=new Hashtable();
 		environment.put("name", "value");
 		environment.put("name1", "value1");

@@ -22,7 +22,8 @@ Smokestack
   Please use the unit tests under the modules to learn more about the features.
   
   There is no official release yet, the source can be built from the repository using
-  Maven.
+  Maven. Or snapshot jars are available at the {{{http://github.com/smokestack/smokestack/downloads}download page}}
+  and at {{{http://oss.sonatype.org/content/repositories/snapshots/com/github/smokestack/}Sonatype Maven repo}}.
   
   It should be noted that this is early release, so functionality, APIs, and more are
   all subject to change (although the good news is that unit tests are easy to refactor).

@@ -31,6 +31,14 @@
       <url>http://github.com/smokestack/smokestack/issues</url>
    </issueManagement>
    <distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
       <site>
          <id>local</id>
          <url>file:///${project.basedir}/../smokestack.github.com/</url>
