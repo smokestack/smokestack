@@ -30,61 +30,61 @@ public class MockConnectionFactory implements ConnectionFactory {
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getConnection()
 	 */
-	public Connection getConnection() throws ResourceException {
-		return _getConnection();
-	}
-
-	public Connection _getConnection() throws ResourceException {
-		MockConnection c=new MockConnection();
+	public Connection getConnection() throws ResourceException {	
+		MockConnection c=_getConnection();
 		mockConnections.add(c);
 		return c;
+	}
+
+	public MockConnection _getConnection() throws ResourceException {
+		return new MockConnection();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getConnection(javax.resource.cci.ConnectionSpec)
 	 */
-	public Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException {
-		return _getConnection(connectionSpec);
-	}
-
-	public Connection _getConnection(ConnectionSpec connectionSpec) throws ResourceException {
-		MockConnection c=new MockConnection(connectionSpec);
+	public Connection getConnection(ConnectionSpec connectionSpec) throws ResourceException {	
+		MockConnection c=_getConnection(connectionSpec);
 		mockConnections.add(c);
 		return c;
+	}
+
+	public MockConnection _getConnection(ConnectionSpec connectionSpec) throws ResourceException {
+		return new MockConnection(connectionSpec);
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getMetaData()
 	 */
 	public ResourceAdapterMetaData getMetaData() throws ResourceException {
-		return _getMetaData();
-	}
-
-	public ResourceAdapterMetaData _getMetaData() throws ResourceException {
 		if (mockResourceAdapterMetaData==null){
-			mockResourceAdapterMetaData=new MockResourceAdapterMetaData();			
+			mockResourceAdapterMetaData=_getMetaData();	
 		}
 		return mockResourceAdapterMetaData;
+	}
+
+	public MockResourceAdapterMetaData _getMetaData() throws ResourceException {
+		return new MockResourceAdapterMetaData();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.cci.ConnectionFactory#getRecordFactory()
 	 */
 	public RecordFactory getRecordFactory() throws ResourceException {
-		return _getRecordFactory();
-	}
-
-	public RecordFactory _getRecordFactory() throws ResourceException {
 		if (mockRecordFactory==null){
-			mockRecordFactory=new MockRecordFactory();			
+			mockRecordFactory=_getRecordFactory();
 		}
 		return mockRecordFactory;
+	}
+
+	public MockRecordFactory _getRecordFactory() throws ResourceException {
+		return new MockRecordFactory();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.resource.Referenceable#setReference(javax.naming.Reference)
 	 */
-	public void setReference(Reference reference) {
+	public void setReference(Reference reference) {	
 		_setReference(reference);
 	}
 
@@ -97,6 +97,7 @@ public class MockConnectionFactory implements ConnectionFactory {
 	 */
 	public Reference getReference() throws NamingException {
 		return _getReference();
+		
 	}
 	
 	public Reference _getReference() throws NamingException {

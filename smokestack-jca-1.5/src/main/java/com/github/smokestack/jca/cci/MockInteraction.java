@@ -23,8 +23,6 @@ public class MockInteraction implements Interaction {
 	
 	protected InteractionState interactionState=InteractionState.NEW;
 	
-	protected ResourceWarning resourceWarning=null;
-
 	public MockInteraction(MockConnection mockConnection) {
 		this.mockConnection=mockConnection;
 	}
@@ -37,7 +35,7 @@ public class MockInteraction implements Interaction {
 	}
 
 	public void _clearWarnings() throws ResourceException {
-		resourceWarning=null;
+		throw new NeedsMockDefinitionException();
 	}
 
 	/* (non-Javadoc)
@@ -45,11 +43,11 @@ public class MockInteraction implements Interaction {
 	 */
 	public void close() throws ResourceException {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
+		interactionState=InteractionState.CLOSE;
 		_close();
 	}
 
 	public void _close() throws ResourceException {
-		interactionState=InteractionState.CLOSE;
 	}
 
 	/* (non-Javadoc)
@@ -96,7 +94,7 @@ public class MockInteraction implements Interaction {
 	}
 	
 	public ResourceWarning _getWarnings() throws ResourceException {
-		return resourceWarning;
+		throw new NeedsMockDefinitionException();
 	}
 	
 	public InteractionState getMockInteractionState() {

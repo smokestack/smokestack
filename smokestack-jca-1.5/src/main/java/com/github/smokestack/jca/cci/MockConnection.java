@@ -38,11 +38,11 @@ public class MockConnection implements Connection {
 	 */
 	public void close() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
+		connectionState=ConnectionState.CLOSE;
 		_close();
 	}
 
 	public void _close() throws ResourceException {
-		connectionState=ConnectionState.CLOSE;
 	}
 
 	/* (non-Javadoc)
@@ -50,14 +50,14 @@ public class MockConnection implements Connection {
 	 */
 	public Interaction createInteraction() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
-		return _createInteraction();
-	}
-
-	public Interaction _createInteraction() throws ResourceException {
 		if (mockInteraction==null){
-			mockInteraction=new MockInteraction(this);
+			mockInteraction=_createInteraction();
 		}
 		return mockInteraction;
+	}
+
+	public MockInteraction _createInteraction() throws ResourceException {
+		return new MockInteraction(this);
 	}
 
 	/* (non-Javadoc)
@@ -65,14 +65,14 @@ public class MockConnection implements Connection {
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
-		return _getLocalTransaction();
-	}
-
-	public LocalTransaction _getLocalTransaction() throws ResourceException {
 		if (mockTransaction==null){
-			mockTransaction=new MockLocalTransaction();
+			mockTransaction=_getLocalTransaction();
 		}
 		return mockTransaction;
+	}
+
+	public MockLocalTransaction _getLocalTransaction() throws ResourceException {
+		return new MockLocalTransaction();
 	}
 
 	/* (non-Javadoc)
@@ -80,14 +80,14 @@ public class MockConnection implements Connection {
 	 */
 	public ConnectionMetaData getMetaData() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
-		return _getMetaData();
-	}
-
-	public ConnectionMetaData _getMetaData() throws ResourceException {
 		if (mockConnectionMetaData==null){
-			mockConnectionMetaData=new MockConnectionMetaData();
+			mockConnectionMetaData=_getMetaData();
 		}
 		return mockConnectionMetaData;
+	}
+
+	public MockConnectionMetaData _getMetaData() throws ResourceException {
+		return new MockConnectionMetaData();
 	}
 
 	/* (non-Javadoc)
@@ -95,14 +95,14 @@ public class MockConnection implements Connection {
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
-		return _getResultSetInfo();
-	}
-	
-	public ResultSetInfo _getResultSetInfo() throws ResourceException {
 		if (mockResultSetInfo==null){
-			mockResultSetInfo=new MockResultSetInfo();
+			mockResultSetInfo=_getResultSetInfo();
 		}
 		return mockResultSetInfo;
+	}
+	
+	public MockResultSetInfo _getResultSetInfo() throws ResourceException {
+		return new MockResultSetInfo();
 	}
 	
 	public void validateMockComplete(){

@@ -43,13 +43,14 @@ public class MockDataSource implements DataSource {
 	 * @see javax.sql.DataSource#getConnection()
 	 */
 	public Connection getConnection() throws SQLException {
-		MockConnection c=_getConnection();
+		_getConnection();
+		MockConnection c=new MockConnection();
 		mockConnections.add(c);
 		return c;
 	}
 
-	public MockConnection _getConnection() {
-		return new MockConnection();
+	public MockConnection _getConnection() throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -57,35 +58,39 @@ public class MockDataSource implements DataSource {
 	 */
 	public Connection getConnection(String username, String password)
 			throws SQLException {
-		MockConnection c=_getConnection(username, password);
+		_getConnection(username, password);
+		MockConnection c=new MockConnection();
 		mockConnections.add(c);
 		return c;
 	}
 
-	public MockConnection _getConnection(String username, String password) {
-		return new MockConnection();
+	public MockConnection _getConnection(String username, String password)
+			throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#getLogWriter()
 	 */
 	public PrintWriter getLogWriter() throws SQLException {
-		return _getLogWriter();
+		_getLogWriter();
+		return this.logWriter;
 	}
 
-	public PrintWriter _getLogWriter() {
-		return this.logWriter;
+	public PrintWriter _getLogWriter() throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.sql.DataSource#getLoginTimeout()
 	 */
 	public int getLoginTimeout() throws SQLException {
-		return _getLoginTimeout();
+		_getLoginTimeout();
+		return loginTimeout;
 	}
 
-	public int _getLoginTimeout() {
-		return loginTimeout;
+	public int _getLoginTimeout() throws SQLException {
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -93,10 +98,10 @@ public class MockDataSource implements DataSource {
 	 */
 	public void setLogWriter(PrintWriter out) throws SQLException {
 		_setLogWriter(out);
+		this.logWriter = out;
 	}
 
-	public void _setLogWriter(PrintWriter out) {
-		this.logWriter = out;
+	public void _setLogWriter(PrintWriter out) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -104,10 +109,10 @@ public class MockDataSource implements DataSource {
 	 */
 	public void setLoginTimeout(int seconds) throws SQLException {
 		_setLoginTimeout(seconds);
+		this.loginTimeout = seconds;
 	}
 
-	public void _setLoginTimeout(int seconds) {
-		this.loginTimeout = seconds;
+	public void _setLoginTimeout(int seconds) throws SQLException {
 	}
 
 	public List<MockConnection> getMockConnections() {

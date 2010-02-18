@@ -46,10 +46,11 @@ public class MockDriver implements Driver {
 	 */
 	public boolean acceptsURL(String url) throws SQLException {
 		this.url = url;
-		return _acceptsURL(url);
+		_acceptsURL(url);
+		return true;
 	}
 
-	public boolean _acceptsURL(String url) {
+	public boolean _acceptsURL(String url) throws SQLException {
 		return true;
 	}
 
@@ -57,13 +58,14 @@ public class MockDriver implements Driver {
 	 * @see java.sql.Driver#connect(java.lang.String, java.util.Properties)
 	 */
 	public Connection connect(String url, Properties info) throws SQLException {
-		MockConnection c=_connect(url, info);
+		_connect(url, info);
+		MockConnection c=new MockConnection(url, info);
 		mockConnections.add(c);
 		return c;
 	}
 
-	public MockConnection _connect(String url, Properties info) {
-		return new MockConnection(url, info);
+	public MockConnection _connect(String url, Properties info) throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -91,7 +93,8 @@ public class MockDriver implements Driver {
 	 * @see java.sql.Driver#jdbcCompliant()
 	 */
 	public boolean jdbcCompliant() {
-		return _jdbcCompliant();
+		_jdbcCompliant();
+		return true;
 	}
 
     public boolean _jdbcCompliant() {

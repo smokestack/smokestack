@@ -64,10 +64,10 @@ public class MockStatement implements Statement {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		assertThat("Auto Commit State", parent.autoCommitState, Is.is(MockConnection.AutoCommitState.DISABLED));
 		_addBatch(sql);
+		batchSQLs.add(new String());
 	}
 
 	public void _addBatch(String sql) {
-		batchSQLs.add(new String());
 	}
 
 	/* (non-Javadoc)
@@ -89,10 +89,10 @@ public class MockStatement implements Statement {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		assertThat("Auto Commit State", parent.autoCommitState, Is.is(MockConnection.AutoCommitState.DISABLED));
 		_clearBatch();
+		batchSQLs.clear();
 	}
 
 	public void _clearBatch() {
-		batchSQLs.clear();
 	}
 
 	/* (non-Javadoc)
@@ -313,11 +313,12 @@ public class MockStatement implements Statement {
 	 */
 	public Connection getConnection() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getConnection();
+		_getConnection();
+		return connection;
 	}
 
 	public Connection _getConnection() {
-		return connection;
+		return null; 
 	}
 
 	/* (non-Javadoc)
@@ -325,11 +326,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getFetchDirection() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getFetchDirection();
+		_getFetchDirection();
+		return direction;
 	}
 
 	public int _getFetchDirection() {
-		return direction;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -337,11 +339,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getFetchSize() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getFetchSize();
+		_getFetchSize();
+		return fetchSize;
 	}
 
 	public int _getFetchSize() {
-		return fetchSize;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -357,11 +360,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getMaxFieldSize() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getMaxFieldSize();
+		_getMaxFieldSize();
+		return maxFieldSize;
 	}
 
 	public int _getMaxFieldSize() {
-		return maxFieldSize;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -369,11 +373,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getMaxRows() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getMaxRows();
+		_getMaxRows();
+		return maxRows;
 	}
 
 	public int _getMaxRows() {
-		return maxRows;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -405,11 +410,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getQueryTimeout() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getQueryTimeout();
+		_getQueryTimeout();
+		return queryTimeout;
 	}
 
 	public int _getQueryTimeout() {
-		return queryTimeout;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -417,11 +423,12 @@ public class MockStatement implements Statement {
 	 */
 	public ResultSet getResultSet() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getResultSet();
+		_getResultSet();
+		return this.mockResultSets.get(mockResultSets.size()-1);
 	}
 
 	public ResultSet _getResultSet() {
-		return this.mockResultSets.get(mockResultSets.size()-1);
+		return null; 
 	}
 
 	/* (non-Javadoc)
@@ -429,11 +436,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getResultSetConcurrency() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getResultSetConcurrency();
+		_getResultSetConcurrency();
+		return resultSetConcurrency;
 	}
 
 	public int _getResultSetConcurrency() {
-		return resultSetConcurrency;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -441,11 +449,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getResultSetHoldability() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getResultSetHoldability();
+		_getResultSetHoldability();
+		return resultSetHoldability;
 	}
 
 	public int _getResultSetHoldability() {
-		return resultSetHoldability;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -453,11 +462,12 @@ public class MockStatement implements Statement {
 	 */
 	public int getResultSetType() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		return _getResultSetType();
+		_getResultSetType();
+		return resultSetType;
 	}
 
 	public int _getResultSetType() {
-		return resultSetType;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -490,10 +500,10 @@ public class MockStatement implements Statement {
 	public void setCursorName(String name) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setCursorName( name);
+		this.cursorName = name;
 	}
 
 	public void _setCursorName(String name) {
-		cursorName = name;
 	}
 
 	/* (non-Javadoc)
@@ -502,10 +512,10 @@ public class MockStatement implements Statement {
 	public void setEscapeProcessing(boolean enable) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setEscapeProcessing(enable);
+		this.escapeProcessing = enable;
 	}
 
 	public void _setEscapeProcessing(boolean enable) {
-		this.escapeProcessing = enable;
 	}
 
 	/* (non-Javadoc)
@@ -514,10 +524,10 @@ public class MockStatement implements Statement {
 	public void setFetchDirection(int direction) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setFetchDirection( direction);
+		this.direction=direction;
 	}
 
 	public void _setFetchDirection(int direction) {
-		this.direction=direction;
 	}
 
 	/* (non-Javadoc)
@@ -526,10 +536,10 @@ public class MockStatement implements Statement {
 	public void setFetchSize(int rows) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setFetchSize(rows);
+		this.fetchSize = rows;
 	}
 
 	public void _setFetchSize(int rows) {
-		fetchSize = rows;
 	}
 
 	/* (non-Javadoc)
@@ -538,10 +548,10 @@ public class MockStatement implements Statement {
 	public void setMaxFieldSize(int max) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setMaxFieldSize(max);
+		this.maxFieldSize = max;
 	}
 
 	public void _setMaxFieldSize(int max) {
-		maxFieldSize = max;
 	}
 
 	/* (non-Javadoc)
@@ -550,10 +560,10 @@ public class MockStatement implements Statement {
 	public void setMaxRows(int max) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setMaxRows(max);
+		this.maxRows = max;
 	}
 
 	public void _setMaxRows(int max) {
-		this.maxRows = max;
 	}
 
 	/* (non-Javadoc)
@@ -562,10 +572,10 @@ public class MockStatement implements Statement {
 	public void setQueryTimeout(int seconds) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		_setQueryTimeout(seconds);
+		this.queryTimeout = seconds;
 	}
 
 	public void _setQueryTimeout(int seconds) {
-		this.queryTimeout = seconds;
 	}
 
 	/**

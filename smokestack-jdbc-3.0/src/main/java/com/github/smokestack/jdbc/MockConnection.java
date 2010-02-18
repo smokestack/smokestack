@@ -117,13 +117,14 @@ public class MockConnection implements Connection {
 	 */
 	public Statement createStatement() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockStatement st= _createStatement();
+		_createStatement();
+		MockStatement st= new MockStatement(this);
 		mockStatements.add(st);
 		return st;
 	}
 
-	public MockStatement _createStatement() {
-		return new MockStatement(this);
+	public MockStatement _createStatement()throws SQLException  {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -132,17 +133,16 @@ public class MockConnection implements Connection {
 	public Statement createStatement(int resultSetType, int resultSetConcurrency)
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockStatement st= _createStatement(resultSetType, resultSetConcurrency);
-		if(st == null){
-			st = new MockStatement(this);
-		}
+		_createStatement(resultSetType, resultSetConcurrency);
+		MockStatement st= new MockStatement(this); 
 		st.setResultType(resultSetType);
 		st.setResultSetConcurrency(resultSetConcurrency);
 		mockStatements.add(st);
 		return st;
 	}
 
-	public MockStatement _createStatement(int resultSetType, int resultSetConcurrency) {
+	public MockStatement _createStatement(int resultSetType, int resultSetConcurrency)
+		throws SQLException {
 		return null;
 	}
 
@@ -152,13 +152,11 @@ public class MockConnection implements Connection {
 	public Statement createStatement(int resultSetType,	int resultSetConcurrency,
 			int resultSetHoldability)	throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		_createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
 		this.resultSetType = resultSetType;
 		this.resultSetConcurrency = resultSetConcurrency;
 		this.holdability = resultSetHoldability;
-		MockStatement st= _createStatement(resultSetType, resultSetConcurrency, resultSetHoldability);
-		if(st == null){
-			st = new MockStatement(this);
-		}
+		MockStatement st= new MockStatement(this); 
 		st.setResultType(resultSetType);
 		st.setResultSetConcurrency(resultSetConcurrency);
 		st.setHoldability(resultSetHoldability);
@@ -166,7 +164,8 @@ public class MockConnection implements Connection {
 		return st;
 	}
 
-	public MockStatement _createStatement(int resultSetType, int resultSetConcurrency, int resultSetHoldability) {
+	public MockStatement _createStatement(int resultSetType, int resultSetConcurrency, 
+			int resultSetHoldability) throws SQLException {
 		return null;
 	}
 
@@ -175,11 +174,12 @@ public class MockConnection implements Connection {
 	 */
 	public boolean getAutoCommit() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		return _getAutoCommit();
+		_getAutoCommit();
+		return autoCommitState == AutoCommitState.ENABLED?true:false;
 	}
 
-	public boolean _getAutoCommit() {
-		return autoCommitState == AutoCommitState.ENABLED?true:false;
+	public boolean _getAutoCommit() throws SQLException{
+		return false; 
 	}
 
 	/* (non-Javadoc)
@@ -187,11 +187,13 @@ public class MockConnection implements Connection {
 	 */
 	public String getCatalog() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		return _getCatalog();
+		_getCatalog();
+		return this.catalog;
+		
 	}
 
-	public String _getCatalog() {
-		return this.catalog;
+	public String _getCatalog() throws SQLException{
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -199,11 +201,13 @@ public class MockConnection implements Connection {
 	 */
 	public int getHoldability() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		return _getHoldability();
+		_getHoldability();
+		return holdability;
+		
 	}
 
-	public int _getHoldability() {
-		return holdability;
+	public int _getHoldability() throws SQLException {
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -219,7 +223,12 @@ public class MockConnection implements Connection {
 	 */
 	public int getTransactionIsolation() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		_getTransactionIsolation();
 		return transactionIsolation;
+	}
+
+	private int _getTransactionIsolation() throws SQLException {
+		return -1; 
 	}
 
 	/* (non-Javadoc)
@@ -235,10 +244,10 @@ public class MockConnection implements Connection {
 	 */
 	public SQLWarning getWarnings() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		return _getWarnings();
+		return _getWarnings(); 
 	}
 
-	public SQLWarning _getWarnings() {
+	public SQLWarning _getWarnings() throws SQLException {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -246,11 +255,12 @@ public class MockConnection implements Connection {
 	 * @see java.sql.Connection#isClosed()
 	 */
 	public boolean isClosed() throws SQLException {
-		return _isClosed();
+		_isClosed();
+		return mockConnectionState==ConnectionState.CLOSE;
 	}
 
-	public boolean _isClosed() {
-		return mockConnectionState==ConnectionState.CLOSE;
+	public boolean _isClosed() throws SQLException{
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -258,11 +268,12 @@ public class MockConnection implements Connection {
 	 */
 	public boolean isReadOnly() throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		return _isReadOnly();
+		_isReadOnly();
+		return readOnly;
 	}
 
-	public boolean _isReadOnly() {
-		return readOnly;
+	public boolean _isReadOnly() throws SQLException{
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -270,11 +281,10 @@ public class MockConnection implements Connection {
 	 */
 	public String nativeSQL(String sql) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		this.nativeSQL = sql;
 		return _nativeSQL(sql);
 	}
 
-	public String _nativeSQL(String sql) {
+	public String _nativeSQL(String sql) throws SQLException{
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -311,13 +321,14 @@ public class MockConnection implements Connection {
 	 */
 	public PreparedStatement prepareStatement(String sql) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockPreparedStatement pst = _prepareStatement(sql);
+		_prepareStatement(sql);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		mockPreparedStatements.add(pst);
 		return pst;
 	}
 
-	public MockPreparedStatement _prepareStatement(String sql) {
-		return new MockPreparedStatement(this, sql);
+	public MockPreparedStatement _prepareStatement(String sql) throws SQLException{
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -327,13 +338,15 @@ public class MockConnection implements Connection {
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		this.autoGeneratedKeys = autoGeneratedKeys;
-		MockPreparedStatement pst = _prepareStatement(sql, autoGeneratedKeys);
+		_prepareStatement(sql, autoGeneratedKeys);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		mockPreparedStatements.add(pst);
 		return pst;
 	}
 
-	public MockPreparedStatement _prepareStatement(String sql, int autoGeneratedKeys) {
-		return new MockPreparedStatement(this, sql);
+	public MockPreparedStatement _prepareStatement(String sql, int autoGeneratedKeys) 
+			throws SQLException{
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -342,13 +355,15 @@ public class MockConnection implements Connection {
 	public PreparedStatement prepareStatement(String sql, int[] columnIndexes)
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockPreparedStatement pst = _prepareStatement(sql, columnIndexes);
+		_prepareStatement(sql, columnIndexes);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		mockPreparedStatements.add(pst);
 		return pst;
 	}
 
-	public MockPreparedStatement _prepareStatement(String sql, int[] columnIndexes) {
-		return new MockPreparedStatement(this, sql);
+	public MockPreparedStatement _prepareStatement(String sql, int[] columnIndexes) 
+			throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -357,13 +372,15 @@ public class MockConnection implements Connection {
 	public PreparedStatement prepareStatement(String sql, String[] columnNames)
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockPreparedStatement pst = _prepareStatement(sql, columnNames);
+		_prepareStatement(sql, columnNames);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		mockPreparedStatements.add(pst);
 		return pst;
 	}
 
-	public MockPreparedStatement _prepareStatement(String sql, String[] columnNames) {
-		return new MockPreparedStatement(this, sql);
+	public MockPreparedStatement _prepareStatement(String sql, String[] columnNames) 
+			throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -372,7 +389,8 @@ public class MockConnection implements Connection {
 	public PreparedStatement prepareStatement(String sql, int resultSetType,
 			int resultSetConcurrency) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
-		MockPreparedStatement pst = _prepareStatement(sql, resultSetType, resultSetConcurrency);
+		_prepareStatement(sql, resultSetType, resultSetConcurrency);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		pst.setResultType(resultSetType);
 		pst.setResultSetConcurrency(resultSetConcurrency);
 		mockPreparedStatements.add(pst);
@@ -380,8 +398,8 @@ public class MockConnection implements Connection {
 	}
 
 	public MockPreparedStatement _prepareStatement(String sql, int resultSetType,
-			int resultSetConcurrency) {
-		return new MockPreparedStatement(this, sql);
+			int resultSetConcurrency) throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -392,7 +410,8 @@ public class MockConnection implements Connection {
 			throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		this.holdability = resultSetHoldability;
-		MockPreparedStatement pst = _prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
+		_prepareStatement(sql, resultSetType, resultSetConcurrency, resultSetHoldability);
+		MockPreparedStatement pst = new MockPreparedStatement(this, sql);
 		pst.setResultType(resultSetType);
 		pst.setResultSetConcurrency(resultSetConcurrency);
 		mockPreparedStatements.add(pst);
@@ -400,8 +419,9 @@ public class MockConnection implements Connection {
 	}
 
 	public MockPreparedStatement _prepareStatement(String sql, int resultSetType,
-			int resultSetConcurrency, int resultSetHoldability) {
-		return new MockPreparedStatement(this, sql);
+			int resultSetConcurrency, int resultSetHoldability) 
+			throws SQLException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -423,7 +443,7 @@ public class MockConnection implements Connection {
 	}
 	
 
-	public void _rollback() {
+	public void _rollback() throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -444,11 +464,11 @@ public class MockConnection implements Connection {
 	 */
 	public void setAutoCommit(boolean autoCommit) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
+		autoCommitState = autoCommit? AutoCommitState.ENABLED:AutoCommitState.DISABLED;
 		_setAutoCommit(autoCommit);
 	}
 
-	public void _setAutoCommit(boolean autoCommit) {
-		autoCommitState = autoCommit? AutoCommitState.ENABLED:AutoCommitState.DISABLED;
+	public void _setAutoCommit(boolean autoCommit) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -457,10 +477,10 @@ public class MockConnection implements Connection {
 	public void setCatalog(String catalog) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		_setCatalog(catalog);
+		this.catalog = catalog;
 	}
 
-	public void _setCatalog(String catalog) {
-		this.catalog = catalog;
+	public void _setCatalog(String catalog) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -469,10 +489,10 @@ public class MockConnection implements Connection {
 	public void setHoldability(int holdability) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		_setHoldability(holdability);
+		this.holdability = holdability;
 	}
 
-	public void _setHoldability(int holdability) {
-		this.holdability = holdability;
+	public void _setHoldability(int holdability) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -481,10 +501,10 @@ public class MockConnection implements Connection {
 	public void setReadOnly(boolean readOnly) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		_setReadOnly(readOnly);
+		this.readOnly = readOnly;
 	}
 
-	public void _setReadOnly(boolean readOnly) {
-		this.readOnly = readOnly;
+	public void _setReadOnly(boolean readOnly) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -509,10 +529,10 @@ public class MockConnection implements Connection {
 	public void setTransactionIsolation(int level) throws SQLException {
 		assertThat(mockConnectionState, IsNot.not(ConnectionState.CLOSE));
 		_setTransactionIsolation(level);
+		this.TransactionIsolationLevel = level;
 	}
 
 	public void _setTransactionIsolation(int level) {
-		this.TransactionIsolationLevel = level;
 	}
 
 	/* (non-Javadoc)

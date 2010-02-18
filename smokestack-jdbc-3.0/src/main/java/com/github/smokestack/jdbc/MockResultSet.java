@@ -439,11 +439,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getConcurrency() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		return _getConcurrency();
+		_getConcurrency();
+		return concurrency;	
 	}
 
 	public int _getConcurrency() {
-		return concurrency;	
+		return -1; 
 	}
 
 	/* (non-Javadoc)
@@ -535,11 +536,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getFetchDirection() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		return _getFetchDirection();
+		_getFetchDirection();
+		return fetchDirection;
 	}
 
 	public int _getFetchDirection() {
-		return fetchDirection;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -547,11 +549,12 @@ public class MockResultSet implements ResultSet {
 	 */
 	public int getFetchSize() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
-		return _getFetchSize();
+		_getFetchSize();
+		return fetchSize;
 	}
 
 	public int _getFetchSize() {
-		return fetchSize;
+		return -1;
 	}
 
 	/* (non-Javadoc)
@@ -1154,10 +1157,10 @@ public class MockResultSet implements ResultSet {
 	public void setFetchDirection(int direction) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		_setFetchDirection(direction);
+		this.fetchDirection = direction;
 	}
 
 	public void _setFetchDirection(int direction) {
-		this.fetchDirection = direction;
 	}
 
 	/* (non-Javadoc)
@@ -1166,10 +1169,10 @@ public class MockResultSet implements ResultSet {
 	public void setFetchSize(int rows) throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(ResultSetState.CLOSE), IsNot.not(ResultSetState.AUTOCLOSE)));
 		_setFetchSize(rows);
+		this.fetchSize = rows;
 	}
 
 	public void _setFetchSize(int rows) {
-		this.fetchSize = rows;
 	}
 
 	/* (non-Javadoc)
