@@ -47,11 +47,12 @@ public class MockContext implements Context {
 	 */
 	public Object addToEnvironment(String propName, Object propVal) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
-        return _addToEnvironment(propName, propVal);
+        _addToEnvironment(propName, propVal);
+        return environment.put(propName, propVal);
 	}
 
 	public Object _addToEnvironment(String propName, Object propVal) throws NamingException {
-        return environment.put(propName, propVal);
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -72,10 +73,10 @@ public class MockContext implements Context {
 	public void bind(String name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
 		_bind(name, obj);
+		rebind(name, obj);
 	}
 
 	public void _bind(String name, Object obj) throws NamingException {
-		rebind(name, obj);
 	}
 
 	/* (non-Javadoc)
@@ -83,11 +84,11 @@ public class MockContext implements Context {
 	 */
 	public void close() throws NamingException {
 		_close();
+		mockState=ContextState.CLOSE;
+		MockInitialContextFactory.releaseSingleton();
 	}
 
 	public void _close() throws NamingException {
-		mockState=ContextState.CLOSE;
-		MockInitialContextFactory.releaseSingleton();
 	}
 
 	/* (non-Javadoc)
@@ -167,11 +168,12 @@ public class MockContext implements Context {
 	 */
 	public Hashtable<?, ?> getEnvironment() throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
-		return _getEnvironment();
+		_getEnvironment();
+		return (Hashtable)environment.clone();
 	}
 
 	public Hashtable<?, ?> _getEnvironment() throws NamingException {
-		return (Hashtable)environment.clone();
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -275,15 +277,16 @@ public class MockContext implements Context {
 	 */
 	public Object lookup(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
-		return _lookup(name);
-	}
-
-	public Object _lookup(String name) throws NamingException {
+		_lookup(name);
 		Object o=bindings.get(name);
 		if (o==null){
 			throw new NamingException("not bound for "+name);
 		}
 		return o;
+	}
+
+	public Object _lookup(String name) throws NamingException {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -328,10 +331,10 @@ public class MockContext implements Context {
 	public void rebind(String name, Object obj) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
 		_rebind(name, obj);
+		bindings.put(name, obj);
 	}
 
 	public void _rebind(String name, Object obj) throws NamingException {
-		bindings.put(name, obj);
 	}
 
 	/* (non-Javadoc)
@@ -339,11 +342,12 @@ public class MockContext implements Context {
 	 */
 	public Object removeFromEnvironment(String propName) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
-		return _removeFromEnvironment(propName);
+		_removeFromEnvironment(propName);
+		return environment.remove(propName);
 	}
 
 	public Object _removeFromEnvironment(String propName) throws NamingException {
-		return environment.remove(propName);
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -364,15 +368,15 @@ public class MockContext implements Context {
 	public void rename(String oldName, String newName) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
 		_rename(oldName, newName);
-	}
-
-	public void _rename(String oldName, String newName) throws NamingException {
 		Object o=bindings.get(oldName);
 		if (o==null){
 			throw new NamingException("not bound for "+oldName);
 		}
 		unbind(oldName);
 		rebind(newName, o);
+	}
+
+	public void _rename(String oldName, String newName) throws NamingException {
 	}
 
 	/* (non-Javadoc)
@@ -393,10 +397,10 @@ public class MockContext implements Context {
 	public void unbind(String name) throws NamingException {
 		assertThat("mockState", mockState, IsNot.not(ContextState.CLOSE));
 		_unbind(name);
+		bindings.remove(name);
 	}
 	
 	public void _unbind(String name) throws NamingException {
-		bindings.remove(name);
 	}
 	
 	@Override

@@ -24,14 +24,15 @@ public class MockInitialContextFactory implements InitialContextFactory {
 	 * @see javax.naming.spi.InitialContextFactory#getInitialContext(java.util.Hashtable)
 	 */
 	public Context getInitialContext(Hashtable environment)	throws NamingException {
-		return _getInitialContext(environment);
-	}
-	
-	public Context _getInitialContext(Hashtable environment)	throws NamingException {
+		_getInitialContext(environment);
 		if (singleton==null){
 			singleton=new MockContext(environment);
 		}
 		return singleton;
+	}
+	
+	public Context _getInitialContext(Hashtable environment)	throws NamingException {
+		return null;
 	}
 	
 	/**
