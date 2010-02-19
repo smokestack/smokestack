@@ -29,11 +29,12 @@ public class MockTopicSubscriber extends MockMessageConsumer implements
 	 */
 	public boolean getNoLocal() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
-		return _getNoLocal();
+		_getNoLocal();
+		return NoLocal;
 	}
 
 	public boolean _getNoLocal() throws JMSException {
-		return NoLocal;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -41,11 +42,12 @@ public class MockTopicSubscriber extends MockMessageConsumer implements
 	 */
 	public Topic getTopic() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
-		return _getTopic();
+		_getTopic();
+		return (Topic)destination;
 	}
 
 	public Topic _getTopic() throws JMSException {
-		return (Topic)destination;
+		return null;
 	}
 	
 	@Override

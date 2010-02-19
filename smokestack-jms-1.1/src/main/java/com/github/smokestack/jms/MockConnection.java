@@ -53,14 +53,14 @@ public class MockConnection implements Connection {
 	 */
 	public void close() throws JMSException {
 		_close();
-	}
-
-	public void _close() throws JMSException {
 		mockState=ConnectionState.CLOSE;
 		// propagate
 		for (MockSession session: mockSessions){
 			session.close();
 		}
+	}
+
+	public void _close() throws JMSException {
 	}
 
 	/* (non-Javadoc)
@@ -96,24 +96,26 @@ public class MockConnection implements Connection {
 	 */
 	public Session createSession(boolean transacted, int acknowledgeMode) throws JMSException {
         assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
-		return _createSession(transacted, acknowledgeMode);
-	}
-
-	public Session _createSession(boolean transacted, int acknowledgeMode) throws JMSException {
+		_createSession(transacted, acknowledgeMode);
 		MockSession s=new MockSession(transacted, acknowledgeMode);
 		mockSessions.add(s);
 		return s;
+	}
+
+	public Session _createSession(boolean transacted, int acknowledgeMode) throws JMSException {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Connection#getClientID()
 	 */
 	public String getClientID() throws JMSException {
-		return _getClientID();
+		_getClientID();
+		return clientID;
 	}
 
 	public String _getClientID() throws JMSException {
-		return clientID;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -144,10 +146,10 @@ public class MockConnection implements Connection {
 	 */
 	public void setClientID(String clientID) throws JMSException {
       	_setClientID(clientID);
+      	this.clientID=clientID;
 	}
 
 	public void _setClientID(String clientID) throws JMSException {
-      	this.clientID=clientID;
 	}
 
 	/* (non-Javadoc)
@@ -168,10 +170,10 @@ public class MockConnection implements Connection {
 	public void start() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(ConnectionState.CLOSE));
 		_start();
+		mockState=ConnectionState.START;
 	}
 
 	public void _start() throws JMSException {
-		mockState=ConnectionState.START;
 	}
 
 	/* (non-Javadoc)
@@ -180,10 +182,10 @@ public class MockConnection implements Connection {
 	public void stop() throws JMSException {
 		assertThat("mockState", mockState, Is.is(ConnectionState.START));
 		_stop();
+		mockState=ConnectionState.STOP;
 	}
 
 	public void _stop() throws JMSException {
-		mockState=ConnectionState.STOP;
 	}
 
 	/**

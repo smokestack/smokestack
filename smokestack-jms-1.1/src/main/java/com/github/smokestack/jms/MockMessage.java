@@ -87,89 +87,92 @@ public class MockMessage implements Message {
 	 */
 	public void clearProperties() throws JMSException {
 		_clearProperties();
+		properties.clear();
 	}
 
 	public void _clearProperties() throws JMSException {
-		properties.clear();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getBooleanProperty(java.lang.String)
 	 */
 	public boolean getBooleanProperty(String name) throws JMSException {
-		return _getBooleanProperty(name);
+		_getBooleanProperty(name);
+		return Boolean.parseBoolean(properties.get(name));
 	}
 
 	public boolean _getBooleanProperty(String name) throws JMSException {
-		return Boolean.parseBoolean(properties.get(name));
+		return false;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getByteProperty(java.lang.String)
 	 */
 	public byte getByteProperty(String name) throws JMSException {
-		return _getByteProperty(name);
+		_getByteProperty(name);
+		return Byte.parseByte(properties.get(name));
 	}
 
 	public byte _getByteProperty(String name) throws JMSException {
-		return Byte.parseByte(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getDoubleProperty(java.lang.String)
 	 */
 	public double getDoubleProperty(String name) throws JMSException {
-		return _getDoubleProperty(name);
+		_getDoubleProperty(name);
+		return Double.parseDouble(properties.get(name));
 	}
 
 	public double _getDoubleProperty(String name) throws JMSException {
-		return Double.parseDouble(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getFloatProperty(java.lang.String)
 	 */
 	public float getFloatProperty(String name) throws JMSException {
-		return _getFloatProperty(name);
+		_getFloatProperty(name);
+		return Float.parseFloat(properties.get(name));
 	}
 
 	public float _getFloatProperty(String name) throws JMSException {
-		return Float.parseFloat(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getIntProperty(java.lang.String)
 	 */
 	public int getIntProperty(String name) throws JMSException {
-		return _getIntProperty(name);
+		_getIntProperty(name);
+		return Integer.parseInt(properties.get(name));
 	}
 
 	public int _getIntProperty(String name) throws JMSException {
-		return Integer.parseInt(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSCorrelationID()
 	 */
 	public String getJMSCorrelationID() throws JMSException {
-		return _getJMSCorrelationID();
-	}
-
-	public String _getJMSCorrelationID() throws JMSException {
+		_getJMSCorrelationID();
 		if (!headers.containsKey(JMSCorrelationID)){
 			throw new JMSException("no JMSCorrelationID");
 		}
 		return headers.get(JMSCorrelationID);
 	}
 
+	public String _getJMSCorrelationID() throws JMSException {
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSCorrelationIDAsBytes()
 	 */
 	public byte[] getJMSCorrelationIDAsBytes() throws JMSException {
-	    return _getJMSCorrelationIDAsBytes();
-	}
-
-	public byte[] _getJMSCorrelationIDAsBytes() throws JMSException {
+	    _getJMSCorrelationIDAsBytes();
 		if (!headers.containsKey(JMSCorrelationID)){
 			throw new JMSException("no JMSCorrelationID");
 		}
@@ -184,196 +187,216 @@ public class MockMessage implements Message {
 	        curr.append(enc[i]).append(enc[i + 1]);
 	        result[i/2] = (byte) Integer.parseInt(curr.toString(), 16);
 	    }
-	    return result;
+	    return result;	
+	}
+
+	public byte[] _getJMSCorrelationIDAsBytes() throws JMSException {
+		return null;
+
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSDeliveryMode()
 	 */
 	public int getJMSDeliveryMode() throws JMSException {
-		return _getJMSDeliveryMode();
-	}
-
-	public int _getJMSDeliveryMode() throws JMSException {
+		_getJMSDeliveryMode();
 		if (!headers.containsKey(JMSDeliveryMode)){
 			return 0;			
 		}
 		return Integer.parseInt(headers.get(JMSDeliveryMode));
 	}
 
+	public int _getJMSDeliveryMode() throws JMSException {
+		return 0;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSDestination()
 	 */
 	public Destination getJMSDestination() throws JMSException {
-		return _getJMSDestination();
-	}
-
-	public Destination _getJMSDestination() throws JMSException {
+		_getJMSDestination();
 		if(!headers.containsKey(JMSDestination)){
 			throw new JMSException("no JMSDestination");			
 		}
 		return jmsDestination;
 	}
 
+	public Destination _getJMSDestination() throws JMSException {
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSExpiration()
 	 */
 	public long getJMSExpiration() throws JMSException {
-		return _getJMSExpiration();
-	}
-
-	public long _getJMSExpiration() throws JMSException {
+		_getJMSExpiration();
 		if(!headers.containsKey(JMSExpiration)){
 			return 0;			
 		}
 		return Long.parseLong(headers.get(JMSExpiration));
 	}
 
+	public long _getJMSExpiration() throws JMSException {
+		return 0;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSMessageID()
 	 */
 	public String getJMSMessageID() throws JMSException {
-		return _getJMSMessageID();
-	}
-
-	public String _getJMSMessageID() throws JMSException {
+		_getJMSMessageID();
 		if(!headers.containsKey(JMSMessageID)){
 			throw new JMSException("no JMSMessageID");			
 		}
 		return headers.get(JMSMessageID);
 	}
 
+	public String _getJMSMessageID() throws JMSException {
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSPriority()
 	 */
 	public int getJMSPriority() throws JMSException {
-		return _getJMSPriority();
-	}
-
-	public int _getJMSPriority() throws JMSException {
+		_getJMSPriority();
 		if(!headers.containsKey(JMSPriority)){
 			return 0;
 		}
 		return Integer.parseInt(headers.get(JMSPriority));
 	}
 
+	public int _getJMSPriority() throws JMSException {
+		return 0;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSRedelivered()
 	 */
 	public boolean getJMSRedelivered() throws JMSException {
-		return _getJMSRedelivered();
-	}
-
-	public boolean _getJMSRedelivered() throws JMSException {
+		_getJMSRedelivered();
 		if(!headers.containsKey(JMSRedelivered)){
 			return false;
 		}
 		return Boolean.parseBoolean(headers.get(JMSRedelivered));
 	}
 
+	public boolean _getJMSRedelivered() throws JMSException {
+		return false;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSReplyTo()
 	 */
 	public Destination getJMSReplyTo() throws JMSException {
-		return _getJMSReplyTo();
-	}
-
-	public Destination _getJMSReplyTo() throws JMSException {
+		_getJMSReplyTo();
 		if(!headers.containsKey(JMSReplyTo)){
 			throw new JMSException("no JMSReplyTo");			
 		}
 		return jmsReplyTo;
 	}
 
+	public Destination _getJMSReplyTo() throws JMSException {
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSTimestamp()
 	 */
 	public long getJMSTimestamp() throws JMSException {
-		return _getJMSTimestamp();
-	}
-
-	public long _getJMSTimestamp() throws JMSException {
+		_getJMSTimestamp();
 		if(!headers.containsKey(JMSTimestamp)){
 			return 0;
 		}
 		return Long.parseLong(headers.get(JMSTimestamp));
 	}
 
+	public long _getJMSTimestamp() throws JMSException {
+		return 0;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getJMSType()
 	 */
 	public String getJMSType() throws JMSException {
-		return _getJMSType();
+		_getJMSType();
+		return headers.get(JMSType);
 	}
 
 	public String _getJMSType() throws JMSException {
-		return headers.get(JMSType);
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getLongProperty(java.lang.String)
 	 */
 	public long getLongProperty(String name) throws JMSException {
-		return _getLongProperty(name);
+		_getLongProperty(name);
+		return Long.parseLong(properties.get(name));
 	}
 
 	public long _getLongProperty(String name) throws JMSException {
-		return Long.parseLong(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getObjectProperty(java.lang.String)
 	 */
 	public Object getObjectProperty(String name) throws JMSException {
-		return _getObjectProperty(name);
+		_getObjectProperty(name);
+		return properties.get(name);
 	}
 
 	public Object _getObjectProperty(String name) throws JMSException {
-		return properties.get(name);
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getPropertyNames()
 	 */
 	public Enumeration getPropertyNames() throws JMSException {
-		return _getPropertyNames();
+		_getPropertyNames();
+		return Collections.enumeration(properties.keySet());
 	}
 
 	public Enumeration _getPropertyNames() throws JMSException {
-		return Collections.enumeration(properties.keySet());
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getShortProperty(java.lang.String)
 	 */
 	public short getShortProperty(String name) throws JMSException {
-		return _getShortProperty(name);
+		_getShortProperty(name);
+		return Short.parseShort(properties.get(name));
 	}
 
 	public short _getShortProperty(String name) throws JMSException {
-		return Short.parseShort(properties.get(name));
+		return 0;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#getStringProperty(java.lang.String)
 	 */
 	public String getStringProperty(String name) throws JMSException {
-		return _getStringProperty(name);
+		_getStringProperty(name);
+		return properties.get(name);
 	}
 
 	public String _getStringProperty(String name) throws JMSException {
-		return properties.get(name);
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#propertyExists(java.lang.String)
 	 */
 	public boolean propertyExists(String name) throws JMSException {
-		return _propertyExists(name);
+		_propertyExists(name);
+		return properties.containsKey(name);
 	}
 
 	public boolean _propertyExists(String name) throws JMSException {
-		return properties.containsKey(name);
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -381,10 +404,10 @@ public class MockMessage implements Message {
 	 */
 	public void setBooleanProperty(String name, boolean value) throws JMSException {
 		_setBooleanProperty(name, value);
+		properties.put(name, Boolean.toString(value));
 	}
 
 	public void _setBooleanProperty(String name, boolean value) throws JMSException {
-		properties.put(name, Boolean.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -392,10 +415,10 @@ public class MockMessage implements Message {
 	 */
 	public void setByteProperty(String name, byte value) throws JMSException {
 		_setByteProperty(name, value);
+		properties.put(name, Byte.toString(value));
 	}
 
 	public void _setByteProperty(String name, byte value) throws JMSException {
-		properties.put(name, Byte.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -403,10 +426,10 @@ public class MockMessage implements Message {
 	 */
 	public void setDoubleProperty(String name, double value) throws JMSException {
 		_setDoubleProperty(name, value);
+		properties.put(name, Double.toString(value));
 	}
 
 	public void _setDoubleProperty(String name, double value) throws JMSException {
-		properties.put(name, Double.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -414,10 +437,10 @@ public class MockMessage implements Message {
 	 */
 	public void setFloatProperty(String name, float value) throws JMSException {
 		_setFloatProperty(name, value);
+		properties.put(name, Float.toString(value));
 	}
 
 	public void _setFloatProperty(String name, float value) throws JMSException {
-		properties.put(name, Float.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -425,10 +448,10 @@ public class MockMessage implements Message {
 	 */
 	public void setIntProperty(String name, int value) throws JMSException {
 		_setIntProperty(name, value);
+		properties.put(name, Integer.toString(value));
 	}
 
 	public void _setIntProperty(String name, int value) throws JMSException {
-		properties.put(name, Integer.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -436,10 +459,10 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSCorrelationID(String correlationID) throws JMSException {
 		_setJMSCorrelationID(correlationID);
+		headers.put(JMSCorrelationID, correlationID);
 	}
 
 	public void _setJMSCorrelationID(String correlationID) throws JMSException {
-		headers.put(JMSCorrelationID, correlationID);
 	}
 
 	/* (non-Javadoc)
@@ -447,15 +470,15 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSCorrelationIDAsBytes(byte[] correlationID) throws JMSException {
 		_setJMSCorrelationIDAsBytes(correlationID);
-	}
-
-	public void _setJMSCorrelationIDAsBytes(byte[] correlationID) throws JMSException {
 		StringBuffer sb=new StringBuffer();
 		for (byte b:correlationID){
 		    String s=Integer.toString( ( b & 0xff ) + 0x100, 16).substring(1);
 		    sb.append(s);
 		}
 		headers.put(JMSCorrelationID, sb.toString());
+	}
+
+	public void _setJMSCorrelationIDAsBytes(byte[] correlationID) throws JMSException {
 	}
 
 	/* (non-Javadoc)
@@ -465,10 +488,10 @@ public class MockMessage implements Message {
 		assertThat(deliveryMode, AnyOf.anyOf(Is.is(DeliveryMode.PERSISTENT),
 				Is.is(DeliveryMode.NON_PERSISTENT)));
         _setJMSDeliveryMode(deliveryMode);
+        headers.put(JMSDeliveryMode, Integer.toString(deliveryMode));
 	}
 
 	public void _setJMSDeliveryMode(int deliveryMode) throws JMSException {
-        headers.put(JMSDeliveryMode, Integer.toString(deliveryMode));
 	}
 
 	/* (non-Javadoc)
@@ -478,9 +501,6 @@ public class MockMessage implements Message {
 		assertThat(destination, AnyOf.anyOf(IsInstanceOf.instanceOf(Topic.class),
 				IsInstanceOf.instanceOf(Queue.class)));
 		_setJMSDestination(destination);
-	}
-
-	public void _setJMSDestination(Destination destination) throws JMSException {
 		if (destination instanceof Topic){
 			headers.put(JMSDestination, ((Topic)destination).getTopicName());
 		}
@@ -490,15 +510,18 @@ public class MockMessage implements Message {
 		jmsDestination=destination;
 	}
 
+	public void _setJMSDestination(Destination destination) throws JMSException {
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#setJMSExpiration(long)
 	 */
 	public void setJMSExpiration(long expiration) throws JMSException {
 		_setJMSExpiration(expiration);
+		headers.put(JMSExpiration, Long.toString(expiration));
 	}
 
 	public void _setJMSExpiration(long expiration) throws JMSException {
-		headers.put(JMSExpiration, Long.toString(expiration));
 	}
 
 	/* (non-Javadoc)
@@ -506,10 +529,10 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSMessageID(String id) throws JMSException {
 		_setJMSMessageID(id);
+		headers.put(JMSMessageID, id);
 	}
 
 	public void _setJMSMessageID(String id) throws JMSException {
-		headers.put(JMSMessageID, id);
 	}
 
 	/* (non-Javadoc)
@@ -517,12 +540,12 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSPriority(int priority) throws JMSException {
 		_setJMSPriority(priority);		
-	}
-
-	public void _setJMSPriority(int priority) throws JMSException {
 		Integer[] priorities={0,1,2,3,4,5,6,7,8,9};
 		assertThat(priority, IsIn.isOneOf(priorities));
 		headers.put(JMSPriority, Integer.toString(priority));		
+	}
+
+	public void _setJMSPriority(int priority) throws JMSException {
 	}
 
 	/* (non-Javadoc)
@@ -530,10 +553,10 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSRedelivered(boolean redelivered) throws JMSException {
 		_setJMSRedelivered(redelivered);		
+		headers.put(JMSRedelivered, Boolean.toString(redelivered));		
 	}
 
 	public void _setJMSRedelivered(boolean redelivered) throws JMSException {
-		headers.put(JMSRedelivered, Boolean.toString(redelivered));		
 	}
 
 	/* (non-Javadoc)
@@ -543,9 +566,6 @@ public class MockMessage implements Message {
 		assertThat(destination, AnyOf.anyOf(IsInstanceOf.instanceOf(Topic.class),
 				IsInstanceOf.instanceOf(Queue.class)));
 		_setJMSReplyTo(destination);
-	}
-
-	public void _setJMSReplyTo(Destination destination) throws JMSException {
 		if (destination instanceof Topic){
 			headers.put(JMSReplyTo, ((Topic)destination).getTopicName());
 		}
@@ -555,15 +575,18 @@ public class MockMessage implements Message {
 		jmsReplyTo=destination;
 	}
 
+	public void _setJMSReplyTo(Destination destination) throws JMSException {
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.jms.Message#setJMSTimestamp(long)
 	 */
 	public void setJMSTimestamp(long timestamp) throws JMSException {
 		_setJMSTimestamp(timestamp);		
+		headers.put(JMSTimestamp, Long.toString(timestamp));		
 	}
 
 	public void _setJMSTimestamp(long timestamp) throws JMSException {
-		headers.put(JMSTimestamp, Long.toString(timestamp));		
 	}
 
 	/* (non-Javadoc)
@@ -571,10 +594,10 @@ public class MockMessage implements Message {
 	 */
 	public void setJMSType(String type) throws JMSException {
 		_setJMSType(type);		
+		headers.put(JMSType, type);		
 	}
 
 	public void _setJMSType(String type) throws JMSException {
-		headers.put(JMSType, type);		
 	}
 
 	/* (non-Javadoc)
@@ -582,10 +605,10 @@ public class MockMessage implements Message {
 	 */
 	public void setLongProperty(String name, long value) throws JMSException {
 		_setLongProperty(name, value);
+		properties.put(name, Long.toString(value));
 	}
 
 	public void _setLongProperty(String name, long value) throws JMSException {
-		properties.put(name, Long.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -602,10 +625,10 @@ public class MockMessage implements Message {
 				IsInstanceOf.instanceOf(Double.class),
 				IsInstanceOf.instanceOf(String.class)));
 		_setObjectProperty(name, value);
+		properties.put(name, value.toString());
 	}
 
 	public void _setObjectProperty(String name, Object value) throws JMSException {
-		properties.put(name, value.toString());
 	}
 
 	/* (non-Javadoc)
@@ -613,10 +636,10 @@ public class MockMessage implements Message {
 	 */
 	public void setShortProperty(String name, short value) throws JMSException {
 		_setShortProperty(name, value);
+		properties.put(name, Short.toString(value));
 	}
 
 	public void _setShortProperty(String name, short value) throws JMSException {
-		properties.put(name, Short.toString(value));
 	}
 
 	/* (non-Javadoc)
@@ -624,10 +647,10 @@ public class MockMessage implements Message {
 	 */
 	public void setStringProperty(String name, String value) throws JMSException {
 		_setStringProperty(name, value);
+		properties.put(name, value);
 	}
 
 	public void _setStringProperty(String name, String value) throws JMSException {
-		properties.put(name, value);
 	}
 	
 	@Override

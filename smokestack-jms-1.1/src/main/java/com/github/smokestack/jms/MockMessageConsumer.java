@@ -55,10 +55,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public void close() throws JMSException {
 		_close();
+		mockState=MessageConsumerState.CLOSE;
 	}
 
 	public void _close() throws JMSException {
-		mockState=MessageConsumerState.CLOSE;
 	}
 
 	/* (non-Javadoc)
@@ -66,11 +66,12 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public MessageListener getMessageListener() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
-		return _getMessageListener();
+		_getMessageListener();
+		return messageListener;
 	}
 
 	public MessageListener _getMessageListener() throws JMSException {
-		return messageListener;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -78,11 +79,12 @@ public class MockMessageConsumer implements MessageConsumer {
 	 */
 	public String getMessageSelector() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
-		return _getMessageSelector();
+		_getMessageSelector();
+		return messageSelector;
 	}
 
 	public String _getMessageSelector() throws JMSException {
-		return messageSelector;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -127,10 +129,10 @@ public class MockMessageConsumer implements MessageConsumer {
 	public void setMessageListener(MessageListener messageListener) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageConsumerState.CLOSE));
 		_setMessageListener(messageListener);	
+		this.messageListener=messageListener;	
 	}
 
 	public void _setMessageListener(MessageListener messageListener) throws JMSException {
-		this.messageListener=messageListener;	
 	}
 
 	/**

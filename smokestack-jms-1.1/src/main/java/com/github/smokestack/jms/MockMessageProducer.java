@@ -47,10 +47,10 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public void close() throws JMSException {
 		_close();
+		mockState=MessageProducerState.CLOSE;
 	}
 
 	public void _close() throws JMSException {
-		mockState=MessageProducerState.CLOSE;
 	}
 
 	/* (non-Javadoc)
@@ -58,11 +58,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public int getDeliveryMode() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getDeliveryMode();
+		_getDeliveryMode();
+		return deliveryMode;
 	}
 
 	public int _getDeliveryMode() throws JMSException {
-		return deliveryMode;
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -70,11 +71,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public Destination getDestination() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getDestination();
+		_getDestination();
+		return destination;
 	}
 
 	public Destination _getDestination() throws JMSException {
-		return destination;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -82,11 +84,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public boolean getDisableMessageID() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getDisableMessageID();
+		_getDisableMessageID();
+		return disableMessageID;
 	}
 
 	public boolean _getDisableMessageID() throws JMSException {
-		return disableMessageID;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -94,11 +97,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public boolean getDisableMessageTimestamp() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getDisableMessageTimestamp();
+		_getDisableMessageTimestamp();
+		return disableMessageTimestamp;
 	}
 
 	public boolean _getDisableMessageTimestamp() throws JMSException {
-		return disableMessageTimestamp;
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -106,11 +110,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public int getPriority() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getPriority();
+		_getPriority();
+		return priority;
 	}
 
 	public int _getPriority() throws JMSException {
-		return priority;
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -118,11 +123,12 @@ public class MockMessageProducer implements MessageProducer {
 	 */
 	public long getTimeToLive() throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
-		return _getTimeToLive();
+		_getTimeToLive();
+		return timeToLive;
 	}
 
 	public long _getTimeToLive() throws JMSException {
-		return timeToLive;
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -181,10 +187,10 @@ public class MockMessageProducer implements MessageProducer {
 	public void setDeliveryMode(int deliveryMode) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
 		_setDeliveryMode(deliveryMode);
+		this.deliveryMode=deliveryMode;
 	}
 
 	public void _setDeliveryMode(int deliveryMode) throws JMSException {
-		this.deliveryMode=deliveryMode;
 	}
 
 	/* (non-Javadoc)
@@ -193,10 +199,10 @@ public class MockMessageProducer implements MessageProducer {
 	public void setDisableMessageID(boolean disableMessageID) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
 		_setDisableMessageID(disableMessageID);
+		this.disableMessageID=disableMessageID;
 	}
 
 	public void _setDisableMessageID(boolean disableMessageID) throws JMSException {
-		this.disableMessageID=disableMessageID;
 	}
 
 	/* (non-Javadoc)
@@ -205,10 +211,10 @@ public class MockMessageProducer implements MessageProducer {
 	public void setDisableMessageTimestamp(boolean disableMessageTimestamp) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
 		_setDisableMessageTimestamp(disableMessageTimestamp);
+		this.disableMessageTimestamp=disableMessageTimestamp;
 	}
 
 	public void _setDisableMessageTimestamp(boolean disableMessageTimestamp) throws JMSException {
-		this.disableMessageTimestamp=disableMessageTimestamp;
 	}
 
 	/* (non-Javadoc)
@@ -217,10 +223,10 @@ public class MockMessageProducer implements MessageProducer {
 	public void setPriority(int priority) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
 		_setPriority(priority);
+		this.priority=priority;
 	}
 
 	public void _setPriority(int priority) throws JMSException {
-		this.priority=priority;
 	}
 
 	/* (non-Javadoc)
@@ -229,10 +235,10 @@ public class MockMessageProducer implements MessageProducer {
 	public void setTimeToLive(long timeToLive) throws JMSException {
 		assertThat("mockState", mockState, IsNot.not(MessageProducerState.CLOSE));
 		_setTimeToLive(timeToLive);
+		this.timeToLive=timeToLive;
 	}
 
 	public void _setTimeToLive(long timeToLive) throws JMSException {
-		this.timeToLive=timeToLive;
 	}
 
 	/**

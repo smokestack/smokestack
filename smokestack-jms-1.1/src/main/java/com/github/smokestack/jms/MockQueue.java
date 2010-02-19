@@ -41,22 +41,24 @@ public class MockQueue implements Queue, Serializable, Referenceable {
 	 * @see javax.jms.Queue#getQueueName()
 	 */
 	public String getQueueName() throws JMSException {
-		return _getQueueName();
+		_getQueueName();
+		return queueName;
 	}
 
 	public String _getQueueName() throws JMSException {
-		return queueName;
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.naming.Referenceable#getReference()
 	 */
 	public Reference getReference() throws NamingException {
-		return _getReference();
+		_getReference();
+		return reference;
 	}
 
 	public Reference _getReference() throws NamingException {
-		return reference;
+		return null;
 	}
 
 	/**
@@ -65,10 +67,10 @@ public class MockQueue implements Queue, Serializable, Referenceable {
 	 */
 	public void setReference(Reference reference){
 		_setReference(reference);
+		this.reference=reference;
 	}
 	
 	public void _setReference(Reference reference){
-		this.reference=reference;
 	}
 	
 	@Override
