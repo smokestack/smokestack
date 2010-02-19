@@ -70,11 +70,12 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 * @see javax.resource.spi.ManagedConnectionFactory#getLogWriter()
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
-		return _getLogWriter();
+		_getLogWriter();
+		return printWriter;
 	}
 
 	public PrintWriter _getLogWriter() throws ResourceException {
-		return printWriter;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -95,10 +96,10 @@ public class MockManagedConnectionFactory implements ManagedConnectionFactory {
 	 */
 	public void setLogWriter(PrintWriter printWriter) throws ResourceException {
 		_setLogWriter(printWriter);
+		this.printWriter=printWriter;
 	}
 
 	public void _setLogWriter(PrintWriter printWriter) throws ResourceException {
-		this.printWriter=printWriter;
 	}
 
 	public String toString(){

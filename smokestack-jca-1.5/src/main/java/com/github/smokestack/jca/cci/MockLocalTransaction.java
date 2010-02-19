@@ -26,10 +26,10 @@ public class MockLocalTransaction implements LocalTransaction {
 	public void begin() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.NEW));
 		_begin();
+		localTransactionState=LocalTransactionState.BEGIN;
 	}
 
 	public void _begin() throws ResourceException {
-		localTransactionState=LocalTransactionState.BEGIN;
 	}
 
 	/* (non-Javadoc)
@@ -38,10 +38,10 @@ public class MockLocalTransaction implements LocalTransaction {
 	public void commit() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.BEGIN));
 		_commit();
+		localTransactionState=LocalTransactionState.COMMIT;
 	}
 
 	public void _commit() throws ResourceException {
-		localTransactionState=LocalTransactionState.COMMIT;
 	}
 
 	/* (non-Javadoc)
@@ -50,14 +50,19 @@ public class MockLocalTransaction implements LocalTransaction {
 	public void rollback() throws ResourceException {
 		assertThat("localTransactionState", localTransactionState, Is.is(LocalTransactionState.BEGIN));
 		_rollback();
-	}
-
-	public void _rollback() throws ResourceException {
 		localTransactionState=LocalTransactionState.ROLLBACK;
 	}
 
+	public void _rollback() throws ResourceException {
+	}
+
 	public LocalTransactionState getMockTransactionState() {
+		_getMockTransactionState();
 		return localTransactionState;
+	}
+
+	public LocalTransactionState _getMockTransactionState() {
+		return null;
 	}
 
 	public void assertMockComplete(){

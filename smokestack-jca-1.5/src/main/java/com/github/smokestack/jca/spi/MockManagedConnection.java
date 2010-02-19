@@ -36,10 +36,10 @@ public class MockManagedConnection implements ManagedConnection {
 	 */
 	public void addConnectionEventListener(ConnectionEventListener listener) {
 		_addConnectionEventListener(listener);
+		listeners.add(listener);
 	}
 
 	public void _addConnectionEventListener(ConnectionEventListener listener) {
-		listeners.add(listener);
 	}
 
 	/* (non-Javadoc)
@@ -101,11 +101,12 @@ public class MockManagedConnection implements ManagedConnection {
 	 * @see javax.resource.spi.ManagedConnection#getLogWriter()
 	 */
 	public PrintWriter getLogWriter() throws ResourceException {
-		return _getLogWriter();
+		_getLogWriter();
+		return printWriter;
 	}
 
 	public PrintWriter _getLogWriter() throws ResourceException {
-		return printWriter;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -135,10 +136,10 @@ public class MockManagedConnection implements ManagedConnection {
 	 */
 	public void removeConnectionEventListener(ConnectionEventListener listener) {
 		_removeConnectionEventListener(listener);
+		listeners.remove(listener);
 	}
 
 	public void _removeConnectionEventListener(ConnectionEventListener listener) {
-		listeners.remove(listener);
 	}
 
 	/* (non-Javadoc)
@@ -146,10 +147,10 @@ public class MockManagedConnection implements ManagedConnection {
 	 */
 	public void setLogWriter(PrintWriter printWriter) throws ResourceException {
 		_setLogWriter(printWriter);
+		this.printWriter=printWriter;
 	}
 
 	public void _setLogWriter(PrintWriter printWriter) throws ResourceException {
-		this.printWriter=printWriter;
 	}
 
 	public String toString(){

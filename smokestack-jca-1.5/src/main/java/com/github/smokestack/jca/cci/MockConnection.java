@@ -50,14 +50,15 @@ public class MockConnection implements Connection {
 	 */
 	public Interaction createInteraction() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
+		_createInteraction();
 		if (mockInteraction==null){
-			mockInteraction=_createInteraction();
+			mockInteraction=new MockInteraction(this);
 		}
 		return mockInteraction;
 	}
 
 	public MockInteraction _createInteraction() throws ResourceException {
-		return new MockInteraction(this);
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -65,14 +66,15 @@ public class MockConnection implements Connection {
 	 */
 	public LocalTransaction getLocalTransaction() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
+		_getLocalTransaction();
 		if (mockTransaction==null){
-			mockTransaction=_getLocalTransaction();
+			mockTransaction=new MockLocalTransaction();
 		}
 		return mockTransaction;
 	}
 
 	public MockLocalTransaction _getLocalTransaction() throws ResourceException {
-		return new MockLocalTransaction();
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -80,14 +82,15 @@ public class MockConnection implements Connection {
 	 */
 	public ConnectionMetaData getMetaData() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
+		_getMetaData();
 		if (mockConnectionMetaData==null){
-			mockConnectionMetaData=_getMetaData();
+			mockConnectionMetaData=new MockConnectionMetaData();
 		}
 		return mockConnectionMetaData;
 	}
 
 	public MockConnectionMetaData _getMetaData() throws ResourceException {
-		return new MockConnectionMetaData();
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -95,14 +98,15 @@ public class MockConnection implements Connection {
 	 */
 	public ResultSetInfo getResultSetInfo() throws ResourceException {
 		assertThat("connectionState", connectionState, Is.is(ConnectionState.NEW));
+		_getResultSetInfo();
 		if (mockResultSetInfo==null){
-			mockResultSetInfo=_getResultSetInfo();
+			mockResultSetInfo=new MockResultSetInfo();
 		}
 		return mockResultSetInfo;
 	}
 	
 	public MockResultSetInfo _getResultSetInfo() throws ResourceException {
-		return new MockResultSetInfo();
+		return null;
 	}
 	
 	public void validateMockComplete(){

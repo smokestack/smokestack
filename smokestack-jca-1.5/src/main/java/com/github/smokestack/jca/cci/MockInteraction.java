@@ -79,11 +79,12 @@ public class MockInteraction implements Interaction {
 	 */
 	public Connection getConnection() {
 		assertThat("interactionState", interactionState, Is.is(InteractionState.NEW));
-		return _getConnection();
+		_getConnection();
+		return mockConnection;
 	}
 
 	public Connection _getConnection() {
-		return mockConnection;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -98,9 +99,14 @@ public class MockInteraction implements Interaction {
 	}
 	
 	public InteractionState getMockInteractionState() {
+		_getMockInteractionState();
 		return interactionState;
 	}
 	
+	public InteractionState _getMockInteractionState() {
+		return null;
+	}
+
 	public void validateMockComplete(){
 		assertThat("connectionState", interactionState, Is.is(InteractionState.CLOSE));	
 	}
