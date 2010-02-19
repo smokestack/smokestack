@@ -38,36 +38,51 @@ public class MockEntityManagerFactory implements EntityManagerFactory {
 	 */
 	public void close() {
 		assertThat("mockState", mockState, Is.is(EMFactoryState.NEW));
+		_close();
 		mockState=EMFactoryState.CLOSE;
 	}
 
+	public void _close() {
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManagerFactory#createEntityManager()
 	 */
 	public EntityManager createEntityManager() {
 		assertThat("mockState", mockState, Is.is(EMFactoryState.NEW));
+		_createEntityManager();
 		MockEntityManager em=new MockEntityManager();
 		mockEntityManagers.add(em);
 		return em;
 	}
 
+	public EntityManager _createEntityManager() {
+		return null;
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManagerFactory#createEntityManager(java.util.Map)
 	 */
 	public EntityManager createEntityManager(Map map) {
 		assertThat("mockState", mockState, Is.is(EMFactoryState.NEW));
+		_createEntityManager(map);
 		MockEntityManager em=new MockEntityManager(map);
 		mockEntityManagers.add(em);
 		return em;
 	}
 
+	public EntityManager _createEntityManager(Map map) {
+		return null;
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManagerFactory#isOpen()
 	 */
 	public boolean isOpen() {
+		_isOpen();
 		return EMFactoryState.NEW==mockState;
 	}
 	
+	public boolean _isOpen() {
+		return false;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

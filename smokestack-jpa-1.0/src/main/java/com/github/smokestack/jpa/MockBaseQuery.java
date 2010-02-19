@@ -19,6 +19,7 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.github.smokestack.exception.NeedsMockDefinitionException;
+import com.github.smokestack.exception.NotYetImplementedException;
 
 /**
  * Common query functionality.
@@ -42,6 +43,10 @@ public abstract class MockBaseQuery implements Query {
 	 * @see javax.persistence.Query#executeUpdate()
 	 */
 	public int executeUpdate() {
+		return _executeUpdate();
+	}
+
+	public int _executeUpdate() {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -49,6 +54,10 @@ public abstract class MockBaseQuery implements Query {
 	 * @see javax.persistence.Query#getResultList()
 	 */
 	public List getResultList() {
+		return _getResultList();
+	}
+
+	public List _getResultList() {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -56,6 +65,10 @@ public abstract class MockBaseQuery implements Query {
 	 * @see javax.persistence.Query#getSingleResult()
 	 */
 	public Object getSingleResult() {
+		return _getSingleResult();
+	}
+
+	public Object _getSingleResult() {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -63,78 +76,116 @@ public abstract class MockBaseQuery implements Query {
 	 * @see javax.persistence.Query#setFirstResult(int)
 	 */
 	public Query setFirstResult(int startPosition) {
+		_setFirstResult(startPosition);
 		this.startPosition=startPosition;
 		return this;
+	}
+
+	public Query _setFirstResult(int startPosition2) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setFlushMode(javax.persistence.FlushModeType)
 	 */
 	public Query setFlushMode(FlushModeType flushMode) {
+		_setFlushMode(flushMode);
 		this.flushMode=flushMode;
 		return this;
+	}
+
+	public Query _setFlushMode(FlushModeType flushMode) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setHint(java.lang.String, java.lang.Object)
 	 */
 	public Query setHint(String hintName, Object value) {
+		_setHint(hintName, value);
 		hints.put(hintName, value);
 		return this;
+	}
+
+	public Query _setHint(String hintName, Object value) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setMaxResults(int)
 	 */
 	public Query setMaxResults(int maxResult) {
+		_setMaxResults(maxResult);
 		this.maxResult=maxResult;
 		return this;
+	}
+
+	public Query _setMaxResults(int maxResult) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(java.lang.String, java.lang.Object)
 	 */
 	public Query setParameter(String name, Object value) {
-		// TODO Auto-generated method stub
-		return this;
+		_setParameter(name, value);
+		throw new NotYetImplementedException();
+	}
+
+	public Query _setParameter(String name, Object value) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(int, java.lang.Object)
 	 */
 	public Query setParameter(int position, Object value) {
-		// TODO Auto-generated method stub
+		_setParameter(position, value);
 		return this;
+	}
+
+	public Query _setParameter(int position, Object value) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(java.lang.String, java.util.Date, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(String name, Date value, TemporalType temporalType) {
+		_setParameter(name, value, temporalType);
 		return setParameter(name, getTemporalType(value, temporalType));
+	}
+
+	public Query _setParameter(String name, Date value,
+			TemporalType temporalType) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(java.lang.String, java.util.Calendar, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(String name, Calendar value, TemporalType temporalType) {
+		_setParameter(name, value, temporalType);
 		return setParameter(name, getTemporalType(value, temporalType));
+	}
+
+	public Query _setParameter(String name, Calendar value,
+			TemporalType temporalType) {
+		return null;
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(int, java.util.Date, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(int position, Date value, TemporalType temporalType) {
-		// TODO Auto-generated method stub
-		return this;
+		throw new NotYetImplementedException();
 	}
 
 	/* (non-Javadoc)
 	 * @see javax.persistence.Query#setParameter(int, java.util.Calendar, javax.persistence.TemporalType)
 	 */
 	public Query setParameter(int position, Calendar value, TemporalType temporalType) {
-		// TODO Auto-generated method stub
-		return this;
+		throw new NotYetImplementedException();
 	}
 	
 	/**
@@ -163,10 +214,15 @@ public abstract class MockBaseQuery implements Query {
      * @return
      */
     protected Object getTemporalType(Calendar value, TemporalType type) {
+    	_getTemporalType(value, type);
         return getTemporalType(value.getTime(), type);
     }
 
-    /* (non-Javadoc)
+    public Object _getTemporalType(Calendar value, TemporalType type) {
+    	return null;
+	}
+
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString(){

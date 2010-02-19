@@ -31,47 +31,67 @@ public class MockEntityTransaction implements EntityTransaction {
 	 */
 	public void begin() {
 		assertThat("mockState", mockState, IsNot.not(EntityTransactionState.BEGIN));
+		_begin();
 		mockState=EntityTransactionState.BEGIN;
 	}
 
+	public void _begin() {
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityTransaction#commit()
 	 */
 	public void commit() {
 		assertThat("mockState", mockState, Is.is(EntityTransactionState.BEGIN));
 		assertThat("isRollbackOnly", isRollbackOnly, Is.is(false));
+		_commit();
 		mockState=EntityTransactionState.COMMIT;
 	}
 
+	public void _commit() {
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityTransaction#getRollbackOnly()
 	 */
 	public boolean getRollbackOnly() {
+		_getRollbackOnly();
 		return isRollbackOnly;
 	}
 
+	public boolean _getRollbackOnly() {
+		return false;
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityTransaction#isActive()
 	 */
 	public boolean isActive() {
+		_isActive();
 		return EntityTransactionState.BEGIN==mockState;
 	}
 
+	public boolean _isActive() {
+		return false;
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityTransaction#rollback()
 	 */
 	public void rollback() {
 		assertThat("mockState", mockState, Is.is(EntityTransactionState.BEGIN));
+		_rollback();
 		mockState=EntityTransactionState.ROLLBACK;
 	}
 
+	public void _rollback() {
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityTransaction#setRollbackOnly()
 	 */
 	public void setRollbackOnly() {
+		_setRollbackOnly();
 		isRollbackOnly=true;
 	}
 
+	public void _setRollbackOnly() {
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

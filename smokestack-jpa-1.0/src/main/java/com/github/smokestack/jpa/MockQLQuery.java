@@ -47,8 +47,13 @@ public class MockQLQuery extends MockBaseQuery {
 	@Override
 	public Query setParameter(String name, Object value) {
 		assertThat(parameters.containsKey(name), Is.is(true));
+		_setParameter(name, value);
 		parameters.put(name, value);
 		return this;
+	}
+
+	public Query _setParameter(String name, Object value) {
+		return null;
 	}
 
 	public Map<String, Object> getMockParameters(){

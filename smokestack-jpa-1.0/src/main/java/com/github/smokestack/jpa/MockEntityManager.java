@@ -20,7 +20,6 @@ import org.hamcrest.core.Is;
 
 import com.github.smokestack.exception.NeedsMockDefinitionException;
 import com.github.smokestack.exception.NotYetImplementedException;
-import com.github.smokestack.jpa.MockEntityTransaction.EntityTransactionState;
 
 /**
  * @author gliptak
@@ -64,7 +63,11 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public void close() {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_close();
 		mockState=EntityManagerState.CLOSE;
+	}
+
+	public void _close() {
 	}
 
 	/* (non-Javadoc)
@@ -80,7 +83,12 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public Query createNamedQuery(String name) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_createNamedQuery(name);
 		return new MockNamedQuery(name);
+	}
+
+	public Query _createNamedQuery(String name) {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -88,7 +96,12 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public Query createNativeQuery(String sqlString) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_createNativeQuery(sqlString);
 		return new MockNativeQuery(sqlString);
+	}
+
+	public Query _createNativeQuery(String sqlString) {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -96,7 +109,12 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public Query createNativeQuery(String sqlString, Class resultClass) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_createNativeQuery(sqlString, resultClass);
 		return new MockNativeQuery(sqlString, resultClass);
+	}
+
+	public Query  _createNativeQuery(String sqlString, Class resultClass) {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -104,7 +122,12 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public Query createNativeQuery(String sqlString, String resultSetMapping) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_createNativeQuery(sqlString, resultSetMapping);
 		return new MockNativeQuery(sqlString, resultSetMapping);
+	}
+
+	public Query _createNativeQuery(String sqlString, String resultSetMapping) {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -112,7 +135,12 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public Query createQuery(String qlString) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_createQuery(qlString);
 		return new MockQLQuery(qlString);
+	}
+
+	public Query  _createQuery(String qlString) {
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -120,6 +148,10 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public <T> T find(Class<T> arg0, Object arg1) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		return _find(arg0, arg1);
+	}
+	
+	public <T> T _find(Class<T> arg0, Object arg1) {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -144,14 +176,23 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public FlushModeType getFlushMode() {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_getFlushMode();
 		return flushModeType;
 	}
-
+	
+	public FlushModeType _getFlushMode(){
+		return null;
+		
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#getReference(java.lang.Class, java.lang.Object)
 	 */
 	public <T> T getReference(Class<T> arg0, Object arg1) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		return _getReference(arg0, arg1);
+	}
+
+	public <T> T _getReference(Class<T> arg0, Object arg1) {
 		throw new NeedsMockDefinitionException();
 	}
 
@@ -160,19 +201,28 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public EntityTransaction getTransaction() {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_getTransaction();
 		if (mockEntityTransaction==null){
 			mockEntityTransaction=new MockEntityTransaction();
 		}
 		return mockEntityTransaction;
 	}
 
+	public EntityTransaction _getTransaction() {
+		return null;
+	}
+
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#isOpen()
 	 */
 	public boolean isOpen() {
+		_isOpen();
 		return EntityManagerState.NEW==mockState;
 	}
 
+	public boolean _isOpen() {
+		return false;
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#joinTransaction()
 	 */
@@ -194,41 +244,56 @@ public class MockEntityManager implements EntityManager {
 	 */
 	public <T> T merge(T arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NeedsMockDefinitionException();
+		return _merge(arg0);
 	}
 
+	public <T> T _merge(T arg0) {
+		throw new NeedsMockDefinitionException();
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#persist(java.lang.Object)
 	 */
 	public void persist(Object arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NeedsMockDefinitionException();
+		_persist(arg0);
 	}
 
+	public void _persist(Object arg0) {
+		throw new NeedsMockDefinitionException();
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#refresh(java.lang.Object)
 	 */
 	public void refresh(Object arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NeedsMockDefinitionException();
+		_refresh(arg0);
 	}
 
+	public void _refresh(Object arg0) {
+		throw new NeedsMockDefinitionException();
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#remove(java.lang.Object)
 	 */
 	public void remove(Object arg0) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
-		throw new NeedsMockDefinitionException();
+		_remove(arg0);
 	}
 
+	public void _remove(Object arg0) {
+		throw new NeedsMockDefinitionException();
+	}
 	/* (non-Javadoc)
 	 * @see javax.persistence.EntityManager#setFlushMode(javax.persistence.FlushModeType)
 	 */
 	public void setFlushMode(FlushModeType flushModeType) {
 		assertThat("mockState", mockState, Is.is(EntityManagerState.NEW));
+		_setFlushMode(flushModeType);
 		this.flushModeType=flushModeType;
 	}
 	
+	public void _setFlushMode(FlushModeType flushModeType) {
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
