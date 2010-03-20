@@ -106,6 +106,14 @@
                <effort>Default</effort><!-- Min|Default|Max -->
             </configuration>
          </plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <configuration>
+               <autoVersionSubmodules>true</autoVersionSubmodules>
+               <preparationGoals>clean install</preparationGoals>
+            </configuration>
+         </plugin> 
       </plugins>
    </reporting>
    <licenses>
