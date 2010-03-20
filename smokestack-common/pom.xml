@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>smokestack</artifactId>
 		<groupId>com.github.smokestack</groupId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<groupId>com.github.smokestack</groupId>
 	<artifactId>smokestack-common</artifactId>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>Smokestack Common</name>
 	<description>
       ${project.name} implements common functionality.

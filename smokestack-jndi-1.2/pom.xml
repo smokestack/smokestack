@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>smokestack</artifactId>
 		<groupId>com.github.smokestack</groupId>
-		<version>0.1</version>
+		<version>0.2-SNAPSHOT</version>
 	</parent>
 	<groupId>com.github.smokestack</groupId>
 	<artifactId>smokestack-jndi-1.2</artifactId>
 	<name>Smokestack JNDI 1.2</name>
-	<version>0.1</version>
+	<version>0.2-SNAPSHOT</version>
    <distributionManagement>
       <site>
          <id>local</id>
@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.github.smokestack</groupId>
 			<artifactId>smokestack-common</artifactId>
-			<version>0.1</version>
+			<version>0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hamcrest</groupId>

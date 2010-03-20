@@ -4,7 +4,7 @@
    <groupId>com.github.smokestack</groupId>
    <artifactId>smokestack</artifactId>
    <packaging>pom</packaging>
-   <version>0.1</version>
+   <version>0.2-SNAPSHOT</version>
    <name>Smokestack</name>
    <description>
       ${project.name} is a modular JEE unit testing framework, independent of Java unit
