@@ -2,7 +2,6 @@ package com.github.smokestack.ejb;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -18,6 +17,7 @@ import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
@@ -29,6 +29,8 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hamcrest.core.IsNot;
+import org.hamcrest.core.IsNull;
 
 public class MockEJBContainer {
 	
@@ -113,9 +115,11 @@ public class MockEJBContainer {
 				if (StringUtils.isNotEmpty(pun)){
 					unitName=pun;
 				}
-		        EntityManagerFactory factory = Persistence.createEntityManagerFactory(unitName, System.getProperties());
-		        // TODO: do we assert this configuration?
-                f.set(instance, factory.createEntityManager());
+		        EntityManagerFactory emf = Persistence.createEntityManagerFactory(unitName, System.getProperties());
+				assertThat("could not create EntityManagerFactory: "+unitName, emf, IsNull.notNullValue());
+		        EntityManager em=emf.createEntityManager();
+				assertThat("could not create EntityManager from EntityManagerFactory: "+unitName, em, IsNull.notNullValue());
+                f.set(instance, em);
 			} else if (f.isAnnotationPresent(PersistenceUnit.class)){
 				String unitName=f.getName();
 				PersistenceUnit pc=f.getAnnotation(PersistenceUnit.class);
@@ -123,8 +127,9 @@ public class MockEJBContainer {
 				if (StringUtils.isNotEmpty(pun)){
 					unitName=pun;
 				}
-		        // TODO: do we assert this configuration?
-                f.set(instance, Persistence.createEntityManagerFactory(unitName, System.getProperties()));				
+				EntityManagerFactory emf = Persistence.createEntityManagerFactory(unitName, System.getProperties());
+				assertThat("could not create EntityManagerFactory: "+unitName, emf, IsNull.notNullValue());
+                f.set(instance, emf);				
 			}
 		}
 	}
