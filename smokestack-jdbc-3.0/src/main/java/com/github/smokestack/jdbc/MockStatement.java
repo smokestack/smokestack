@@ -115,8 +115,10 @@ public class MockStatement implements Statement {
 		_close();
 		this.mockState=StatementState.CLOSE;
 		for(MockResultSet rs: mockResultSets){
-			if(rs.mockState != MockResultSet.ResultSetState.CLOSE){
-				rs.autoClose();
+			if (rs!=null){
+				if(rs.mockState != MockResultSet.ResultSetState.CLOSE){
+					rs.autoClose();
+				}				
 			}
 		}
 	}
@@ -131,7 +133,15 @@ public class MockStatement implements Statement {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		mockState = StatementState.COMPLETE;
 		parent.completeOtherStatements(this);
-		return _execute(sql);
+		boolean rc=_execute(sql);
+		if (rc){
+			MockResultSet rs=new MockResultSet(sql);
+			rs.setParent(this);
+			mockResultSets.add(rs);
+		} else {
+			mockResultSets.add(null);		
+		}
+        return rc;
 	}
 
 	/* (non-Javadoc)
@@ -632,7 +642,9 @@ public class MockStatement implements Statement {
 	public void assertExplicitClose() {
 		assertThat(mockState, Is.is(StatementState.CLOSE));
 		for(MockResultSet rs: mockResultSets){
-			rs.assertExplicitClose();
+			if (rs!=null) {
+				rs.assertExplicitClose();
+			}
 		}
 	}
 
@@ -640,7 +652,9 @@ public class MockStatement implements Statement {
 	public void assertClosed() {
 		assertThat(mockState, AnyOf.anyOf(Is.is(StatementState.CLOSE), Is.is(StatementState.AUTOCLOSE)));
 		for(MockResultSet rs: mockResultSets){
-			rs.assertClosed();
+			if (rs!=null) {
+				rs.assertClosed();
+			}			
 		}
 	}
 	

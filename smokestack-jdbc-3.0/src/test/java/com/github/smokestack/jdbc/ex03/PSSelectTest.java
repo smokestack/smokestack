@@ -65,7 +65,7 @@ public class PSSelectTest {
 			@Mocked (methods = {"_next", "_getLong", "_getString"})
 			MockResultSet rs;
 			{
-				st._execute((String)any);
+				st._execute((String)any); returns(true);
 				rs._next(); returns (true);
 				rs._getLong(1); returns (1L);
 				rs._getString(2); returns("message 1");

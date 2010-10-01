@@ -29,7 +29,7 @@ public class StatementExecute {
 			@Mocked (methods = {"_next", "_getInt", "_getString"})
 			MockResultSet rs;
 			{
-				pst._execute((String)any);
+				pst._execute((String)any); returns(true);
 				rs._next(); returns (true);
 				rs._getInt(1); returns (2);
 				rs._getString(2); returns("foo");
@@ -93,8 +93,10 @@ public class StatementExecute {
 		Connection conn = DriverManager.getConnection("jdbc:hsqldb:mem:inmemory");
         Statement stat = conn.createStatement();
         stat.execute("create table message1 (id int primary key, message varchar(255))");
-        stat.execute("insert into message1 values (2, 'foo')");
+        boolean result=stat.execute("insert into message1 values (2, 'foo')");
+        System.out.println("result: "+result);
         ResultSet rs=stat.getResultSet();
+        System.out.println("rs: "+rs);
         stat.close();
 	}
 }
