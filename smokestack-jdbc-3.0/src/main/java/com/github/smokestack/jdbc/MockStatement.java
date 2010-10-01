@@ -112,9 +112,13 @@ public class MockStatement implements Statement {
 	 */
 	public void close() throws SQLException {
 		assertThat("Statement State", mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
-		assertThat("Statement State", mockState, Is.is(StatementState.COMPLETE));
 		_close();
 		this.mockState=StatementState.CLOSE;
+		for(MockResultSet rs: mockResultSets){
+			if(rs.mockState != MockResultSet.ResultSetState.CLOSE){
+				rs.autoClose();
+			}
+		}
 	}
 
 	public void _close() throws SQLException {
@@ -216,7 +220,7 @@ public class MockStatement implements Statement {
 		return rs;
 	}
 
-	public void _executeQuery(String sql) {
+	public void _executeQuery(String sql) throws SQLException {
 	}
 
 	/* (non-Javadoc)
@@ -589,6 +593,11 @@ public class MockStatement implements Statement {
 	protected void autoClose() {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
 		this.mockState=StatementState.AUTOCLOSE;
+		for(MockResultSet rs: mockResultSets){
+			if(rs.mockState != MockResultSet.ResultSetState.CLOSE){
+				rs.autoClose();
+			}
+		}
 	}
 
 	public void complete() {

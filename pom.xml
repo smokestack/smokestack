@@ -23,8 +23,8 @@
   </modules>
    <scm>
       <url>http://github.com/smokestack/smokestack/tree/master</url>
-      <connection>scm:git:git://github.com/smokestack/smokestack.git</connection>
-      <developerConnection>scm:git:git://github.com/smokestack/smokestack.git</developerConnection>
+      <connection>scm:git:git@github.com:smokestack/smokestack.git</connection>
+      <developerConnection>scm:git:git@github.com:smokestack/smokestack.git</developerConnection>
    </scm>
    <issueManagement>
       <system>Tracker</system>

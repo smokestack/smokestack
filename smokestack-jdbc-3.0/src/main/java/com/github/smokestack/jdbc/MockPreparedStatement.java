@@ -30,6 +30,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 import org.hamcrest.core.AnyOf;
 import org.hamcrest.core.IsNot;
 
+import com.github.smokestack.exception.NeedsMockDefinitionException;
 import com.github.smokestack.exception.NotYetImplementedException;
 
 /**
@@ -47,7 +48,7 @@ public class MockPreparedStatement extends MockStatement implements PreparedStat
 	}
 
 	public void addBatch() throws SQLException {
-		addBatch("dummy sql");
+		addBatch(sql);
 	}
 
 	public void clearParameters() throws SQLException {
@@ -60,16 +61,39 @@ public class MockPreparedStatement extends MockStatement implements PreparedStat
 	}
 
 	public boolean execute() throws SQLException {
-		return execute("dummy sql");
+		return execute(sql);
+	}
+
+	public boolean _execute(String sql) throws SQLException {
+		return _execute();	
+	}
+
+	public boolean _execute() throws SQLException {
+		throw new NeedsMockDefinitionException();
 	}
 
 	public ResultSet executeQuery() throws SQLException {
-		return executeQuery("dummy sql");
+		return executeQuery(sql);
+	}
+
+	public void _executeQuery(String sql) throws SQLException {
+		_executeQuery();
+	}
+
+	public void _executeQuery() throws SQLException {
 	}
 
 	public int executeUpdate() throws SQLException {
-		return executeUpdate("dummy sql");
+		return executeUpdate(sql);
 	}
+
+	public int _executeUpdate(String sql) throws SQLException {
+		return _executeUpdate();	
+	}
+	
+	public int _executeUpdate() throws SQLException {
+		throw new NeedsMockDefinitionException();	
+	}	
 
 	public ResultSetMetaData getMetaData() throws SQLException {
 		assertThat(mockState, AnyOf.anyOf(IsNot.not(StatementState.CLOSE), IsNot.not(StatementState.AUTOCLOSE)));
