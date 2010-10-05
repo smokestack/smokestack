@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import mockit.Delegate;
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
+
 import com.github.smokestack.jdbc.MockConnection;
 import com.github.smokestack.jdbc.MockDriver;
 import com.github.smokestack.jdbc.MockPreparedStatement;
@@ -21,12 +21,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author bbrag *
  */
-@RunWith(JMockit.class)
 public class PSBatchTest {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -89,7 +87,7 @@ public class PSBatchTest {
 			{
 				st._execute((String)any);
 				pst._executeBatch(); returns(new int[]{0});
-				c._commit(); throwsException(new SQLException("something bad happened"));
+				c._commit(); result=new SQLException("something bad happened");
 			}
 		};
 		Class.forName("com.github.smokestack.jdbc.MockDriver");

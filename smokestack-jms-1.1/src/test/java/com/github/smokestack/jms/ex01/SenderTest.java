@@ -11,7 +11,6 @@ import javax.naming.NamingException;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 import com.github.smokestack.jms.MockConnectionFactory;
 import com.github.smokestack.jms.MockMessageProducer;
 import com.github.smokestack.jms.MockTopic;
@@ -21,13 +20,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author gliptak
  *
  */
-@RunWith(JMockit.class)
 public class SenderTest {
 
 	/**

@@ -78,7 +78,7 @@ public class DeleteOpTest {
 			@Mocked (methods = {"_createStatement"})
 			MockConnection c;
 			{
-				c._createStatement(); throwsException(new SQLException());
+				c._createStatement(); result=new SQLException();
 			}
 		};
 		Class.forName("com.github.smokestack.jdbc.MockDriver");	

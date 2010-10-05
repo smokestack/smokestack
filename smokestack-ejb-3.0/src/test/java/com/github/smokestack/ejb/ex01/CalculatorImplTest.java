@@ -3,7 +3,6 @@
  */
 package com.github.smokestack.ejb.ex01;
 
-import mockit.integration.junit4.JMockit;
 import com.github.smokestack.ejb.MockEJBContainer;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -14,13 +13,11 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * @author gliptak
  *
  */
-@RunWith(JMockit.class)
 public class CalculatorImplTest {
 
 	/**

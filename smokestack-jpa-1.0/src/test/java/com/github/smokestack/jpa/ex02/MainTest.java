@@ -14,21 +14,18 @@ import javax.persistence.spi.PersistenceProvider;
 import mockit.Deencapsulation;
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.github.smokestack.jpa.MockBaseQuery;
 import com.github.smokestack.jpa.MockEntityManager;
 import com.github.smokestack.jpa.MockEntityManagerFactory;
 import com.github.smokestack.jpa.MockPersistenceProviderImpl;
 
-@RunWith(JMockit.class)
 public class MainTest {
 
 	@BeforeClass

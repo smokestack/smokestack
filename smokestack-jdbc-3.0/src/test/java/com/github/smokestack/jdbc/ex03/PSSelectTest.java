@@ -88,7 +88,7 @@ public class PSSelectTest {
 			MockResultSet rs;
 			{
 				st._execute((String)any);
-				rs._next(); throwsException(new SQLException("Something Bad happened"));
+				rs._next(); result=new SQLException("Something Bad happened");
 				rs._getLong(1); returns (1L);
 				rs._getString(2); returns("message 1");
 				rs._next(); returns (false);

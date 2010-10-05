@@ -8,7 +8,6 @@ import javax.resource.cci.Record;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 
 import com.github.smokestack.jca.cci.MockConnectionFactory;
 import com.github.smokestack.jca.cci.MockInteraction;
@@ -22,9 +21,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(JMockit.class)
 public class SampleCCITest {
 
 	@BeforeClass

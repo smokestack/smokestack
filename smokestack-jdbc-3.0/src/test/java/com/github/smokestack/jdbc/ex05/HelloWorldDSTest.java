@@ -99,7 +99,7 @@ public class HelloWorldDSTest {
 			@Mocked(methods = { "_execute","_close" })
 			MockStatement st;
 			{
-				st._execute((String) any); throwsException(new SQLException ("something bad happened"));
+				st._execute((String) any); result=new SQLException ("something bad happened");
 				st._close();
 			}
 		};

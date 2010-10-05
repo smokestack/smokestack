@@ -7,7 +7,6 @@ import javax.resource.cci.ResourceAdapterMetaData;
 
 import mockit.Expectations;
 import mockit.Mocked;
-import mockit.integration.junit4.JMockit;
 import com.github.smokestack.exception.NeedsMockDefinitionException;
 
 import org.hamcrest.core.Is;
@@ -16,9 +15,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(JMockit.class)
 public class MockResourceAdapterMetaDataTest {
 
 	@BeforeClass
